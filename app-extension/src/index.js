@@ -12,6 +12,9 @@ function extendConf(conf) {
 
   // make sure app extension files & ui package gets transpiled
   conf.build.transpileDependencies.push(/quasar-app-extension-my-ui[\\/]src/);
+
+  conf.framework.plugins.push('Dialog');
+  conf.framework.plugins.push('Notify');
 }
 
 module.exports = function (api) {

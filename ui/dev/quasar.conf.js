@@ -28,6 +28,7 @@ module.exports = function (ctx) {
       'material-icons-round',
     ],
 
+    // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework、
     framework: {
       // iconSet: 'ionicons-v4', // Quasar icon set
       // lang: 'de', // Quasar language pack
@@ -44,12 +45,29 @@ module.exports = function (ctx) {
       components: [],
       directives: [],
 
-      cssAddon: true,
-
-      config: {},
-
       // Quasar plugins
-      plugins: []
+      plugins: ['Notify', 'Dialog', 'Loading', 'LoadingBar', 'LocalStorage', 'SessionStorage'],
+      config: {
+        notify: {
+          type: 'positive',
+          position: 'top-right',
+          group: false,
+          timeout: 2000,
+        },
+        loading: {
+          /* Loading defaults */
+        },
+        loadingBar: {
+          color: 'green',
+        },
+        brand: {
+          /* brand defaults */
+        },
+        screen: {
+          // https://v1.quasar.dev/options/screen-plugin#introduction
+          bodyClasses: true,
+        },
+      },
     },
 
     // https://quasar.dev/options/animations
