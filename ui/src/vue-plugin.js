@@ -124,13 +124,13 @@ export {
   PopupEditInput,
   PopupInput,
   PopupSelect,
-  //Login
+  // Login
   Login,
   // Layout - AdminLayout
   AdminLayout,
   // Layout - Menu
   Menu,
-  //layout - Section
+  // layout - Section
   Base,
   Detail,
   DetailWithList,
