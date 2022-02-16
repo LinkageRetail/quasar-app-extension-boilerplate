@@ -30,6 +30,21 @@ import PopupSelect from './components/Input/PopupSelect.vue';
 
 //#endregion
 
+//#region Layout
+
+import AdminLayout from './components/layouts/AdminLayout.vue';
+
+import Login from './components/layouts/Login.vue';
+
+import Menu from './components/layouts/Menu.vue';
+
+import Base from './components/layouts/Section/Base.vue';
+import Detail from './components/layouts/Section/Detail.vue';
+import DetailWithList from './components/layouts/Section/DetailWithList.vue';
+import DetailWithTree from './components/layouts/Section/DetailWithTree.vue';
+
+//#endregion
+
 const version = __UI_VERSION__;
 
 function install(app) {
@@ -64,6 +79,25 @@ function install(app) {
   app.component(PopupSelect.name, PopupSelect);
 
   //#endregion
+
+  //#region Layout
+
+  // AdminLayout
+  app.component(AdminLayout.name, AdminLayout);
+
+  // Login
+  app.component(Login.name, Login);
+
+  // Menu
+  app.component(Menu.name, Menu);
+
+  // Section
+  app.component(Base.name, Base);
+  app.component(Detail.name, Detail);
+  app.component(DetailWithList.name, DetailWithList);
+  app.component(DetailWithTree.name, DetailWithTree);
+
+  //#endregion
 }
 
 export {
@@ -90,4 +124,15 @@ export {
   PopupEditInput,
   PopupInput,
   PopupSelect,
+  //Login
+  Login,
+  // Layout - AdminLayout
+  AdminLayout,
+  // Layout - Menu
+  Menu,
+  //layout - Section
+  Base,
+  Detail,
+  DetailWithList,
+  DetailWithTree,
 };
