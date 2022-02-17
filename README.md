@@ -12,7 +12,6 @@ Compatible with Quasar UI v1 and Vue 2.
 ## Rename project
 
 * rename `my-ui` to your library name
-* rename `MyUI` to your component name
 
 ## Install
 

@@ -1,13 +1,9 @@
-# Component MyUI
+# Component
 
-[![npm](https://img.shields.io/npm/v/quasar-ui-my-ui.svg?label=quasar-ui-my-ui)](https://www.npmjs.com/package/quasar-ui-my-ui)
-[![npm](https://img.shields.io/npm/dt/quasar-ui-my-ui.svg)](https://www.npmjs.com/package/quasar-ui-my-ui)
+[![npm](https://img.shields.io/npm/v/quasar-ui-linkage-cms-ui.svg?label=quasar-ui-linkage-cms-ui)](https://www.npmjs.com/package/quasar-ui-linkage-cms-ui)
+[![npm](https://img.shields.io/npm/dt/quasar-ui-linkage-cms-ui.svg)](https://www.npmjs.com/package/quasar-ui-linkage-cms-ui)
 
 **Compatible with Quasar UI v2 and Vue 3**.
-
-# Component MyUI
-> Short description of the component
-
 
 # Usage
 
@@ -21,7 +17,7 @@ Create and register a boot file:
 
 ```js
 import Vue from 'vue'
-import Plugin from 'quasar-ui-my-ui'
+import Plugin from 'quasar-ui-linkage-cms-ui'
 
 Vue.use(Plugin)
 ```
@@ -30,7 +26,7 @@ Vue.use(Plugin)
 
 ```html
 <script>
-import { Component as MyUI } from 'quasar-ui-my-ui'
+import { Component as MyUI } from 'quasar-ui-linkage-cms-ui'
 
 export default {
   components: {
@@ -44,7 +40,7 @@ export default {
 
 ```js
 import Vue from 'vue'
-import Plugin from 'quasar-ui-my-ui'
+import Plugin from 'quasar-ui-linkage-cms-ui'
 
 Vue.use(Plugin)
 ```
@@ -53,7 +49,7 @@ Vue.use(Plugin)
 
 ```html
 <script>
-import { Component as MyUI } from 'quasar-ui-my-ui'
+import { Component as MyUI } from 'quasar-ui-linkage-cms-ui'
 
 export default {
   components: {
@@ -65,14 +61,14 @@ export default {
 
 ## UMD variant
 
-Exports `window.my-ui`.
+Exports `window.linkage-cms-ui`.
 
 Add the following tag(s) after the Quasar ones:
 
 ```html
 <body>
   <!-- at end of body, AFTER Quasar script(s): -->
-  <script src="https://cdn.jsdelivr.net/npm/quasar-ui-my-ui/dist/index.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/quasar-ui-linkage-cms-ui/dist/index.umd.min.js"></script>
 </body>
 ```
 

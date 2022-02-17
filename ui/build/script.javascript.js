@@ -75,7 +75,7 @@ const builds = [
         input: pathResolve('../src/index.umd.js')
       },
       output: {
-        name: 'my-ui',
+        name: 'linkage-cms-ui',
         file: pathResolve('../dist/index.umd.js'),
         format: 'umd'
       }
@@ -124,7 +124,7 @@ function addAssets(builds, type, injectName) {
           output: {
             file: addExtension(pathResolve(`../dist/${type}/${file}`), 'umd'),
             format: 'umd',
-            name: `my-ui.${injectName}.${name}`
+            name: `linkage-cms-ui.${injectName}.${name}`
           }
         },
         build: {

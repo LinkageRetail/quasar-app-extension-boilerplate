@@ -32,16 +32,16 @@ import PopupSelect from './components/Input/PopupSelect.vue';
 
 //#region Layout
 
-import AdminLayout from './components/layouts/AdminLayout.vue';
+// import AdminLayout from './components/layouts/AdminLayout.vue';
 
 import Login from './components/layouts/Login.vue';
 
-import Menu from './components/layouts/Menu.vue';
+// import Menu from './components/layouts/Menu.vue';
 
 import Base from './components/layouts/Section/Base.vue';
 import Detail from './components/layouts/Section/Detail.vue';
 import DetailWithList from './components/layouts/Section/DetailWithList.vue';
-import DetailWithTree from './components/layouts/Section/DetailWithTree.vue';
+// import DetailWithTree from './components/layouts/Section/DetailWithTree.vue';
 
 //#endregion
 
@@ -83,19 +83,19 @@ function install(app) {
   //#region Layout
 
   // AdminLayout
-  app.component(AdminLayout.name, AdminLayout);
+  // app.component(AdminLayout.name, AdminLayout);
 
   // Login
   app.component(Login.name, Login);
 
   // Menu
-  app.component(Menu.name, Menu);
+  // app.component(Menu.name, Menu);
 
   // Section
   app.component(Base.name, Base);
   app.component(Detail.name, Detail);
   app.component(DetailWithList.name, DetailWithList);
-  app.component(DetailWithTree.name, DetailWithTree);
+  // app.component(DetailWithTree.name, DetailWithTree);
 
   //#endregion
 }
@@ -127,12 +127,12 @@ export {
   // Login
   Login,
   // Layout - AdminLayout
-  AdminLayout,
+  // AdminLayout,
   // Layout - Menu
-  Menu,
+  // Menu,
   // layout - Section
   Base,
   Detail,
   DetailWithList,
-  DetailWithTree,
+  // DetailWithTree,
 };

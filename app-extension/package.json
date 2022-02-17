@@ -1,5 +1,5 @@
 {
-  "name": "quasar-app-extension-my-ui",
+  "name": "quasar-app-extension-linkage-cms-ui",
   "version": "0.0.1",
   "description": "A Quasar App Extension",
   "author": "Robby <ta7382@gmail.com>",
@@ -12,7 +12,7 @@
   "bugs": "https://github.com/explooosion/quasar-app-extension-boilerplate/issues",
   "homepage": "https://github.com/explooosion/quasar-app-extension-boilerplate",
   "dependencies": {
-    "quasar-ui-my-ui": "^0.0.1"
+    "quasar-ui-linkage-cms-ui": "^0.0.1"
   },
   "engines": {
     "node": ">= 10.18.1",
