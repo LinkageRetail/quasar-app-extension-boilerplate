@@ -1,6 +1,6 @@
 <template>
   <div v-if="value && value.length !== 0" class="q-my-xs">
-    <div v-if="title" class="q-px-md q-mt-md text-caption text-weight-regular item-group-title">
+    <div v-if="title" class="q-px-md q-mt-md text-caption text-weight-regular" style="opacity: 0.3">
       {{ title }}
     </div>
     <q-expansion-item
@@ -71,9 +71,6 @@ export default {
   color: #fff;
   border-radius: 5px;
   opacity: 0.6;
-}
-.item-group-title {
-  opacity: 0.3;
 }
 ::v-deep .active-header {
   color: #fff;

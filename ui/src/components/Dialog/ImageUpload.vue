@@ -30,8 +30,8 @@
         <!-- TODO: check image api -->
         <FileUpload
           ref="uploader"
-          api="/admin/product/detailImage/upload"
           custom-style="min-height: 200px"
+          :api="api"
           :max-files="1"
           @start="onStart"
           @uploaded="onUploaded"
@@ -48,7 +48,6 @@
           :loading="loading"
           @click="onDebugUpload"
         />
-        <!-- <q-btn label="Insert" color="blue" :loading="loading" @click="$refs.uploader.upload()" /> -->
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -66,6 +65,12 @@ export default {
   components: {
     FileUpload,
     FilterInput,
+  },
+  props: {
+    api: {
+      type: String,
+      default: '/admin/product/detailImage/upload',
+    },
   },
   data() {
     return {
@@ -91,11 +96,7 @@ export default {
     },
     onUploaded(files) {
       this.loading = false;
-      // this.$q.notify({ message: 'Successfully uploaded.' });
-      console.log(files);
       this.payload.src = this.$path.image + files;
-      // this.$emit('ok', this.payload);
-      // this.hide();
     },
     onFailed(entries) {
       this.loading = false;

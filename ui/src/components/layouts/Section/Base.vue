@@ -84,6 +84,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'quasar/src/css/variables.sass';
+
 .wrapper {
   padding: 30px;
   color: $primary;

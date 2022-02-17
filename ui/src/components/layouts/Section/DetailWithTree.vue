@@ -224,6 +224,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import 'quasar/src/css/variables.sass';
+
 .section {
   > div.row {
     padding-bottom: 0.5rem;
@@ -241,31 +243,23 @@ export default {
   > div .section-group {
     min-height: 270px;
   }
-  // fix left top
-  // @media screen and (max-width: $screen-mobile) {
-  //   padding-right: 0;
-  //   padding-bottom: 0.5rem;
-  // }
 }
 .section-group {
   padding: 1.25rem 1.75rem;
 }
 
 // Tree container scrollable
-.splitter {
-  ::v-deep .q-splitter__panel.q-splitter__before {
-    overflow: auto;
-    min-width: 180px;
-    > .tree {
-      min-width: 260px;
-    }
+::v-deep .q-splitter__panel.q-splitter__before {
+  overflow: auto;
+  min-width: 180px;
+  > .tree {
+    min-width: 260px;
   }
-
-  ::v-deep .q-splitter__panel.q-splitter__after {
-    overflow: auto;
-    > .q-tab-panels {
-      min-width: 400px;
-    }
+}
+::v-deep .q-splitter__panel.q-splitter__after {
+  overflow: auto;
+  > .q-tab-panels {
+    min-width: 400px;
   }
 }
 
@@ -273,12 +267,12 @@ export default {
 .tree {
   overflow: auto;
   color: $primary;
-  ::v-deep .q-tree__arrow {
-    color: #c7c7c7;
-  }
-  ::v-deep .q-tree__node--selected {
-    font-weight: bold;
-    user-select: none;
-  }
+}
+::v-deep .q-tree__arrow {
+  color: #c7c7c7;
+}
+::v-deep .q-tree__node--selected {
+  font-weight: bold;
+  user-select: none;
 }
 </style>
