@@ -18,10 +18,10 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/robbywu-linkage/quasar-app-extension-boilerplate"
   },
-  "bugs": "",
-  "homepage": "",
+  "bugs": "https://github.com/robbywu-linkage/quasar-app-extension-boilerplate/issues",
+  "homepage": "https://github.com/robbywu-linkage/quasar-app-extension-boilerplate",
   "dependencies": {
     "loadsh": "^0.0.4",
     "vue": "2.6.14"

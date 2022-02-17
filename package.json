@@ -1,5 +1,5 @@
 {
-  "name": "my-ui",
+  "name": "linkage-cms-ui",
   "version": "1.0.4",
   "author": "Robby <ta7382@gmail.com>",
   "description": "My awesome component",
@@ -24,9 +24,8 @@
     "@vue/eslint-config-standard": "^5.1.2",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.14.0",
-    "eslint-loader": "^2.1.1",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^4.2.1",
