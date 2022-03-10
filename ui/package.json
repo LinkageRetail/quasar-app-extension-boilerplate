@@ -1,8 +1,8 @@
 {
   "name": "quasar-ui-linkage-cms-ui",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "author": "Robby <ta7382@gmail.com>",
-  "description": "My awesome component",
+  "description": "Linkage CMS UI",
   "license": "MIT",
   "module": "dist/index.esm.js",
   "main": "dist/index.common.js",
@@ -18,10 +18,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/robbywu-linkage/quasar-app-extension-boilerplate"
+    "url": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate"
   },
-  "bugs": "https://github.com/robbywu-linkage/quasar-app-extension-boilerplate/issues",
-  "homepage": "https://github.com/robbywu-linkage/quasar-app-extension-boilerplate",
+  "bugs": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate/issues",
+  "homepage": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate",
   "dependencies": {
     "loadsh": "^0.0.4",
     "vue": "2.6.14"

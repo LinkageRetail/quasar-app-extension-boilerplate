@@ -2,7 +2,7 @@
   "name": "linkage-cms-ui",
   "version": "1.0.4",
   "author": "Robby <ta7382@gmail.com>",
-  "description": "My awesome component",
+  "description": "Linkage CMS UI",
   "license": "MIT",
   "scripts": {
     "lint": "eslint --ext .js,.vue ui/src && eslint --ext .js,.vue ui/dev/src",

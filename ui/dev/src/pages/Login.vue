@@ -4,7 +4,7 @@
       section-left-class="bg-primary"
       title="Ekbuy CMS"
       subtitle="BACKEND MANAGEMENT SYSTEM"
-      version="Version: 0.0.1"
+      version="Version: 1.0.0"
       :model-type="type"
       @login="login"
       @sendEmail="sendEmail"
