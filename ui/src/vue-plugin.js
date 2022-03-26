@@ -37,14 +37,12 @@ import AdminLayout from './components/layouts/AdminLayout.vue';
 
 import Menu from './components/layouts/Menu.vue';
 
-import Base from './components/layouts/Section/Base.vue';
-import Detail from './components/layouts/Section/Detail.vue';
-import DetailWithList from './components/layouts/Section/DetailWithList.vue';
-import DetailWithTree from './components/layouts/Section/DetailWithTree.vue';
+import BaseLayout from './components/layouts/Section/BaseLayout.vue';
+import DetailLayout from './components/layouts/Section/DetailLayout.vue';
+import DetailListLayout from './components/layouts/Section/DetailListLayout.vue';
+import DetailTreeLayout from './components/layouts/Section/DetailTreeLayout.vue';
 
 //#endregion
-
-const version = __UI_VERSION__;
 
 function install(app) {
   app.component(Editor.name, Editor);
@@ -89,16 +87,15 @@ function install(app) {
   app.component(Menu.name, Menu);
 
   // Section
-  app.component(Base.name, Base);
-  app.component(Detail.name, Detail);
-  app.component(DetailWithList.name, DetailWithList);
-  app.component(DetailWithTree.name, DetailWithTree);
+  app.component(BaseLayout.name, BaseLayout);
+  app.component(DetailLayout.name, DetailLayout);
+  app.component(DetailListLayout.name, DetailListLayout);
+  app.component(DetailTreeLayout.name, DetailTreeLayout);
 
   //#endregion
 }
 
 export {
-  version,
   install,
   // Components
   Editor,
@@ -127,8 +124,8 @@ export {
   // Layout - Menu
   Menu,
   // layout - Section
-  Base,
-  Detail,
-  DetailWithList,
-  DetailWithTree,
+  BaseLayout,
+  DetailLayout,
+  DetailListLayout,
+  DetailTreeLayout,
 };

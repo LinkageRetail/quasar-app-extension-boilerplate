@@ -1,6 +1,6 @@
 <template>
-  <DetailWithTree
-    title="Detail Tree Example"
+  <DetailTreeLayout
+    title="DetailLayout Tree Example"
     :tree-nodes="treeNodes"
     :tree-label.sync="treeLabel"
     :tree-selected.sync="treeSelected"
@@ -28,7 +28,7 @@
     <template #panel-0> panel 0 </template>
     <template #panel-1> panel 1 </template>
     <template #panel-2> panel 2 </template>
-  </DetailWithTree>
+  </DetailTreeLayout>
 </template>
 
 <script>

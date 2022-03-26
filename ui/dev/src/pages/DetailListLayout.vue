@@ -1,5 +1,5 @@
 <template>
-  <DetailWithList title="Detail List Example">
+  <DetailListLayout title="DetailLayout List Example">
     <template #navs>
       navs
       <!-- Add some templates -->
@@ -34,5 +34,5 @@
       section-bottom
       <!-- Add some templates -->
     </template>
-  </DetailWithList>
+  </DetailListLayout>
 </template>

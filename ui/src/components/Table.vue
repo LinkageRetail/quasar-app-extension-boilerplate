@@ -133,7 +133,6 @@ export default {
       // ],
       type: Array,
       default: () => [],
-      require: true,
     },
     filter: {
       // Example:
@@ -263,6 +262,7 @@ export default {
       this.sortByPrev = null;
       this.$emit('update:sortMap', this.sortMap_);
       this.$nextTick(() => {
+        // Reset sortBy
         this.$refs['table'].requestServerInteraction({ pagination: { sortBy: null } });
       });
     },

@@ -52,7 +52,7 @@
 
 <script>
 export default {
-  name: 'Base',
+  name: 'BaseLayout',
   props: {
     title: {
       type: String,

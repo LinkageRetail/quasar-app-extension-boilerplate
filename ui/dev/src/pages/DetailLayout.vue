@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <Detail title="Detail Example" search>
+    <DetailLayout title="DetailLayout Example" search>
       <template #navs>
         navs
         <!-- Add some templates -->
@@ -25,6 +25,6 @@
         section-bottom
         <!-- Add some templates -->
       </template>
-    </Detail>
+    </DetailLayout>
   </q-page>
 </template>

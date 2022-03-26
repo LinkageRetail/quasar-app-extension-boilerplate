@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <Base title="Base Example" search>
+    <BaseLayout title="BaseLayout Example" search>
       <template #navs>
         navs
         <!-- Add some templates -->
@@ -15,6 +15,6 @@
         content
         <!-- Add some templates -->
       </template>
-    </Base>
+    </BaseLayout>
   </q-page>
 </template>

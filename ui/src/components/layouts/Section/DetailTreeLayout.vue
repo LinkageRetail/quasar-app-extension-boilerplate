@@ -140,7 +140,7 @@
 <script>
 import _ from 'lodash';
 export default {
-  name: 'DetailWithTree',
+  name: 'DetailTreeLayout',
   props: {
     title: {
       type: String,
@@ -218,7 +218,7 @@ export default {
     },
   },
   components: {
-    BaseLayout: () => import('./Base'),
+    BaseLayout: () => import('./BaseLayout'),
   },
 };
 </script>
