@@ -232,11 +232,13 @@ export default {
     font-size: 14px;
   }
 }
+
 .section-right {
   > div {
     height: 100%;
   }
 }
+
 .section-left {
   height: 100%;
   // fix left top
@@ -244,6 +246,7 @@ export default {
     min-height: 270px;
   }
 }
+
 .section-group {
   padding: 1.25rem 1.75rem;
 }
@@ -252,12 +255,15 @@ export default {
 ::v-deep .q-splitter__panel.q-splitter__before {
   overflow: auto;
   min-width: 180px;
+
   > .tree {
     min-width: 260px;
   }
 }
+
 ::v-deep .q-splitter__panel.q-splitter__after {
   overflow: auto;
+
   > .q-tab-panels {
     min-width: 400px;
   }
@@ -268,9 +274,11 @@ export default {
   overflow: auto;
   color: $primary;
 }
+
 ::v-deep .q-tree__arrow {
   color: #c7c7c7;
 }
+
 ::v-deep .q-tree__node--selected {
   font-weight: bold;
   user-select: none;

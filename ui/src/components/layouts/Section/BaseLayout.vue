@@ -90,22 +90,27 @@ export default {
   padding: 30px;
   color: $primary;
 }
+
 .head {
   position: relative;
   margin-bottom: 1.5rem;
+
   .title {
     font-size: 20px;
     border-bottom: 3px solid $primary;
   }
+
   .buttons {
     position: absolute;
     top: 0;
     right: 0;
+
     > button {
       margin-left: 0.5rem;
     }
   }
 }
+
 .search {
   position: relative;
   margin-bottom: 1rem;

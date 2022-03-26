@@ -147,11 +147,13 @@ export default {
     font-size: 14px;
   }
 }
+
 .section-right {
   > div {
     height: 100%;
   }
 }
+
 .section-left {
   height: 100%;
 
@@ -176,6 +178,7 @@ export default {
   //   padding-bottom: 0.5rem;
   // }
 }
+
 .section-group {
   padding: 1.25rem 1.75rem;
 }

@@ -278,6 +278,7 @@ export default {
   min-height: 450px;
   box-shadow: 2px 18px 48px -34px #242424;
 }
+
 ::v-deep .q-field__native {
   padding: 6px;
 }
