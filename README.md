@@ -10,6 +10,10 @@ Compatible with Quasar UI v1 and Vue 2.
 
 # 初始專案
 
+```sh
+yarn # 安裝基礎環境, 用於運行 eslint, stylelint
+```
+
 ## 安裝套件
 
 ```sh

@@ -2,11 +2,10 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
+    "octref.vetur",
     "editorconfig.editorconfig",
-    "mikestead.dotenv",
-    "johnsoncodehk.volar",
-    "Gruntfuggly.todo-tree",
-    "octref.vetur"
+    "wayou.vscode-todo-highlight",
+    "eamodio.gitlens"
   ],
   "unwantedRecommendations": [
     "hookyqr.beautify",
