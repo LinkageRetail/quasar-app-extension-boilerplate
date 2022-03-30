@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-linkage-cms-ui",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Robby <ta7382@gmail.com>",
   "description": "Linkage CMS UI",
   "license": "MIT",
@@ -8,7 +8,7 @@
   "main": "src/index.common.js",
   "scripts": {
     "dev": "cd dev && yarn dev && cd ..",
-    "dev:umd": "yarn build && node build/script.open-umd.js",
+    "dev:umd": "yarns build && node build/script.open-umd.js",
     "dev:ssr": "cd dev && yarn 'dev:ssr' && cd ..",
     "dev:ios": "cd dev && yarn 'dev:ios' && cd ..",
     "dev:android": "cd dev && yarn 'dev:android' && cd ..",
