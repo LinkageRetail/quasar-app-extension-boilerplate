@@ -129,6 +129,7 @@ export default {
     right: 1rem;
   }
 }
+
 .navs {
   display: flex;
   align-items: center;
