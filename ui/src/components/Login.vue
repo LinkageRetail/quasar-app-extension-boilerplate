@@ -148,7 +148,7 @@
           autocomplete="new-password"
           placeholder="Enter New Password"
           v-model="reset.newPassword"
-          :type="isPwd1 ? 'password' : 'text'"
+          :type="isPwd.newPwd ? 'password' : 'text'"
           :rules="[val => (val && val.length > 0) || 'Please input new password']"
         >
           <template #prepend>
@@ -156,9 +156,9 @@
           </template>
           <template #append>
             <q-icon
-              :name="isPwd1 ? 'visibility_off' : 'visibility'"
+              :name="isPwd.newPwd ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
-              @click="isPwd1 = !isPwd1"
+              @click="isPwd.newPwd = !isPwd.newPwd"
             />
           </template>
         </q-input>
@@ -173,7 +173,7 @@
           autocomplete="new-password"
           v-model="reset.rePassword"
           placeholder="Enter Confirm Password"
-          :type="isPwd2 ? 'password' : 'text'"
+          :type="isPwd.rePwd ? 'password' : 'text'"
           :rules="[
             val => (val && val.length > 0) || 'Please input confirm password',
             val => val === reset.newPassword || 'Confirm password must be same as the new password',
@@ -184,9 +184,9 @@
           </template>
           <template #append>
             <q-icon
-              :name="isPwd2 ? 'visibility_off' : 'visibility'"
+              :name="isPwd.rePwd ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
-              @click="isPwd2 = !isPwd2"
+              @click="isPwd.rePwd = !isPwd.rePwd"
             />
           </template>
         </q-input>
@@ -269,8 +269,10 @@ export default {
       email: '',
       loginModel: 'LOGIN',
       loginIsPwd: true,
-      isPwd1: true,
-      isPwd2: true,
+      isPwd: {
+        newPwd: true,
+        rePwd: true,
+      },
       resetError1: '',
       resetError2: '',
       reset: {

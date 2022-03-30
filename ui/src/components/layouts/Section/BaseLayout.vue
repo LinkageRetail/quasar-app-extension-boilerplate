@@ -131,6 +131,16 @@ export default {
 }
 
 .navs {
+  // Use for navs
+  //
+  // Usage:
+  // <div class="navs">
+  //   <div>link1</div>
+  //   <div>link2</div>
+  // </div>
+  //
+  // DEMO:
+  // | link1 | link2 |
   display: flex;
   align-items: center;
 
