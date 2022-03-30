@@ -30,12 +30,12 @@
             dense
             square
             outlined
-            autofocus
             class="q-mt-lg"
             name="username"
             type="text"
             placeholder="Email Address (compulsory)"
             v-model="form.username"
+            :rules="[val => (val && val.length > 0) || 'Please input Email Address']"
           >
             <template #prepend>
               <q-icon name="person_outline" />
@@ -46,17 +46,24 @@
             dense
             square
             outlined
-            autofocus
             class="q-mt-md"
             name="username"
-            type="password"
+            :type="loginIsPwd ? 'password' : 'text'"
             autocomplete="off"
             placeholder="Password (compulsory)"
             v-model="form.password"
             @keyup.enter="$emit('login', form)"
+            :rules="[val => (val && val.length > 0) || 'Please input Password']"
           >
             <template #prepend>
               <q-icon name="o_lock" />
+            </template>
+            <template #append>
+              <q-icon
+                :name="loginIsPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="loginIsPwd = !loginIsPwd"
+              />
             </template>
           </q-input>
         </section>
@@ -104,6 +111,7 @@
           type="text"
           placeholder="Email Address"
           v-model="email"
+          :rules="[val => (val && val.length > 0) || 'Please input Email Address']"
         >
           <template #prepend>
             <q-icon name="o_email" />
@@ -140,43 +148,48 @@
           autocomplete="new-password"
           placeholder="Enter New Password"
           v-model="reset.newPassword"
-          :type="isPwd ? 'password' : 'text'"
+          :type="isPwd1 ? 'password' : 'text'"
+          :rules="[val => (val && val.length > 0) || 'Please input new password']"
         >
           <template #prepend>
             <q-icon name="o_lock" />
           </template>
           <template #append>
             <q-icon
-              :name="isPwd ? 'visibility_off' : 'visibility'"
+              :name="isPwd1 ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
-              @click="isPwd = !isPwd"
+              @click="isPwd1 = !isPwd1"
             />
           </template>
         </q-input>
-
-        <p class="text-red">{{ resetError1 }}</p>
 
         <q-input
           dense
           borderless
           square
           outlined
-          class="q-mt-md"
+          class="q-mt-sm"
           name="new-password"
           autocomplete="new-password"
           v-model="reset.rePassword"
           placeholder="Enter Confirm Password"
-          :type="isPwd ? 'password' : 'text'"
+          :type="isPwd2 ? 'password' : 'text'"
+          :rules="[
+            val => (val && val.length > 0) || 'Please input confirm password',
+            val => val === reset.newPassword || 'Confirm password must be same as the new password',
+          ]"
         >
+          <template #prepend>
+            <q-icon name="o_lock" />
+          </template>
           <template #append>
             <q-icon
-              :name="isPwd ? 'visibility_off' : 'visibility'"
+              :name="isPwd2 ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
-              @click="isPwd = !isPwd"
+              @click="isPwd2 = !isPwd2"
             />
           </template>
         </q-input>
-        <p class="text-red">{{ resetError2 }}</p>
 
         <q-input
           name="username"
@@ -255,7 +268,9 @@ export default {
       forget: false,
       email: '',
       loginModel: 'LOGIN',
-      isPwd: true,
+      loginIsPwd: true,
+      isPwd1: true,
+      isPwd2: true,
       resetError1: '',
       resetError2: '',
       reset: {

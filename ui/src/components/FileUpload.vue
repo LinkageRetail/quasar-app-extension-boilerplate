@@ -90,7 +90,7 @@ export default {
     factory(files) {
       // Factort mode: https://v1.quasar.dev/vue-components/uploader
       return {
-        url: `${process.env.API}${this.api}`.replace('api//', 'api/'),
+        url: `${process.env.HOST}${this.api}`.replace('api//', 'api/'),
         method: 'POST',
         headers: [
           { name: 'Authorization', value: this.token },

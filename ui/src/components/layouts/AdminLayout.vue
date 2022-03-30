@@ -32,12 +32,7 @@
       <div class="column no-wrap justify-between full-height">
         <div>
           <div class="flex items-center" style="height: 50px">
-            <div>
-              <span class="q-ml-sm text-subtitle2 text-white text-weight-medium">
-                <!-- # Left Drawer Header -->
-                <slot name="left-drawer-header" />
-              </span>
-            </div>
+            <slot name="left-drawer-header" />
           </div>
           <q-separator color="white" style="opacity: 0.1" />
 

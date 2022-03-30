@@ -2,7 +2,9 @@
   <q-page padding>
     <BaseLayout title="BaseLayout Example" search>
       <template #navs>
-        navs
+        <div>navs1</div>
+        <div>navs2</div>
+        <div>navs3</div>
         <!-- Add some templates -->
       </template>
 

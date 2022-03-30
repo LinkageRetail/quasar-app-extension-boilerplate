@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <AdminLayout user-name="Admin" @logout="logout" bg-color="#f4f5f6">
-      <template #left-drawer-header> left-drawer-header </template>
+      <template #left-drawer-header> <span class="text-white">left-drawer-header</span> </template>
       <template #left-drawer-footer> left-drawer-footer </template>
       <template #menu-list>
         <Menu v-model="home" />

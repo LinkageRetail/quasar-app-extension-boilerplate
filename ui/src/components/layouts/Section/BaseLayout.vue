@@ -129,4 +129,19 @@ export default {
     right: 1rem;
   }
 }
+.navs {
+  display: flex;
+  align-items: center;
+
+  > div {
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:first-child::before,
+    &::after {
+      content: '|';
+      margin: 0 0.25rem;
+    }
+  }
+}
 </style>
