@@ -1,5 +1,6 @@
 import Editor from './components/Editor.vue';
 import FileUpload from './components/FileUpload.vue';
+import FormDialog from './components/FormDialog.vue';
 import Login from './components/Login.vue';
 import Table from './components/Table.vue';
 
@@ -47,6 +48,7 @@ import DetailTreeLayout from './components/layouts/Section/DetailTreeLayout.vue'
 function install(app) {
   app.component(Editor.name, Editor);
   app.component(FileUpload.name, FileUpload);
+  app.component(FormDialog.name, FormDialog);
   app.component(Login.name, Login);
   app.component(Table.name, Table);
 
@@ -100,6 +102,7 @@ export {
   // Components
   Editor,
   FileUpload,
+  FormDialog,
   Login,
   Table,
   // Dialog
