@@ -90,7 +90,7 @@ export default {
     padding-bottom: 2rem;
     height: 40px;
     color: #fff;
-    background-color: $primary;
+    background-color: var(--q-color-primary);
 
     > span {
       padding-bottom: 0.25rem;

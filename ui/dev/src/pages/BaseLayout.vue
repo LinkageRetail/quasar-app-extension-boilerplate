@@ -8,8 +8,13 @@
         <!-- Add some templates -->
       </template>
 
+      <template #buttons>
+        <q-btn unelevated color="primary" label="Button" />
+        <!-- Add some templates -->
+      </template>
+
       <template #search>
-        search
+        <div class="col-12 col-sm-4 col-md-3 q-gutter-y-xs">search</div>
         <!-- Add some templates -->
       </template>
 

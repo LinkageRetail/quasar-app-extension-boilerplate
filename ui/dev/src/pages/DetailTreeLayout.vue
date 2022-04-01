@@ -11,7 +11,7 @@
     </template>
 
     <template #buttons>
-      buttons
+      <q-btn unelevated color="primary" label="Button" />
       <!-- Add some templates -->
     </template>
 

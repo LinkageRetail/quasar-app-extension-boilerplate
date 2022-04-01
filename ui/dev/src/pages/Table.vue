@@ -13,6 +13,20 @@
         </q-tr>
       </template>
     </Table>
+
+    <Table class="q-mt-xl" selection="none" table-header-dark :columns="columns" v-model="datas">
+      <template #body="props">
+        <q-tr>
+          <q-td key="userId">{{ props.row.userId }}</q-td>
+          <q-td key="customerNo"> {{ props.row.customerNo }}</q-td>
+          <q-td key="customerName">{{ props.row.firstName }} {{ props.row.lastName }}</q-td>
+          <q-td key="phoneNo">
+            <div>{{ props.row.phoneNo }}</div>
+            <div>{{ props.row.email }}</div>
+          </q-td>
+        </q-tr>
+      </template>
+    </Table>
   </q-page>
 </template>
 

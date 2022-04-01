@@ -549,3 +549,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.table-header-dark {
+  ::v-deep thead tr {
+    color: #fff;
+    background-color: var(--q-color-primary);
+  }
+}
+</style>
