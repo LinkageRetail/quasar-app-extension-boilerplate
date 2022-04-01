@@ -84,11 +84,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'quasar/src/css/variables.sass';
-
 .wrapper {
   padding: 30px;
-  color: $primary;
+  color: var(--q-color-primary);
 }
 
 .head {
@@ -97,7 +95,7 @@ export default {
 
   .title {
     font-size: 20px;
-    border-bottom: 3px solid $primary;
+    border-bottom: 3px solid var(--q-color-primary);
   }
 
   .buttons {

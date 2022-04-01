@@ -224,8 +224,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'quasar/src/css/variables.sass';
-
 .section {
   > div.row {
     padding-bottom: 0.5rem;
@@ -272,7 +270,7 @@ export default {
 // Tree node
 .tree {
   overflow: auto;
-  color: $primary;
+  color: var(--q-color-primary);
 }
 
 ::v-deep .q-tree__arrow {

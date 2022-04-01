@@ -34,14 +34,14 @@ import PopupSelect from './components/Input/PopupSelect.vue';
 
 //#region Layout
 
-import AdminLayout from './components/layouts/AdminLayout.vue';
+import AdminLayout from './components/Layouts/AdminLayout.vue';
 
-import Menu from './components/layouts/Menu.vue';
+import Menu from './components/Layouts/Menu.vue';
 
-import BaseLayout from './components/layouts/Section/BaseLayout.vue';
-import DetailLayout from './components/layouts/Section/DetailLayout.vue';
-import DetailListLayout from './components/layouts/Section/DetailListLayout.vue';
-import DetailTreeLayout from './components/layouts/Section/DetailTreeLayout.vue';
+import BaseLayout from './components/Layouts/Section/BaseLayout.vue';
+import DetailLayout from './components/Layouts/Section/DetailLayout.vue';
+import DetailListLayout from './components/Layouts/Section/DetailListLayout.vue';
+import DetailTreeLayout from './components/Layouts/Section/DetailTreeLayout.vue';
 
 //#endregion
 

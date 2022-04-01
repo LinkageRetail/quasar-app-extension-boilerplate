@@ -43,7 +43,7 @@
         <q-btn label="Cancel" color="grey" @click="hide" />
         <q-btn
           label="Insert"
-          color="blue"
+          color="primary"
           :disable="payload.src === ''"
           :loading="loading"
           @click="onDebugUpload"

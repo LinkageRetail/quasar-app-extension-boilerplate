@@ -20,7 +20,15 @@
       <div class="section">
         <div class="row q-col-gutter-x-md" v-if="$slots['section-right']">
           <!-- Section left -->
-          <div class="col-12 col-lg-9 col-md-8 section-left">
+          <div
+            class="col-12 section-left"
+            :class="[
+              `${topRows.lg && `col-lg-${topRows.lg[0]}`}`,
+              `${topRows.md && `col-md-${topRows.md[0]}`}`,
+              `${topRows.sm && `col-sm-${topRows.sm[0]}`}`,
+              `${topRows.xs && `col-xs-${topRows.xs[0]}`}`,
+            ]"
+          >
             <q-card flat bordered>
               <q-card-section class="section-group">
                 <!-- Slot section-left -->
@@ -42,7 +50,15 @@
             </q-card>
           </div>
           <!-- Section right -->
-          <div class="col-12 col-lg-3 col-md-4 section-right">
+          <div
+            class="col-12 section-right"
+            :class="[
+              `${topRows.lg && `col-lg-${topRows.lg[1]}`}`,
+              `${topRows.md && `col-md-${topRows.md[1]}`}`,
+              `${topRows.sm && `col-sm-${topRows.sm[1]}`}`,
+              `${topRows.xs && `col-xs-${topRows.xs[1]}`}`,
+            ]"
+          >
             <q-card flat bordered>
               <q-card-section class="section-group row justify-between" style="height: 100%">
                 <!-- Slot section-right -->
@@ -112,6 +128,14 @@ export default {
     buttons: {
       type: Boolean,
       default: true,
+    },
+    topRows: {
+      /**
+       * 頂部 Section 區塊的左右格子數
+       * @example ({ md: [9, 3], lg: [8, 4] })
+       */
+      type: Object,
+      default: () => ({ md: [9, 3], lg: [8, 4] }),
     },
   },
   components: {

@@ -37,6 +37,7 @@
   <q-table
     ref="table"
     :row-key="rowKey"
+    :class="tableHeaderDark && 'table-header-dark'"
     :table-header-class="tableHeaderClass"
     :flat="flat"
     :hide-bottom="hideBottom"
@@ -59,7 +60,7 @@
           :key="`sort-${sort}`"
           outline
           class="q-ml-sm q-pa-xs text-body2"
-          color="blue"
+          color="primary"
         >
           {{ sort }}
           <q-icon v-show="sortMap_[sort]" name="south" />
@@ -114,6 +115,11 @@ export default {
       // 強烈建議不要使用, 如果使用了, 請留意後續 filter, pagination 問題
       type: [Number, String, Array, Object],
       default: null, // 自行創建 request 參數 { filter, pagination... }
+    },
+    filterKey: {
+      // 發出請求時, request payload 的 filter key name, legacy 專案出現了其他自定義的 key, 因此需要支持
+      type: String,
+      default: 'filter',
     },
     selected: {
       type: Array,
@@ -194,6 +200,11 @@ export default {
     tableHeaderClass: {
       type: String,
       default: '',
+    },
+    tableHeaderDark: {
+      // 如果為 true, 則套用 class='table-header-dark'
+      type: Boolean,
+      default: false,
     },
     flat: {
       type: Boolean,
@@ -357,7 +368,7 @@ export default {
             };
           } else {
             params = {
-              filter,
+              [this.filterKey]: filter,
               paging: { page, size, sortBy: sortBy || this.defaultSortBy, descending },
             };
           }
@@ -538,3 +549,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.table-header-dark {
+  ::v-deep thead tr {
+    color: #fff;
+    background-color: var(--q-color-primary);
+  }
+}
+</style>

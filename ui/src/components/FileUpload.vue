@@ -5,7 +5,7 @@
   <q-uploader
     ref="uploader"
     class="full-width"
-    color="green-custom-1"
+    color="primary"
     square
     flat
     bordered
