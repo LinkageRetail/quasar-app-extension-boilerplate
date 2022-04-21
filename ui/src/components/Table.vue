@@ -170,15 +170,6 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    sortMap: {
-      // 初次搜索的排序規則
-      // 如果允許用戶直接點擊 columns 進行二次排序, 記得將 columns object 添加 sortable: true
-      //
-      // Example: { allocationTime: true, skuCode: false }
-      // boolean 表示為是否倒序
-      type: Object,
-      default: null,
-    },
     paginationType: {
       // 自定義哪些參數需要儲存到 URL
       // Default ['rowsNumber', 'rowsPerPage', 'page']
@@ -218,8 +209,27 @@ export default {
       type: String,
       default: 'content', // server API 回傳的數據源屬性名, 預設會從 content 提取出
     },
+    sortMap: {
+      // 提供多欄位排序
+      // 初次搜索的排序規則
+      // 如果允許用戶直接點擊 columns 進行二次排序, 記得將 columns object 添加 sortable: true
+      //
+      // Example: { allocationTime: true, skuCode: false }
+      // boolean 表示為是否倒序
+      type: Object,
+      default: null,
+    },
     defaultSortBy: {
+      // 單一欄位排序 key
+      //
+      // Example: defaultSortBy="id"
       type: String,
+      default: null,
+    },
+    descending: {
+      // 單一欄位排序 排序方式
+      // boolean 表示為是否倒序
+      type: Boolean,
       default: null,
     },
   },
@@ -364,12 +374,17 @@ export default {
               size,
               sortMap: this.sortMap_,
               sortBy: sortBy || this.defaultSortBy,
-              descending,
+              descending: this.descending || descending,
             };
           } else {
             params = {
               [this.filterKey]: filter,
-              paging: { page, size, sortBy: sortBy || this.defaultSortBy, descending },
+              paging: {
+                page,
+                size,
+                sortBy: sortBy || this.defaultSortBy,
+                descending: this.descending || descending,
+              },
             };
           }
         }
