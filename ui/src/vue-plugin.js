@@ -42,6 +42,7 @@ import BaseLayout from './components/Layouts/Section/BaseLayout.vue';
 import DetailLayout from './components/Layouts/Section/DetailLayout.vue';
 import DetailListLayout from './components/Layouts/Section/DetailListLayout.vue';
 import DetailTreeLayout from './components/Layouts/Section/DetailTreeLayout.vue';
+import DetailTabsLayout from './components/Layouts/Section/DetailTabsLayout.vue';
 
 //#endregion
 
@@ -93,6 +94,7 @@ function install(app) {
   app.component(DetailLayout.name, DetailLayout);
   app.component(DetailListLayout.name, DetailListLayout);
   app.component(DetailTreeLayout.name, DetailTreeLayout);
+  app.component(DetailTabsLayout.name, DetailTabsLayout);
 
   //#endregion
 }
@@ -131,4 +133,5 @@ export {
   DetailLayout,
   DetailListLayout,
   DetailTreeLayout,
+  DetailTabsLayout,
 };
