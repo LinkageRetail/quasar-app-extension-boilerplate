@@ -37,7 +37,11 @@
     <section v-if="tabNodesData.length > 0">
       <q-tab-panels v-model="tabIndex" animated>
         <q-tab-panel v-for="tab in tabNodesData" :key="`tab-panel-${tab.id}`" :name="tab.id">
-          <slot :name="`panel-${tab.id}`" />
+          <q-card class="shadow-card">
+            <q-card-section class="section-group">
+              <slot :name="`panel-${tab.id}`" />
+            </q-card-section>
+          </q-card>
         </q-tab-panel>
       </q-tab-panels>
     </section>
@@ -90,5 +94,11 @@ export default {
 }
 .q-tab-panel {
   padding: 25px 30px;
+}
+.shadow-card {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px 0px;
+}
+.section-group {
+  padding: 1.25rem 1.75rem;
 }
 </style>
