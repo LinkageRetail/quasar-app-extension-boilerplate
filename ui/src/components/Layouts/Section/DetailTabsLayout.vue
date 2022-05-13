@@ -35,7 +35,7 @@
 
     <!-- Content -->
     <section v-if="tabNodesData.length > 0">
-      <q-tab-panels v-model="tabIndex" animated>
+      <q-tab-panels v-model="tabIndex" :animated="animated" :keep-alive="keepAlive">
         <q-tab-panel v-for="tab in tabNodesData" :key="`tab-panel-${tab.id}`" :name="tab.id">
           <q-card class="shadow-card">
             <q-card-section class="section-group">
@@ -52,6 +52,14 @@
 export default {
   name: 'DetailTabsLayout',
   props: {
+    animated: {
+      type: Boolean,
+      default: true,
+    },
+    keepAlive: {
+      type: Boolean,
+      default: false,
+    },
     title: {
       type: String,
       default: '',
