@@ -50,6 +50,7 @@
     "rimraf": "^3.0.0",
     "rollup": "^2.45.0",
     "rollup-plugin-postcss": "^4.0.0",
+    "rollup-plugin-typescript": "^1.0.1",
     "rollup-plugin-vue": "^6.0.0",
     "stylelint": "^13.8.0",
     "stylelint-config-prettier": "^8.0.2",
