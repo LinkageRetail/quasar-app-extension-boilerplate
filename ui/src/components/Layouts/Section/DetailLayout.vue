@@ -113,8 +113,12 @@
   </BaseLayout>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+import BaseLayout from './BaseLayout.vue';
+
+export default defineComponent({
   name: 'DetailLayout',
   props: {
     title: {
@@ -139,9 +143,9 @@ export default {
     },
   },
   components: {
-    BaseLayout: () => import('./BaseLayout'),
+    BaseLayout,
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

@@ -2,8 +2,8 @@
   <DetailTreeLayout
     title="DetailLayout Tree Example"
     :tree-nodes="treeNodes"
-    :tree-label.sync="treeLabel"
-    :tree-selected.sync="treeSelected"
+    v-model:tree-label="treeLabel"
+    v-model:tree-selected="treeSelected"
   >
     <template #navs>
       navs
@@ -31,15 +31,18 @@
   </DetailTreeLayout>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  name: 'DetailTreeLayoutPage',
+  setup() {
     return {
       // Tree Pros
-      treeNodes: ['Panel1', 'Panel2', 'Panel3'],
-      treeLabel: '',
-      treeSelected: 0, // Current selected tab
+      treeNodes: ref(['Panel0', 'Panel1', 'Panel2']),
+      treeLabel: ref(''),
+      treeSelected: ref(0), // Current selected tab
     };
   },
-};
+});
 </script>

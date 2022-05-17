@@ -48,8 +48,11 @@
   </main>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType, ref } from 'vue';
+import { useModelWrapper } from '../../../hooks';
+
+export default defineComponent({
   name: 'DetailTabsLayout',
   props: {
     animated: {
@@ -69,7 +72,7 @@ export default {
       default: true,
     },
     tabNodes: {
-      type: Array,
+      type: Array as PropType<Array<string | number>>,
       default: () => [],
     },
     tabSelected: {
@@ -77,13 +80,16 @@ export default {
       default: 0,
     },
   },
-  data() {
+  setup(props, context) {
+    const tabIndex = ref(useModelWrapper(props, context.emit, 'tabSelected'));
+    const tabNodesData = ref<any>(props.tabNodes.map((label, id) => ({ id, label })));
+
     return {
-      tabIndex: this.tabSelected,
-      tabNodesData: this.tabNodes.map((label, id) => ({ id, label })),
+      tabIndex,
+      tabNodesData,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

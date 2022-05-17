@@ -21,10 +21,7 @@
     <!-- Search -->
     <section class="search" v-if="search">
       <q-card flat bordered>
-        <q-card-section
-          class="row justify-between q-gutter-y-sm q-gutter-x-md search-section"
-          :style="searchStyle"
-        >
+        <q-card-section class="row justify-between q-gutter-y-sm q-gutter-x-md search-section" :style="searchStyle">
           <!-- Slot search -->
           <slot name="search" />
           <!-- Example -->
@@ -50,8 +47,10 @@
   </main>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'BaseLayout',
   props: {
     title: {
@@ -80,7 +79,7 @@ export default {
       example: 'justify-content: space-between;',
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
