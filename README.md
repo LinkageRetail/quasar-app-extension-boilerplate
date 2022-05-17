@@ -1,7 +1,11 @@
 <img src="https://img.shields.io/npm/v/quasar-ui-linkage-cms-ui.svg?label=quasar-ui-linkage-cms-ui">
 <img src="https://img.shields.io/npm/v/quasar-app-extension-linkage-cms-ui.svg?label=quasar-app-extension-linkage-cms-ui">
 
-Compatible with Quasar UI v1 and Vue 2.
+Compatible with Quasar UI v2 and Vue 3.
+
+組件庫目前仍以 v1 為主要版本，如果需要安裝 [v2](https://github.com/LinkageRetail/quasar-app-extension-boilerplate/tree/v2) 版本，請指定版本：
+
+`quasar ext add linkage-cms-ui@2`
 
 # 目錄結構
 
