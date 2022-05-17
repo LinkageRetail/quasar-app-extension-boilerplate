@@ -25,7 +25,7 @@
     <q-drawer
       show-if-above
       side="left"
-      content-class="q-px-sm bg-primary"
+      class="bg-primary q-px-sm"
       :width="leftDrawerwidth"
       v-model="leftDrawerOpen"
     >
@@ -45,7 +45,7 @@
         <div class="footer">
           <!-- # Left Drawer Footer -->
           <slot name="left-drawer-footer" />
-          <div>{{ DateTime }}</div>
+          <div>{{ dateTime }}</div>
         </div>
       </div>
     </q-drawer>
@@ -68,10 +68,11 @@
   </q-layout>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, onMounted } from 'vue';
 import { date } from 'quasar';
 
-export default {
+export default defineComponent({
   name: 'AdminLayout',
   props: {
     userName: {
@@ -83,21 +84,24 @@ export default {
       default: '#f4f5f6',
     },
   },
-  data() {
+  setup() {
+    const dateTime = ref(date.formatDate(new Date(), 'DD, MMM YYYY HH:mm'));
+
+    onMounted(() => {
+      setInterval(
+        () => (dateTime.value = date.formatDate(new Date(), 'DD, MMM YYYY HH:mm')),
+        1000 * 60
+      );
+    });
+
     return {
-      leftDrawerOpen: true,
-      rightDrawerOpen: false,
-      leftDrawerwidth: 250,
-      DateTime: date.formatDate(new Date(), 'DD, MMM YYYY HH:mm'),
+      leftDrawerOpen: ref(true),
+      rightDrawerOpen: ref(false),
+      leftDrawerwidth: ref(250),
+      dateTime,
     };
   },
-  created() {
-    setInterval(
-      () => (this.DateTime = date.formatDate(new Date(), 'DD, MMM YYYY HH:mm')),
-      1000 * 60
-    );
-  },
-};
+});
 </script>
 
 <style lang="scss" scoped>
