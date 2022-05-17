@@ -19,7 +19,6 @@
   "bugs": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate/issues",
   "homepage": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate",
   "dependencies": {
-    "@types/webpack-env": "^1.16.4",
     "loadsh": "^0.0.4",
     "pinia": "^2.0.0",
     "vue": "^3.0.0"
@@ -35,6 +34,7 @@
     "@rollup/plugin-replace": "^2.4.2",
     "@types/lodash": "^4.14.182",
     "@types/node": "^12.20.21",
+    "@types/webpack-env": "^1.16.4",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "5.10.0",
     "chalk": "^4.1.0",
