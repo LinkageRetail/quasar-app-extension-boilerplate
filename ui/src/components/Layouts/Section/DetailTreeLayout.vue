@@ -274,7 +274,7 @@ export default defineComponent({
 }
 
 // Tree container scrollable
-::v-deep .q-splitter__panel.q-splitter__before {
+:deep(.q-splitter__panel.q-splitter__before) {
   overflow: auto;
   min-width: 180px;
 
@@ -283,7 +283,7 @@ export default defineComponent({
   }
 }
 
-::v-deep .q-splitter__panel.q-splitter__after {
+:deep(.q-splitter__panel.q-splitter__after) {
   overflow: auto;
 
   > .q-tab-panels {
@@ -297,11 +297,11 @@ export default defineComponent({
   color: var(--q-color-primary);
 }
 
-::v-deep .q-tree__arrow {
+:deep(.q-tree__arrow) {
   color: #c7c7c7;
 }
 
-::v-deep .q-tree__node--selected {
+:deep(.q-tree__node--selected) {
   font-weight: bold;
   user-select: none;
 }

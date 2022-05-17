@@ -56,27 +56,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .q-item__section--side > .q-icon {
+:deep(.q-item__section--side > .q-icon) {
   font-size: 22px;
 }
 
-::v-deep .hid-expand-icon {
+:deep(.hid-expand-icon) {
   display: none;
 }
 
-::v-deep .exact-active-link {
+:deep(.exact-active-link) {
   color: #fff;
   background-color: rgba(255, 255, 255, 0.15);
   opacity: 1 !important;
 }
 
-::v-deep .q-item {
+:deep(.q-item) {
   color: #fff;
   border-radius: 5px;
   opacity: 0.6;
 }
 
-::v-deep .active-header {
+:deep(.active-header) {
   color: #fff;
   opacity: 1 !important;
 }

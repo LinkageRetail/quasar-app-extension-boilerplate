@@ -45,14 +45,14 @@
     :columns="columns"
     :loading="loading_"
     :selection="selection"
-    :selected.sync="selectIds"
-    :pagination.sync="pagination"
+    v-model:selected="selectIds"
+    v-model:pagination="pagination"
     @request="request"
   >
     <!-- @selection="select" -->
     <!-- @update:selected="select" -->
 
-    <template v-if="$scopedSlots.top || sortMap_" #top="props">
+    <template v-if="$slots.top || sortMap_" #top="props">
       <div v-if="sortMap_" class="flex items-center q-mt-sm q-ml-sm">
         <div>Sort:</div>
         <q-badge
@@ -71,15 +71,15 @@
       <slot name="top" v-bind="props" />
     </template>
 
-    <template v-if="$scopedSlots.header" #header="props">
+    <template v-if="$slots.header" #header="props">
       <slot name="header" v-bind="props" />
     </template>
 
-    <template v-if="$scopedSlots.body" #body="props">
+    <template v-if="$slots.body" #body="props">
       <slot name="body" v-bind="props" />
     </template>
 
-    <template v-if="$scopedSlots['bottom-row']" #bottom-row="props">
+    <template v-if="$slots['bottom-row']" #bottom-row="props">
       <slot name="bottom-row" v-bind="props" />
     </template>
   </q-table>
@@ -567,7 +567,7 @@ export default {
 
 <style lang="scss" scoped>
 .table-header-dark {
-  ::v-deep thead tr {
+  :deep(thead tr) {
     color: #fff;
     background-color: var(--q-color-primary);
   }

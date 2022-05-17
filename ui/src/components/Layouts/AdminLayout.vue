@@ -101,7 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .q-layout__shadow {
+:deep(.q-layout__shadow) {
   &::after {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }

@@ -1,6 +1,13 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-prettier", "stylelint-config-sass-guidelines"],
-  "plugins": ["stylelint-scss", "stylelint-order"],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-prettier",
+    "stylelint-config-sass-guidelines"
+  ],
+  "plugins": [
+    "stylelint-scss",
+    "stylelint-order"
+  ],
   "rules": {
     "indentation": null,
     "max-nesting-depth": null,
@@ -88,12 +95,6 @@
     "selector-no-qualifying-type": null,
     "selector-class-pattern": null,
     "selector-max-id": null,
-    "selector-pseudo-class-no-unknown": [
-      true,
-      {
-        "ignorePseudoClasses": ["deep"]
-      }
-    ],
     "scss/at-import-partial-extension-blacklist": null,
     "value-no-vendor-prefix": null,
     "declaration-block-trailing-semicolon": null,
