@@ -3,8 +3,7 @@
   "editor.guides.bracketPairs": true,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "vetur.validation.template": false,
-  "vetur.format.enable": false,
+  "editor.codeActionsOnSave": ["source.fixAll.eslint"],
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "vue"],
-  "vetur.experimental.templateInterpolationService": false
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

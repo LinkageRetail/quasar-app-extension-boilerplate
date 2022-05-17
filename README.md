@@ -8,12 +8,6 @@ Compatible with Quasar UI v1 and Vue 2.
 - [/ui](ui) - standalone npm package
 - [/app-extension](app-extension) - Quasar app extension
 
-# 初始專案
-
-```sh
-yarn # 安裝基礎環境, 用於運行 eslint, stylelint
-```
-
 ## 安裝套件
 
 ```sh

@@ -5,11 +5,7 @@
   "productName": "Quasar App",
   "private": true,
   "scripts": {
-    "dev": "quasar dev",
-    "dev:ssr": "quasar dev -m ssr",
-    "dev:ios": "quasar dev -m ios",
-    "dev:android": "quasar dev -m android",
-    "dev:electron": "quasar dev -m electron"
+    "dev": "quasar dev"
   },
   "browserslist": [
     "last 10 Chrome versions",
@@ -23,8 +19,11 @@
     "last 5 Opera versions"
   ],
   "engines": {
-    "node": ">= 10.18.1",
-    "npm": ">= 6.13.4",
+    "node": ">= 16.0.0",
+    "npm": ">= 8.0.0",
     "yarn": ">= 1.21.1"
+  },
+  "dependencies": {
+    "vue-router": "^4.0.0"
   }
 }

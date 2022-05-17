@@ -18,18 +18,5 @@
     "url": "https://github.com/explooosion/quasar-app-extension-boilerplate"
   },
   "bugs": "https://github.com/explooosion/quasar-app-extension-boilerplate/issues",
-  "homepage": "https://github.com/explooosion/quasar-app-extension-boilerplate",
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-vue": "^7.7.0",
-    "prettier": "^2.6.0",
-    "stylelint": "^13.13.1",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-sass-guidelines": "^7.1.0",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.18.0"
-  }
+  "homepage": "https://github.com/explooosion/quasar-app-extension-boilerplate"
 }
