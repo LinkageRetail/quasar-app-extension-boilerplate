@@ -1,10 +1,10 @@
 <template>
-  <div v-if="value && value.length !== 0" class="q-my-xs">
+  <div v-if="modelValue && modelValue.length !== 0" class="q-my-xs">
     <div v-if="title" class="q-px-md q-mt-md text-caption text-weight-regular" style="opacity: 0.3">
       {{ title }}
     </div>
     <q-expansion-item
-      v-for="(menu, index) in value"
+      v-for="(menu, index) in modelValue"
       expand-separator
       exact-active-class="exact-active-link"
       :ref="menu.label"
@@ -39,12 +39,21 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+
+interface IItem {
+  label: string;
+  path: string;
+  icon?: string;
+  children?: Array<IItem>;
+}
+
+export default defineComponent({
   name: 'Menu',
   props: {
-    value: {
-      type: Array,
+    modelValue: {
+      type: Array as PropType<Array<IItem>>,
       required: true,
     },
     title: {
@@ -52,7 +61,7 @@ export default {
       default: '',
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
