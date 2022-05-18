@@ -41,7 +41,7 @@
     :table-header-class="tableHeaderClass"
     :flat="flat"
     :hide-bottom="hideBottom"
-    :data="list"
+    :rows="list"
     :columns="columns"
     :loading="loading_"
     :selection="selection"
@@ -85,14 +85,18 @@
   </q-table>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, watch, onMounted, nextTick, PropType } from 'vue';
+import { LocationQueryRaw, useRoute, useRouter } from 'vue-router';
 import _ from 'lodash';
 
-export default {
+import { useModelWrapper } from '../hooks';
+
+export default defineComponent({
   name: 'Table',
   props: {
-    value: {
-      type: Array, // .sync
+    modelValue: {
+      type: Array as PropType<Array<any>>,
       default: () => [],
     },
     rowKey: {
@@ -122,11 +126,11 @@ export default {
       default: 'filter',
     },
     selected: {
-      type: Array,
+      type: Array as PropType<Array<any>>,
       default: () => [],
     },
     selection: {
-      type: String,
+      type: String as PropType<'multiple' | 'single' | 'none' | undefined>,
       default: 'multiple', // 其他模式：'single' | 'multiple' | 'none'
     },
     columns: {
@@ -137,7 +141,7 @@ export default {
       //   { name: 'allocationTime', label: 'Order Time', align: 'left', sortable: true },
       //   { name: 'orderNo', label: 'Order No', align: 'left' },
       // ],
-      type: Array,
+      type: Array as PropType<Array<any>>,
       default: () => [],
     },
     filter: {
@@ -167,13 +171,13 @@ export default {
       //   String: ['paymentStatus'],
       //   Number: ['vendorId'],
       // },
-      type: Object,
+      type: Object as PropType<{ [key: string]: Array<string> }>,
       default: () => ({}),
     },
     paginationType: {
       // 自定義哪些參數需要儲存到 URL
       // Default ['rowsNumber', 'rowsPerPage', 'page']
-      type: Array,
+      type: Array as PropType<Array<string>>,
       default: () => [],
     },
     loading: {
@@ -216,7 +220,7 @@ export default {
       //
       // Example: { allocationTime: true, skuCode: false }
       // boolean 表示為是否倒序
-      type: Object,
+      type: Object as PropType<{ [key: string]: boolean }>,
       default: null,
     },
     defaultSortBy: {
@@ -233,77 +237,75 @@ export default {
       default: null,
     },
   },
-  data() {
-    return {
-      filterShadow: {}, // Diff filter
-      filterType_: {
-        String: [],
-        Number: [],
-        Boolean: [], // [true, false] can be ignore
-        ArrayOfString: [],
-        ArrayOfNumber: [],
-        ArrayOfBoolean: [],
-      },
-      filterPrev: {}, // Previous filter
-      list: this.value, // Default datas from v-model
-      pagination: {
-        sortBy: null,
-        descending: false,
-        page: 1, // Current page (1 as first)
-        rowsPerPage: 10, // Each page elements
-        rowsNumber: 0, // Total elements
-      },
-      // pagination 初始值
-      pagination_: {
-        sortBy: null,
-        descending: false,
-        page: 1, // Current page (1 as first)
-        rowsPerPage: 10, // Each page elements
-        rowsNumber: 0, // Total elements
-      },
-      sortMap_: this.sortMap,
-      sortByPrev: null, // 前一次用戶點擊排序的欄位
-      paginationType_: ['rowsNumber', 'rowsPerPage', 'page'],
-      loading_: this.loading,
-      selectIds: this.selected,
-    };
-  },
-  created() {
-    this.queryFromUrl();
-    // Request after event emitter
-    this.$nextTick(this.request);
-  },
-  methods: {
+  setup(props, context) {
+    const $router = useRouter();
+    const $route = useRoute();
+
+    const table = ref();
+    const filterShadow = ref({}); // Diff filter
+    const filterType_ = ref({
+      String: [] as Array<string>,
+      Number: [] as Array<string>,
+      Boolean: [] as Array<string>, // [true, false] can be ignore
+      ArrayOfString: [] as Array<string>,
+      ArrayOfNumber: [] as Array<string>,
+      ArrayOfBoolean: [] as Array<string>,
+    });
+    const filterPrev = ref({}); // Previous filter
+    const list = ref(useModelWrapper(props, context.emit, 'modelValue')); // Default datas from v-model
+    const pagination = ref<any>({
+      sortBy: '',
+      descending: false,
+      page: 1, // Current page (1 as first)
+      rowsPerPage: 10, // Each page elements
+      rowsNumber: 0, // Total elements
+    });
+
+    // pagination 初始值
+    const pagination_ = ref({
+      sortBy: null,
+      descending: false,
+      page: 1, // Current page (1 as first)
+      rowsPerPage: 10, // Each page elements
+      rowsNumber: 0, // Total elements
+    });
+    const sortMap_ = ref(useModelWrapper(props, context.emit, 'sortMap'));
+    const sortByPrev = ref(null); // 前一次用戶點擊排序的欄位
+    const paginationType_ = ref(['rowsNumber', 'rowsPerPage', 'page']);
+    const loading_ = ref(useModelWrapper(props, context.emit, 'loading'));
+    const selectIds = ref(useModelWrapper(props, context.emit, 'selected'));
+
     /**
      * 用戶手動移除指定 sort
      */
-    onRemoveSort(sort) {
-      if (_.has(this.sortMap_, sort)) delete this.sortMap_[sort];
-      if (_.keys(this.sortMap_).length === 0) this.sortMap_ = null;
-      this.sortByPrev = null;
-      this.$emit('update:sortMap', this.sortMap_);
-      this.$nextTick(() => {
+    const onRemoveSort = (sort: any) => {
+      if (_.has(sortMap_.value, sort)) delete sortMap_.value[sort];
+      if (_.keys(sortMap_.value).length === 0) sortMap_.value = null;
+      sortByPrev.value = null;
+      context.emit('update:sortMap', sortMap_.value);
+      nextTick(() => {
         // Reset sortBy
-        this.$refs['table'].requestServerInteraction({ pagination: { sortBy: null } });
+        (table as any).requestServerInteraction({ pagination: { sortBy: null } });
       });
-    },
-    request(event = {}) {
+    };
+
+    const request = (event = {}) => {
       //#region 數據請求透過 action(dispatch) 或者 api
-      if (this.action || this.api) {
-        this.$emit('request', event);
-        this.$emit('update:loading', true);
-        this.loading_ = true;
+      if (props.action || props.api) {
+        context.emit('request', event);
+        context.emit('update:loading', true);
+        loading_.value = true;
 
         //#region 更新 pagination 屬性
         // 當前 request 方法是由 q-table @request 所 trigger, 便 sync pagination 數據
         if (_.hasIn(event, 'pagination')) {
-          this.pagination = _.extend(this.pagination, _.get(event, 'pagination'));
+          pagination.value = _.extend(pagination, _.get(event, 'pagination'));
         }
         // 當前 request 方法是由用戶 click search button
         else {
           // 如果查詢條件與前次不同，需要重設 pagination
-          if (!_.isEqual(this.filter, this.filterPrev)) {
-            this.pagination = { ...this.pagination_ };
+          if (!_.isEqual(props.filter, filterPrev.value)) {
+            pagination.value = { ...pagination.value };
           }
         }
         //#endregion
@@ -312,136 +314,140 @@ export default {
         // Support legacy api for mutiple selection:
         // hotfix, when type is defined array but current type is not array
         // sample case: 'PENDING' => ['PENDING']
-        const filter = _.keys(this.filter).reduce((prev, key) => {
-          if (this.filter[key]) {
+        const filter = _.keys(props.filter).reduce((prev, key) => {
+          if (props.filter[key]) {
             if (
-              (this.filterType_.ArrayOfString.includes(key) && !Array.isArray(this.filter[key])) ||
-              (this.filterType_.ArrayOfNumber.includes(key) && !Array.isArray(this.filter[key])) ||
-              (this.filterType_.ArrayOfBoolean.includes(key) && !Array.isArray(this.filter[key]))
+              (filterType_.value.ArrayOfString.includes(key) &&
+                !Array.isArray(props.filter[key])) ||
+              (filterType_.value.ArrayOfNumber.includes(key) &&
+                !Array.isArray(props.filter[key])) ||
+              (filterType_.value.ArrayOfBoolean.includes(key) && !Array.isArray(props.filter[key]))
             ) {
-              return _.extend(prev, { [key]: [this.filter[key]] });
+              return _.extend(prev, { [key]: [props.filter[key]] });
             }
-            return _.extend(prev, { [key]: this.filter[key] });
+            return _.extend(prev, { [key]: props.filter[key] });
           }
-          return _.extend(prev, { [key]: this.filter[key] });
+          return _.extend(prev, { [key]: props.filter[key] });
         }, {});
         //#endregion
 
         // 將本次搜尋條件暫存
-        this.filterPrev = { ...this.filter };
+        filterPrev.value = { ...props.filter };
 
         //#region 生成 API Request params
         let params;
-        if (_.isNull(this.actionPayload)) {
-          const page = this.pagination.page - 1;
-          const size = this.pagination.rowsPerPage || this.pagination.rowsNumber;
+        if (_.isNull(props.actionPayload)) {
+          const page = pagination.value.page - 1;
+          const size = pagination.value.rowsPerPage || pagination.value.rowsNumber;
 
           //#region sortMap
           // Server API 支持的排序方法
           // 由於 q-table 只支持同時一個 sortBy 排序, 因此這段 logic 為客製化
-          const { descending, sortBy } = this.pagination;
+          const { descending, sortBy } = pagination.value;
           // 避免 mutable props, 另用變數操作 this.sortMap_
-          this.sortMap_ = _.isObject(this.sortMap) ? { ...this.sortMap } : null;
+          sortMap_.value = _.isObject(props.sortMap) ? { ...props.sortMap } : null;
 
           if (!_.isNull(sortBy)) {
             // 儲存本次用戶手動排序的欄位
-            this.sortByPrev = sortBy;
+            sortByPrev.value = sortBy;
             // 如果 this.sortMap_ 是 null, 需要初始 object
-            if (!_.isObject(this.sortMap_)) this.sortMap_ = {};
+            if (!_.isObject(sortMap_.value)) sortMap_.value = {};
             // 如果用戶手動排序, 再更新到 this.sortMap_
-            _.set(this.sortMap_, sortBy, descending);
+            _.set(sortMap_.value, sortBy, descending);
           }
           // 如果 q-table response sortBy 是 null, 代表未有任何排序
           // 如果前次有用戶手動排序紀錄, 那就要移除
-          else if (_.isNull(sortBy) && !_.isNull(this.sortByPrev)) {
+          else if (_.isNull(sortBy) && !_.isNull(sortByPrev.value)) {
             // 如果 this.sortMap_ 有這項屬性需要移除
-            if (_.has(this.sortMap_, this.sortByPrev)) delete this.sortMap_[this.sortByPrev];
+            if (_.has(sortMap_.value, sortByPrev.value)) delete sortMap_.value[sortByPrev.value];
             // 如果 this.sortMap_ 沒有任何參數, 則設置為 null
-            if (_.isObject(this.sortMap_) && _.keys(this.sortMap_).length === 0)
-              this.sortMap_ = null;
-            this.sortByPrev = null;
+            if (_.isObject(sortMap_.value) && _.keys(sortMap_.value).length === 0)
+              sortMap_.value = null;
+            sortByPrev.value = null;
           }
-          this.$emit('update:sortMap', this.sortMap_);
+          context.emit('update:sortMap', sortMap_.value);
           //#endregion
 
           // 為了支援舊的 Server API
           // TODO: 應該重新評估 server api 要不要統一
-          if (!this.legacy) {
+          if (!props.legacy) {
             // TODO: 目前舊版 Server API 未提供 sortMap
             params = {
               ...filter,
               page,
               size,
-              sortMap: this.sortMap_,
-              sortBy: sortBy || this.defaultSortBy,
-              descending: this.descending || descending,
+              sortMap: sortMap_.value,
+              sortBy: sortBy || props.defaultSortBy,
+              descending: props.descending || descending,
             };
           } else {
             params = {
-              [this.filterKey]: filter,
+              [props.filterKey]: filter,
               paging: {
                 page,
                 size,
-                sortBy: sortBy || this.defaultSortBy,
-                descending: this.descending || descending,
+                sortBy: sortBy || props.defaultSortBy,
+                descending: props.descending || descending,
               },
             };
           }
         }
         // 自定義 API Request params
         else {
-          params = this.actionPayload;
+          params = props.actionPayload;
         }
         //#endregion
 
         //#region 數據請求
         try {
           // 使用 store 的 dispatch action
-          if (!_.isEmpty(this.action)) {
-            this.$store
-              .dispatch(this.action, params)
-              .then(res => handleResponse(res))
-              .catch(error => {
-                throw error;
-              });
+          if (!_.isEmpty(props.action)) {
+            // TODO: 評估是否不要依賴於 store
+            // this.$store
+            //   .dispatch(props.action, params)
+            //   .then(res => handleResponse(res))
+            //   .catch(error => {
+            //     throw error;
+            //   });
           }
           // 使用傳入的 api fuction
-          else if (!_.isNull(this.api)) {
-            this.api(params)
-              .then(res => handleResponse(res))
-              .catch(error => {
+          else if (_.isFunction(props.api)) {
+            props
+              .api(params)
+              .then((res: any) => handleResponse(res))
+              .catch((error: Error) => {
                 throw error;
               });
           }
 
-          const handleResponse = res => {
-            this.loading_ = false;
-            this.list = _.get(res, this.responseField);
+          const handleResponse = (res: any) => {
+            loading_.value = false;
+            list.value = _.get(res, props.responseField);
 
-            this.$emit('update', this.list);
-            this.$emit('update:loading', false);
-            this.$emit('requested', res);
+            context.emit('update', list.value);
+            context.emit('update:loading', false);
+            context.emit('requested', res);
 
             // 如果 actionPayload 是 null, 便由此組件更新 pagination
-            if (_.isNull(this.actionPayload)) {
+            if (_.isNull(props.actionPayload)) {
               // 更新 pagination
-              this.pagination.rowsNumber = _.get(res, 'totalElements');
-              this.pagination.rowsPerPage = _.get(res, 'size');
-              this.pagination.page = Number(_.get(res, 'number')) + 1;
+              pagination.value.rowsNumber = _.get(res, 'totalElements');
+              pagination.value.rowsPerPage = _.get(res, 'size');
+              pagination.value.page = Number(_.get(res, 'number')) + 1;
 
               // 將搜索條件更新到 URL
-              this.$router
+              $router
                 .replace({
-                  path: this.$router.currentRoute.path,
-                  query: this.queryToUrl(res),
+                  path: $router.currentRoute.value.path,
+                  query: queryToUrl(res) as LocationQueryRaw,
                 })
                 .catch(() => {});
             }
           };
         } catch (error) {
           console.error('request', error);
-          this.$emit('update:loading', false);
-          this.loading_ = false;
+          context.emit('update:loading', false);
+          loading_.value = false;
         }
         //#endregion
       }
@@ -450,31 +456,32 @@ export default {
       //#region 手動處理數據請求
       // 如果使用手動數據請求, 強烈建議使用原生 q-table 自行處理
       else {
-        this.$emit('update:loading', false);
-        this.loading_ = false;
+        context.emit('update:loading', false);
+        loading_.value = false;
       }
       //#endregion
-    },
+    };
+
     /**
      * 將 URL 參數轉為 filter 查詢物件
      */
-    queryFromUrl() {
+    const queryFromUrl = () => {
       // Initial pagination
-      this.paginationType_ = _.extend(this.paginationType_, this.paginationType);
-      this.pagination = _.extend(this.pagination, _.pick(this.$route.query, this.paginationType_));
+      paginationType_.value = _.extend(paginationType_.value, props.paginationType);
+      pagination.value = _.extend(pagination.value, _.pick($route.query, paginationType_.value));
 
       // Initial filter
-      this.filterShadow = { ...this.filter };
+      filterShadow.value = { ...props.filter };
 
-      this.filterType_ = _.extend(this.filterType_, this.filterType);
+      filterType_.value = _.extend(filterType_.value, props.filterType);
 
       // Recovery filter from url
-      const filterFromUrl = _.omit(this.$route.query, this.paginationType_);
+      const filterFromUrl = _.omit($route.query, paginationType_.value);
 
       if (_.keys(filterFromUrl).length > 0) {
         // Convert filter type from url query
         const filter = {
-          ...this.filter,
+          ...props.filter,
           ..._.chain(filterFromUrl)
             .reduce((result, value, key) => {
               // Transform string boolean
@@ -482,34 +489,36 @@ export default {
                 return _.extend(result, { [key]: value === 'true' || false });
               }
               // Transform pure boolean,
-              if (this.filterType_.Boolean.includes(value)) {
+              if (filterType_.value.Boolean.includes(value)) {
                 return _.extend(result, { [key]: !!value });
               }
               // Transform number
-              if (this.filterType_.Number.includes(key)) {
+              if (filterType_.value.Number.includes(key)) {
                 return _.extend(result, { [key]: Number(value) });
               }
               // Transform string
-              if (this.filterType_.String.includes(key)) {
+              if (filterType_.value.String.includes(key)) {
                 return _.extend(result, { [key]: String(value) });
               }
               // Transform array of number
-              if (this.filterType_.ArrayOfNumber.includes(key)) {
+              if (filterType_.value.ArrayOfNumber.includes(key)) {
                 return _.isEmpty(value)
                   ? result
-                  : _.extend(result, { [key]: value.split(',').map(v => Number(v)) });
+                  : _.extend(result, { [key]: (value as string).split(',').map(v => Number(v)) });
               }
               // Transform array of number
-              if (this.filterType_.ArrayOfString.includes(key)) {
+              if (filterType_.value.ArrayOfString.includes(key)) {
                 return _.isEmpty(value)
                   ? result
-                  : _.extend(result, { [key]: value.split(',').map(v => String(v)) });
+                  : _.extend(result, { [key]: (value as string).split(',').map(v => String(v)) });
               }
               // Transform array of boolean
-              if (this.filterType_.ArrayOfBoolean.includes(key)) {
+              if (filterType_.value.ArrayOfBoolean.includes(key)) {
                 return _.isEmpty(value)
                   ? result
-                  : _.extend(result, { [key]: value.split(',').map(v => v === 'true' || false) });
+                  : _.extend(result, {
+                      [key]: (value as string).split(',').map(v => v === 'true' || false),
+                    });
               }
               // Unmatch or unset filter type
               // console.warn('queryFromUrl: transform default query', key, value);
@@ -519,50 +528,77 @@ export default {
         };
 
         // 將 URL 的搜尋條件暫存
-        this.filterPrev = { ...filter };
+        filterPrev.value = { ...filter };
 
-        this.$emit('update:filter', filter);
+        context.emit('update:filter', filter);
       }
-    },
+    };
     /**
      * 將 filter 查詢結果保存至 URL
      */
-    queryToUrl(result) {
+    const queryToUrl = (result: any) => {
       return _.extend(
-        _.extend({}, !_.get(result, 'first') && _.pick(this.pagination, this.paginationType_)),
-        _.chain(this.filter)
+        _.extend({}, !_.get(result, 'first') && _.pick(pagination.value, paginationType_.value)),
+        _.chain(props.filter)
           .reduce((result, value, key) => {
             // console.warn('queryToUrl', key, value, this.filterShadow[key]);
-            if (_.isEqual(value, this.filterShadow[key])) return result;
+            if (_.isEqual(value, _.get(filterShadow.value, key))) return result;
             if (_.isArray(value)) return _.extend(result, { [key]: value.join(',') });
             return _.extend(result, { [key]: value });
           }, {})
           .value()
       );
-    },
-    select(props) {
-      if (_.hasIn(props, `row.${this.rowKey}`)) {
-        const select = _.findIndex(this.selectIds, [this.rowKey, props.row[this.rowKey]]);
+    };
+
+    const select = (target: any) => {
+      if (_.hasIn(target, `row.${props.rowKey}`)) {
+        const select = _.findIndex(selectIds.value, [props.rowKey, target.row[props.rowKey]]);
         if (select > -1) {
-          this.selectIds.splice(select);
+          selectIds.value.splice(select);
         } else {
-          this.selectIds.push(props.row);
+          selectIds.value.push(target.row);
         }
       }
-    },
-    clearSelect() {
-      this.selectIds = [];
-    },
+    };
+
+    const clearSelect = () => {
+      selectIds.value = [];
+    };
+
+    onMounted(() => {
+      queryFromUrl();
+      // Request after event emitter
+      nextTick(request);
+    });
+
+    watch(pagination.value, val => _.set(pagination.value, 'sortBy', val));
+
+    watch(selectIds.value, val => context.emit('update:selected', val));
+
+    return {
+      table,
+      filterShadow,
+      filterType_,
+      filterPrev, // Previous filter
+      list, // Default datas from v-model
+      pagination,
+      pagination_,
+      sortMap_,
+      sortByPrev, // 前一次用戶點擊排序的欄位
+      paginationType_,
+      loading_,
+      selectIds,
+
+      // Methods
+      onRemoveSort,
+      request,
+      queryFromUrl,
+      queryToUrl,
+      select,
+      clearSelect,
+    };
   },
-  watch: {
-    rowKey(val) {
-      this.pagination.sortBy = val;
-    },
-    selectIds(val) {
-      this.$emit('update:selected', val);
-    },
-  },
-};
+});
 </script>
 
 <style lang="scss" scoped>

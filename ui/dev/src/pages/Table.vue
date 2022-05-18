@@ -30,11 +30,13 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  setup() {
     return {
-      datas: [
+      datas: ref([
         {
           userId: 1234,
           customerNo: 'VIP00001',
@@ -51,14 +53,14 @@ export default {
           phoneNo: '123456',
           email: 'jack@email.com',
         },
-      ],
-      columns: [
+      ]),
+      columns: ref([
         { name: 'userId', label: 'Member ID ', align: 'left' },
         { name: 'customerNo', label: 'Membership No.', align: 'left' },
         { name: 'customerName', label: 'Member Name', align: 'left' },
         { name: 'phoneNo', label: 'Phone No. / Email', align: 'left' },
-      ],
+      ]),
     };
   },
-};
+});
 </script>
