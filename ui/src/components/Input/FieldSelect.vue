@@ -1,10 +1,9 @@
-<script>
+<script lang="ts">
+import { defineComponent, h } from 'vue';
 import { QSelect } from 'quasar';
-import _ from 'lodash';
 
-export default {
+export default defineComponent({
   name: 'FieldSelect',
-  extends: QSelect,
   props: {
     dense: {
       type: Boolean,
@@ -48,7 +47,7 @@ export default {
     },
     rules: {
       type: Array,
-      default: () => [val => !_.isNull(val) && !_.isUndefined(val)],
+      default: () => [(val: any) => !!val],
     },
     options: {
       type: Array,
@@ -71,8 +70,20 @@ export default {
       default: 'value',
     },
   },
-};
+  emits: ['update:modelValue'],
+  setup(props, context) {
+    return () =>
+      /**
+       * @see https://vuejs.org/guide/extras/render-function.html#v-model
+       */
+      h(QSelect, {
+        ...props,
+        'onUpdate:modelValue': (value: any) => context.emit('update:modelValue', value),
+      });
+  },
+});
 </script>
+
 <style lang="scss" scoped>
 .q-field {
   padding-bottom: 0;

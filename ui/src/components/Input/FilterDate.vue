@@ -1,30 +1,34 @@
 <template>
-  <!-- This input date use for filter or search bar -->
   <q-input
+    ref="refEl"
     dense
     outlined
-    :clearable="clearable"
+    mask="date"
+    :color="color"
+    :bg-color="bgColor"
+    :label-color="labelColor"
     :disable="disable"
     :readonly="readonly"
-    :value="value"
+    :label="label"
+    :clearable="clearable"
     @change="handleChange"
     @clear="handleClear"
+    v-model="model"
   >
     <template #append>
-      <q-icon :name="icon" class="cursor-pointer" rea>
+      <q-icon class="cursor-pointer" :name="icon">
         <q-popup-proxy
           ref="datePickProxy"
           :transition-show="transition"
           :transition-hide="transition"
         >
           <q-date
-            :disable="disable"
-            :readonly="readonly"
-            :title="parseTitle(value)"
-            :subtitle="parseSubTitle(value)"
-            :options="options"
-            :mask="dateMask"
+            :title="parseTitle(model)"
+            :subtitle="parseSubTitle(model)"
+            :options="optionsVal"
+            :mask="mask"
             @input="handleInput"
+            @update:model-value="handleInput"
             v-model="model"
           />
         </q-popup-proxy>
@@ -33,26 +37,37 @@
   </q-input>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, ref, toRef } from 'vue';
 import { QInput, date } from 'quasar';
-export default {
+
+import { useModelWrapper } from '../../hooks';
+
+export default defineComponent({
   name: 'FilterDate',
   components: {
     QInput,
   },
   props: {
-    ...QInput,
-    value: {
+    modelValue: {
       type: [Number, String, Date],
-      default: '',
+      default: undefined,
     },
-    mask: {
+    color: {
       type: String,
-      default: 'date',
+      default: 'primary',
     },
-    dateMask: {
+    bgColor: {
       type: String,
-      default: 'YYYY/MM/DD',
+      default: null,
+    },
+    labelColor: {
+      type: String,
+      default: null,
+    },
+    label: {
+      type: String,
+      required: true,
     },
     disable: {
       type: Boolean,
@@ -61,6 +76,10 @@ export default {
     readonly: {
       type: Boolean,
       default: false,
+    },
+    mask: {
+      type: String,
+      default: 'YYYY/MM/DD',
     },
     clearable: {
       type: Boolean,
@@ -86,33 +105,36 @@ export default {
       type: String,
       default: 'YYYY',
     },
-    options: {
-      type: [Array, Function, String, Date],
-      default: date => date,
-    },
+    options: {},
   },
-  data() {
+  setup(props, context) {
+    const refEl = ref();
+    const datePickProxy = ref();
+    const optionsVal: any = toRef(props, 'options');
+    const model = ref(useModelWrapper(props, context.emit, 'modelValue'));
+
     return {
-      model: this.value, // Inner value for q-date
+      refEl,
+      datePickProxy,
+      optionsVal,
+      model,
+      handleChange(newVal: any) {
+        context.emit('update:modelValue', newVal);
+      },
+      handleInput(newVal: any) {
+        context.emit('update:modelValue', newVal);
+        if (props.autoHide) datePickProxy.value?.hide();
+      },
+      handleClear() {
+        context.emit('update:modelValue', null);
+      },
+      parseTitle(value: any) {
+        return value ? date.formatDate(value, props.formatTitle) : ' ';
+      },
+      parseSubTitle(value: any) {
+        return value ? date.formatDate(value, props.formatSubTitle) : ' ';
+      },
     };
   },
-  methods: {
-    handleChange(newVal) {
-      this.$emit('input', newVal.target.value);
-    },
-    handleInput() {
-      this.$emit('input', this.model);
-      if (this.autoHide) this.$refs.datePickProxy.hide();
-    },
-    handleClear() {
-      this.$emit('input', null);
-    },
-    parseTitle(value) {
-      return value ? date.formatDate(value, this.formatTitle) : ' ';
-    },
-    parseSubTitle(value) {
-      return value ? date.formatDate(value, this.formatSubTitle) : ' ';
-    },
-  },
-};
+});
 </script>

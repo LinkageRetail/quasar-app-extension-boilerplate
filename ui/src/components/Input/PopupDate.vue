@@ -1,80 +1,91 @@
-<script>
+<template>
+  <q-popup-edit buttons :title="title" :validate="validate" v-model="model" v-slot="scope">
+    <FieldDate :label="label" v-model="scope.value" />
+  </q-popup-edit>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref, computed, PropType } from 'vue';
 import { QPopupEdit } from 'quasar';
 
 import FieldDate from './FieldDate.vue';
+import { useModelWrapper } from '../../hooks';
 
-/*
-
-Example:
-  <PopupDate
-    title="BirthDate"
-    label="birthDate*"
-    @save="savePopup(props.row)"
-    v-model="props.row.birthDate"
-  />
-
-Origin:
-    <q-popup-edit
-      @save="savePopup(props.row)"
-      v-model="props.row.enabled"
-      max-width="200px"
-      title="Enabled"
-      buttons
-    >
-      <FieldDate
-        dense
-        filled
-        color="blue-8"
-        label-color="blue-8"
-        label="status*"
-        v-model="props.row.enabled"
-      />
-    </q-popup-edit>
-*/
-
-export default {
+/**
+ * @see https://quasar.dev/vue-components/popup-edit#example--click-on-text
+ */
+export default defineComponent({
   name: 'PopupDate',
-  extends: QPopupEdit,
-  functional: true,
+  components: {
+    QPopupEdit,
+    FieldDate,
+  },
   props: {
+    modelValue: {},
+    label: {
+      type: String,
+      default: '',
+    },
     title: {
       type: String,
-      required: true,
+      default: '',
     },
     buttons: {
       type: Boolean,
       default: true,
     },
-    maxWidth: {
-      type: String,
-      default: '250px',
+    type: {
+      type: String as PropType<'number' | 'text'>,
+      default: 'text', // 'text' || 'number',
     },
-    ...FieldDate.props,
+    errorMessage: {
+      type: String,
+      default: '',
+    },
+    required: {
+      type: Boolean,
+      default: true,
+    },
   },
-  render(h, ctx) {
-    const { title, buttons, maxWidth } = ctx.props;
+  setup(props, context) {
+    const model = ref(useModelWrapper(props, context.emit, 'modelValue'));
+    const error = ref(false);
+    const errorMsg = ref('');
 
-    const SlotDate = h(FieldDate, {
-      ...ctx.data,
-      props: ctx.props,
+    const validateText = (value: string) => {
+      if (value.length === 0) {
+        error.value = true;
+        errorMsg.value = props.errorMessage;
+        return false;
+      }
+      error.value = false;
+      errorMsg.value = '';
+      return true;
+    };
+
+    const validateNumber = (value: number) => {
+      if (value < 0) {
+        error.value = true;
+        errorMsg.value = props.errorMessage;
+        return false;
+      }
+      error.value = false;
+      errorMsg.value = '';
+      return true;
+    };
+
+    const validate = computed(() => {
+      if (props.required && props.type === 'text') return validateText;
+      if (props.required && props.type === 'number') return validateNumber;
+      return () => true;
     });
 
-    return h(
-      QPopupEdit,
-      {
-        ...ctx.data,
-        props: {
-          title,
-          buttons,
-          maxWidth,
-        },
-        scopedSlots: {
-          ...ctx.scopedSlots,
-          default: () => SlotDate,
-        },
-      },
-      ...(ctx.children || [])
-    );
+    return {
+      model,
+      validate,
+      error,
+      errorMsg,
+    };
   },
-};
+});
 </script>

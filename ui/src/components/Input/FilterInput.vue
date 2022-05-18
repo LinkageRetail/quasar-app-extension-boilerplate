@@ -1,9 +1,9 @@
-<script>
+<script lang="ts">
+import { defineComponent, h } from 'vue';
 import { QInput } from 'quasar';
 
-export default {
+export default defineComponent({
   name: 'FilterInput',
-  extends: QInput,
   props: {
     dense: {
       type: Boolean,
@@ -18,5 +18,16 @@ export default {
       default: true,
     },
   },
-};
+  emits: ['update:modelValue'],
+  setup(props, context) {
+    return () =>
+      /**
+       * @see https://vuejs.org/guide/extras/render-function.html#v-model
+       */
+      h(QInput, {
+        ...props,
+        'onUpdate:modelValue': (value: any) => context.emit('update:modelValue', value),
+      });
+  },
+});
 </script>

@@ -1,90 +1,94 @@
-<script>
+<template>
+  <q-popup-edit buttons :title="title" :validate="validate" v-model="model" v-slot="scope">
+    <FieldSelect :label="label" :options="options" v-model="scope.value" />
+  </q-popup-edit>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref, computed, PropType } from 'vue';
 import { QPopupEdit } from 'quasar';
 
-import FieldSelect from './FieldSelect';
+import FieldSelect from './FieldSelect.vue';
+import { useModelWrapper } from '../../hooks';
 
-/*
-
-Example:
-    <PopupSelect
-      title="Enabled"
-      label="status*"
-      @save="savePopup(props.row)"
-      :options="[
-        { label: 'Active', value: true },
-        { label: 'Inactive', value: false },
-      ]"
-      v-model="props.row.enabled"
-    />
-
-Origin:
-    <q-popup-edit
-      @save="savePopup(props.row)"
-      v-model="props.row.enabled"
-      max-width="200px"
-      title="Enabled"
-      buttons
-    >
-      <q-select
-        dense
-        filled
-        color="blue-8"
-        label-color="blue-8"
-        label="status*"
-        map-options
-        emit-value
-        :options="[
-          { label: 'Active', value: true },
-          { label: 'Inactive', value: false },
-        ]"
-        v-model="props.row.enabled"
-      />
-    </q-popup-edit>
-*/
-
-export default {
+/**
+ * @see https://quasar.dev/vue-components/popup-edit#example--click-on-text
+ */
+export default defineComponent({
   name: 'PopupSelect',
-  extends: QPopupEdit,
-  functional: true,
+  components: {
+    QPopupEdit,
+    FieldSelect,
+  },
   props: {
+    modelValue: {},
+    options: {
+      type: Array,
+      default: () => [],
+    },
+    label: {
+      type: String,
+      default: '',
+    },
     title: {
       type: String,
-      required: true,
     },
     buttons: {
       type: Boolean,
       default: true,
     },
-    maxWidth: {
-      type: String,
-      default: '250px',
+    type: {
+      type: String as PropType<'number' | 'text'>,
+      default: 'text', // 'text' || 'number'
     },
-    ...FieldSelect.props,
+    errorMessage: {
+      type: String,
+      default: '',
+    },
+    required: {
+      type: Boolean,
+      default: true,
+    },
   },
-  render(h, ctx) {
-    const { title, buttons, maxWidth, ...selectProps } = ctx.props;
+  setup(props, context) {
+    const model = ref(useModelWrapper(props, context.emit, 'modelValue'));
+    const error = ref(false);
+    const errorMsg = ref('');
 
-    const SlotSelect = h(FieldSelect, {
-      ...ctx.data,
-      props: { ...selectProps, hint: 'Use buttons to close' },
+    const validateText = (value: string) => {
+      if (value.length === 0) {
+        error.value = true;
+        errorMsg.value = props.errorMessage;
+        return false;
+      }
+      error.value = false;
+      errorMsg.value = '';
+      return true;
+    };
+
+    const validateNumber = (value: number) => {
+      if (value < 0) {
+        error.value = true;
+        errorMsg.value = props.errorMessage;
+        return false;
+      }
+      error.value = false;
+      errorMsg.value = '';
+      return true;
+    };
+
+    const validate = computed(() => {
+      if (props.required && props.type === 'text') return validateText;
+      if (props.required && props.type === 'number') return validateNumber;
+      return () => true;
     });
 
-    return h(
-      QPopupEdit,
-      {
-        ...ctx.data,
-        props: {
-          title,
-          buttons,
-          maxWidth,
-        },
-        scopedSlots: {
-          ...ctx.scopedSlots,
-          default: () => SlotSelect,
-        },
-      },
-      ...(ctx.children || [])
-    );
+    return {
+      model,
+      validate,
+      error,
+      errorMsg,
+    };
   },
-};
+});
 </script>
