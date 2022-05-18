@@ -15,19 +15,16 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, PropType } from 'vue';
-import { QInput, QPopupEdit } from 'quasar';
+import { QPopupEdit, QInput } from 'quasar';
 
 import { useModelWrapper } from '../../hooks';
 
 /**
- * @see https://quasar.dev/vue-components/popup-edit#example--click-on-text
+ * @see https://v2.quasar.dev/vue-components/popup-edit#example--click-on-text
  */
 export default defineComponent({
   name: 'PopupInput',
-  components: {
-    QInput,
-    QPopupEdit,
-  },
+  components: { QInput, QPopupEdit },
   props: {
     modelValue: {},
     title: {

@@ -4,6 +4,7 @@ import { QInput } from 'quasar';
 
 export default defineComponent({
   name: 'FilterInput',
+  components: { QInput },
   props: {
     dense: {
       type: Boolean,

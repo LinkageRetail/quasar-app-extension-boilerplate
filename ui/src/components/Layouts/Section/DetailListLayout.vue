@@ -123,11 +123,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { QCard, QCardSection } from 'quasar';
 
 import BaseLayout from './BaseLayout.vue';
 
 export default defineComponent({
   name: 'DetailListLayout',
+  components: { BaseLayout, QCard, QCardSection },
   props: {
     title: {
       type: String,
@@ -137,9 +139,6 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-  },
-  components: {
-    BaseLayout,
   },
 });
 </script>

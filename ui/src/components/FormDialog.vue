@@ -53,11 +53,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { QDialog, QCard, QCardSection, QCardActions, QBtn } from 'quasar';
 
 import { useModelWrapper } from '../hooks';
 
 export default defineComponent({
   name: 'FormDialog',
+  components: { QDialog, QCard, QCardSection, QCardActions, QBtn },
   emits: ['modelValue', 'hide', 'input', 'save', 'cancel'],
   props: {
     modelValue: {

@@ -30,11 +30,12 @@
 
 <script lang="ts">
 import { defineComponent, ref, PropType } from 'vue';
-import { QUploaderFactoryFn, useQuasar } from 'quasar';
+import { QUploader, QUploaderFactoryFn, useQuasar } from 'quasar';
 import _ from 'lodash';
 
 export default defineComponent({
   name: 'FileUpload',
+  components: { QUploader },
   props: {
     /**
      * @example /api/bnpl/user/identity/image
@@ -108,7 +109,7 @@ export default defineComponent({
     const $q = useQuasar();
     const uploader = ref();
 
-    const filter = (files: any[] | FileList) => {
+    const filter: any = (files: any[] | FileList) => {
       // eslint-disable-next-line
       return (files as Array<File>).filter(
         file => props.fileType.includes(file.type) && file.size <= props.fileSize
@@ -117,7 +118,7 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const factory: QUploaderFactoryFn = () => {
-      // Factort mode: https://v1.quasar.dev/vue-components/uploader
+      // Factort mode: https://v2.quasar.dev/vue-components/uploader
       return {
         url: `${process.env.HOST}${props.api}`.replace('api//', 'api/'),
         method: 'POST',

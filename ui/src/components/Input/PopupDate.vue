@@ -12,14 +12,11 @@ import FieldDate from './FieldDate.vue';
 import { useModelWrapper } from '../../hooks';
 
 /**
- * @see https://quasar.dev/vue-components/popup-edit#example--click-on-text
+ * @see https://v2.quasar.dev/vue-components/popup-edit#example--click-on-text
  */
 export default defineComponent({
   name: 'PopupDate',
-  components: {
-    QPopupEdit,
-    FieldDate,
-  },
+  components: { QPopupEdit, FieldDate },
   props: {
     modelValue: {},
     label: {

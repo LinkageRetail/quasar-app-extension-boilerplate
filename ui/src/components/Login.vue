@@ -220,9 +220,11 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, watch } from 'vue';
+import { QForm, QInput, QBtn, QIcon } from 'quasar';
 
 export default defineComponent({
   name: 'Login',
+  components: { QForm, QInput, QBtn, QIcon },
   props: {
     title: {
       type: String,

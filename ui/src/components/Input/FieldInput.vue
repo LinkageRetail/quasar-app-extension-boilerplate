@@ -4,6 +4,7 @@ import { QInput } from 'quasar';
 
 export default defineComponent({
   name: 'FieldInput',
+  components: { QInput },
   props: {
     modelValue: {},
     dense: {

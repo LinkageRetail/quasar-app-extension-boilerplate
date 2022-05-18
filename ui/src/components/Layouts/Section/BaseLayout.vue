@@ -52,9 +52,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { QCard, QCardSection } from 'quasar';
 
 export default defineComponent({
   name: 'BaseLayout',
+  components: { QCard, QCardSection },
   props: {
     title: {
       type: String,

@@ -4,6 +4,7 @@ import { QSelect } from 'quasar';
 
 export default defineComponent({
   name: 'FieldSelect',
+  components: { QSelect },
   props: {
     dense: {
       type: Boolean,

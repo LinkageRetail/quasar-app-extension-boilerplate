@@ -1,6 +1,6 @@
 <template>
   <!-- Ref -->
-  <!-- https://quasar.dev/vue-components/table#qtable-api -->
+  <!-- https://v2.quasar.dev/vue-components/table#qtable-api -->
 
   <!-- Example -->
   <!-- <Table
@@ -88,12 +88,14 @@
 <script lang="ts">
 import { defineComponent, ref, watch, onMounted, nextTick, PropType } from 'vue';
 import { LocationQueryRaw, useRoute, useRouter } from 'vue-router';
+import { QTable, QBadge, QIcon } from 'quasar';
 import _ from 'lodash';
 
 import { useModelWrapper } from '../hooks';
 
 export default defineComponent({
   name: 'Table',
+  components: { QTable, QBadge, QIcon },
   props: {
     modelValue: {
       type: Array as PropType<Array<any>>,

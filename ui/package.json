@@ -4,13 +4,20 @@
   "author": "Robby <ta7382@gmail.com>",
   "description": "Linkage CMS UI",
   "license": "MIT",
-  "module": "src/index.esm.js",
-  "main": "src/index.common.js",
+  "module": "dist/index.esm.js",
+  "main": "dist/index.common.js",
   "scripts": {
     "dev": "cd dev && yarn dev && cd ..",
     "dev:umd": "yarns build && node build/script.open-umd.js",
     "build": "node build/index.js",
-    "build:js": "node build/script.javascript.js"
+    "build:js": "node build/script.javascript.js",
+    "lint": "eslint --ext .js,.vue src && eslint --ext .js,.vue dev/src",
+    "lint:fix": "eslint --ext .js,.vue src --fix && eslint --ext .js,.vue dev/src --fix",
+    "stylelint": "stylelint {src,dev/src}/**/**/**/*.{vue,css,sass,scss}",
+    "stylelint:fix": "stylelint {src,dev/src}/**/**/**/*.{vue,css,sass,scss} --fix",
+    "lint:all": "npm run lint && npm run stylelint",
+    "lint:all:fix": "npm run lint:fix && npm run stylelint:fix",
+    "format": "prettier --write \"{src,dev/src}/**/*.{js,vue,scss}\""
   },
   "repository": {
     "type": "git",

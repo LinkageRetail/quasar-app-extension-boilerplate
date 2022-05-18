@@ -4,15 +4,6 @@
   "author": "Robby <ta7382@gmail.com>",
   "description": "Linkage CMS UI",
   "license": "MIT",
-  "scripts": {
-    "lint": "eslint --ext .js,.vue ui/src && eslint --ext .js,.vue ui/dev/src",
-    "lint:fix": "eslint --ext .js,.vue ui/src --fix && eslint --ext .js,.vue ui/dev/src --fix",
-    "stylelint": "stylelint ui/{src,dev/src}/**/**/**/*.{vue,css,sass,scss}",
-    "stylelint:fix": "stylelint ui/{src,dev/src}/**/**/**/*.{vue,css,sass,scss} --fix",
-    "lint:all": "npm run lint && npm run stylelint",
-    "lint:all:fix": "npm run lint:fix && npm run stylelint:fix",
-    "format": "prettier --write \"ui/{src,dev/src}/**/*.{js,vue,scss}\""
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/explooosion/quasar-app-extension-boilerplate"

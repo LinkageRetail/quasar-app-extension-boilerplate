@@ -1,5 +1,16 @@
 import { boot } from 'quasar/wrappers';
-import VuePlugin from '../../../src/index.esm.js'; // "ui" is aliased in quasar.conf.js
+
+// debug
+import * as VuePlugin from '../../../src/vue-plugin';
+
+// esm
+// import VuePlugin from '../../../dist/index.esm';
+
+// common
+// import * as VuePlugin from '../../../dist/index.common';
+
+// umd
+// import VuePlugin from '../../../dist/index.umd';
 
 export default boot(({ app }) => {
   app.use(VuePlugin);

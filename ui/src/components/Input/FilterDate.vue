@@ -39,15 +39,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRef } from 'vue';
-import { QInput, date } from 'quasar';
+import { QInput, QIcon, QPopupProxy, QDate, date } from 'quasar';
 
 import { useModelWrapper } from '../../hooks';
 
 export default defineComponent({
   name: 'FilterDate',
-  components: {
-    QInput,
-  },
+  components: { QInput, QIcon, QPopupProxy, QDate },
   props: {
     modelValue: {
       type: [Number, String, Date],

@@ -61,15 +61,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, toRef } from 'vue';
-import { QInput, date } from 'quasar';
+import { QInput, QIcon, QPopupProxy, QDate, QTime, date } from 'quasar';
 
 import { useModelWrapper } from '../../hooks';
 
 export default defineComponent({
   name: 'FieldDateTime',
-  components: {
-    QInput,
-  },
+  components: { QInput, QIcon, QPopupProxy, QDate, QTime },
   props: {
     modelValue: {
       type: [Number, String, Date],

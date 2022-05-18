@@ -70,10 +70,36 @@
 
 <script lang="ts">
 import { defineComponent, ref, onMounted } from 'vue';
-import { date } from 'quasar';
+import {
+  date,
+  QLayout,
+  QHeader,
+  QToolbar,
+  QToolbarTitle,
+  QBtn,
+  QAvatar,
+  QDrawer,
+  QSeparator,
+  QList,
+  QIcon,
+  QPageContainer,
+} from 'quasar';
 
 export default defineComponent({
   name: 'AdminLayout',
+  components: {
+    QLayout,
+    QHeader,
+    QToolbar,
+    QToolbarTitle,
+    QBtn,
+    QAvatar,
+    QDrawer,
+    QSeparator,
+    QList,
+    QIcon,
+    QPageContainer,
+  },
   props: {
     userName: {
       type: String,

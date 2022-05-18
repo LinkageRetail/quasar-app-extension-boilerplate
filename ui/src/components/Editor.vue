@@ -18,6 +18,7 @@ import ImageUpload from './Dialog/ImageUpload.vue';
 
 export default defineComponent({
   name: 'Editor',
+  components: { QEditor },
   props: {
     modelValue: {
       default: '',
@@ -44,7 +45,7 @@ export default defineComponent({
     const denseVal = ref(useModelWrapper(props, context.emit, 'dense'));
 
     /**
-     * @see https://quasar.dev/vue-components/editor#example--kitchen-sink
+     * @see https://v2.quasar.dev/vue-components/editor#example--kitchen-sink
      */
     const toolbarVal = ref([
       // [

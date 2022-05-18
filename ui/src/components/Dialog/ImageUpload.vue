@@ -6,7 +6,7 @@
       </q-card-section>
 
       <q-card-section class="q-gutter-y-md">
-        <!-- <div class="row q-gutter-x-md justify-between">
+        <div class="row q-gutter-x-md justify-between">
           <div class="col row items-center">
             <div class="col-4">Width</div>
             <div class="col-8"><FilterInput v-model="payload.width" /></div>
@@ -23,7 +23,7 @@
         <div class="row items-center">
           <div class="col-auto q-mr-lg">Style</div>
           <div class="col"><FilterInput v-model="payload.style" /></div>
-        </div> -->
+        </div>
       </q-card-section>
 
       <q-card-section>
@@ -54,20 +54,18 @@
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar';
 import { defineComponent, ref, reactive } from 'vue';
+import { useQuasar, QDialog, QCard, QCardSection, QCardActions } from 'quasar';
+
 import FileUpload from '../FileUpload.vue';
-// import FilterInput from '../Input/FilterInput.vue';
+import FilterInput from '../Input/FilterInput.vue';
 
 /**
- * @see https://quasar.dev/quasar-plugins/dialog#invoking-custom-component
+ * @see https://v2.quasar.dev/quasar-plugins/dialog#invoking-custom-component
  */
 export default defineComponent({
   name: 'ImageUpload',
-  components: {
-    FileUpload,
-    // FilterInput,
-  },
+  components: { QDialog, QCard, QCardSection, QCardActions, FileUpload, FilterInput },
   emits: ['hide', 'ok'],
   props: {
     /**

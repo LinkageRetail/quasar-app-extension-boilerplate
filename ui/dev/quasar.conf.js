@@ -64,7 +64,7 @@ module.exports = configure(function (ctx) {
       // Applies only if "transpile" is set to true.
       // transpileDependencies: [],
 
-      // rtl: true, // https://quasar.dev/options/rtl-support
+      // rtl: true, // https://v2.quasar.dev/options/rtl-support
       // preloadChunks: true,
       // showProgress: false,
       // gzip: true,
@@ -75,11 +75,7 @@ module.exports = configure(function (ctx) {
 
       // https://v2.quasar.dev/quasar-cli-webpack/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack(chain) {
-        chain.resolve.alias.merge({
-          ui: path.resolve(__dirname, '../src/index.esm.js'),
-        });
-      },
+      // chainWebpack(chain) { },
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-devServer
@@ -110,7 +106,7 @@ module.exports = configure(function (ctx) {
           /* brand defaults */
         },
         screen: {
-          // https://v1.quasar.dev/options/screen-plugin#introduction
+          // https://v2.quasar.dev/options/screen-plugin#introduction
           bodyClasses: true,
         },
       },
@@ -139,7 +135,7 @@ module.exports = configure(function (ctx) {
     },
 
     // animations: 'all', // --- includes all animations
-    // https://quasar.dev/options/animations
+    // https://v2.quasar.dev/options/animations
     animations: 'all',
 
     // https://v2.quasar.dev/quasar-cli-webpack/developing-ssr/configuring-ssr

@@ -139,7 +139,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
-import { QTreeNode } from 'quasar';
+import { QCard, QCardSection, QSplitter, QTree, QTreeNode, QTabPanels, QTabPanel } from 'quasar';
 import { isNull } from 'lodash';
 
 import { useModelWrapper } from '../../../hooks';
@@ -147,6 +147,7 @@ import BaseLayout from './BaseLayout.vue';
 
 export default defineComponent({
   name: 'DetailTreeLayout',
+  components: { BaseLayout, QCard, QCardSection, QSplitter, QTree, QTabPanels, QTabPanel },
   props: {
     title: {
       type: String,
@@ -240,9 +241,6 @@ export default defineComponent({
       treeNodesData,
       onSelectedTree,
     };
-  },
-  components: {
-    BaseLayout,
   },
 });
 </script>

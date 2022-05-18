@@ -41,6 +41,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { QExpansionItem } from 'quasar';
 
 interface IItem {
   label: string;
@@ -51,6 +52,7 @@ interface IItem {
 
 export default defineComponent({
   name: 'Menu',
+  components: { QExpansionItem },
   props: {
     modelValue: {
       type: Array as PropType<Array<IItem>>,
