@@ -19,7 +19,7 @@
   "bugs": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate/issues",
   "homepage": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate",
   "dependencies": {
-    "loadsh": "^0.0.4",
+    "lodash": "^4.17.21",
     "vue": "^3.0.0"
   },
   "devDependencies": {
