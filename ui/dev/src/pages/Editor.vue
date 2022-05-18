@@ -1,15 +1,17 @@
 <template>
   <q-page padding>
-    <Editor v-model="Editor" />
+    <Editor v-model="editor" />
   </q-page>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  setup() {
     return {
-      Editor: '',
+      editor: ref(''),
     };
   },
-};
+});
 </script>

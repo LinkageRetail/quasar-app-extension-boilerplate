@@ -6,7 +6,7 @@
       </q-card-section>
 
       <q-card-section class="q-gutter-y-md">
-        <div class="row q-gutter-x-md justify-between">
+        <!-- <div class="row q-gutter-x-md justify-between">
           <div class="col row items-center">
             <div class="col-4">Width</div>
             <div class="col-8"><FilterInput v-model="payload.width" /></div>
@@ -23,7 +23,7 @@
         <div class="row items-center">
           <div class="col-auto q-mr-lg">Style</div>
           <div class="col"><FilterInput v-model="payload.style" /></div>
-        </div>
+        </div> -->
       </q-card-section>
 
       <q-card-section>
@@ -53,35 +53,74 @@
   </q-dialog>
 </template>
 
-<script>
+<script lang="ts">
+import { useQuasar } from 'quasar';
+import { defineComponent, ref, reactive } from 'vue';
 import FileUpload from '../FileUpload.vue';
-import FilterInput from '../Input/FilterInput.vue';
+// import FilterInput from '../Input/FilterInput.vue';
 
 /**
- * @see https://v1.quasar.dev/quasar-plugins/dialog#invoking-custom-component
+ * @see https://quasar.dev/quasar-plugins/dialog#invoking-custom-component
  */
-export default {
+export default defineComponent({
   name: 'ImageUpload',
   components: {
     FileUpload,
-    FilterInput,
+    // FilterInput,
   },
+  emits: ['hide', 'ok'],
   props: {
+    /**
+     * @example process.env.STATIC_PATH + '/ponti-hk/image/
+     */
+    path: {
+      type: String,
+      default: '',
+    },
+    /**
+     * @example /admin/product/detailImage/upload
+     */
     api: {
       type: String,
-      default: '/admin/product/detailImage/upload',
+      default: '',
     },
   },
-  data() {
+  setup(props) {
+    const $q = useQuasar();
+
+    const dialog = ref();
+    const loading = ref(false);
+    const payload = reactive({
+      src: '',
+      className: null,
+      style: null,
+      width: '200px',
+      height: null,
+    });
+
+    const onStart = () => (loading.value = true);
+
+    const onUploaded = (files: any) => {
+      loading.value = false;
+      payload.src = props.path + files;
+    };
+
+    const onFailed = (entries: any) => {
+      loading.value = false;
+      try {
+        $q.notify({ type: 'negative', message: JSON.parse(entries.xhr.response).message });
+      } catch (error) {
+        $q.notify({ type: 'negative', message: error as string });
+      }
+    };
+
     return {
-      loading: false,
-      payload: {
-        src: '',
-        className: null,
-        style: null,
-        width: '200px',
-        height: null,
-      },
+      dialog,
+      loading,
+      payload,
+      onStart,
+      onUploaded,
+      onFailed,
     };
   },
   methods: {
@@ -91,30 +130,12 @@ export default {
       this.$emit('ok', this.payload);
       this.hide();
     },
-    onStart() {
-      this.loading = true;
-    },
-    onUploaded(files) {
-      this.loading = false;
-      this.payload.src = this.$path.image + files;
-    },
-    onFailed(entries) {
-      this.loading = false;
-      try {
-        this.$utils.showAlert(
-          'ERROR',
-          `<span style="white-space: pre-line">${JSON.parse(entries.xhr.response).message}</span>`
-        );
-      } catch (error) {
-        this.$utils.showAlert('ERROR', error);
-      }
-    },
     show() {
-      this.$refs.dialog.show();
+      (this.$refs['dialog'] as any).show();
     },
     hide() {
-      this.$refs.dialog.hide();
+      (this.$refs['dialog'] as any).hide();
     },
   },
-};
+});
 </script>

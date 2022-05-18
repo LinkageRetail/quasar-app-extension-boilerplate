@@ -28,17 +28,21 @@
   />
 </template>
 
-<script>
-import { mapState } from 'vuex';
+<script lang="ts">
+import { defineComponent, ref, PropType } from 'vue';
+import { QUploaderFactoryFn, useQuasar } from 'quasar';
 import _ from 'lodash';
 
-export default {
+export default defineComponent({
   name: 'FileUpload',
   props: {
+    /**
+     * @example /api/bnpl/user/identity/image
+     */
     api: {
       type: String,
       default: '',
-      require: true, // /bnpl/user/identity/image
+      require: true,
     },
     accept: {
       type: String,
@@ -52,13 +56,19 @@ export default {
       type: Boolean,
       default: false,
     },
+    /**
+     * Default only allow image
+     */
     fileType: {
       type: Array,
-      default: () => ['image/png', 'image/jpg', 'image/jpeg'], // Default only allow image
+      default: () => ['image/png', 'image/jpg', 'image/jpeg'],
     },
+    /**
+     * Default 5MB
+     */
     fileSize: {
       type: Number,
-      default: 1024 * 1024 * 5, // 5MB
+      default: 1024 * 1024 * 5,
     },
     label: {
       type: String,
@@ -69,8 +79,8 @@ export default {
       default: false,
     },
     formFields: {
-      type: Object,
-      default: () => {},
+      type: Object as PropType<{ [key: string]: any }>,
+      default: () => ({}),
       // Merge into FormData
       // Syntax example: { typeCode: 'PRODUCT', isDefault: false, ... }
     },
@@ -82,75 +92,105 @@ export default {
       type: Number,
       default: 10,
     },
-  },
-  methods: {
-    filter(files) {
-      return files.filter(file => this.fileType.includes(file.type) && file.size <= this.fileSize);
+    /**
+     * @example
+     *  [
+     *   { name: 'Authorization', value: 'my-token' },
+     *   { name: 'tenant', value: 'my-tenant' },
+     *  ]
+     */
+    headers: {
+      type: Array as PropType<Array<{ name: any; value: any }>>,
+      default: () => [],
     },
-    factory(files) {
+  },
+  setup(props, context) {
+    const $q = useQuasar();
+    const uploader = ref();
+
+    const filter = (files: any[] | FileList) => {
+      // eslint-disable-next-line
+      return (files as Array<File>).filter(
+        file => props.fileType.includes(file.type) && file.size <= props.fileSize
+      );
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const factory: QUploaderFactoryFn = () => {
       // Factort mode: https://v1.quasar.dev/vue-components/uploader
       return {
-        url: `${process.env.HOST}${this.api}`.replace('api//', 'api/'),
+        url: `${process.env.HOST}${props.api}`.replace('api//', 'api/'),
         method: 'POST',
-        headers: [
-          { name: 'Authorization', value: this.token },
-          { name: 'tenant', value: 'PONTI-HK' },
-        ],
+        headers: props.headers,
       };
-    },
-    generateFormFields(files) {
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const generateFormFields = (files: Array<File>) => {
       // Merge other request into formdata
-      const formFields = _.keys(this.formFields).reduce((prev, key) => {
-        prev.push({ name: key, value: _.get(this.formFields, key) });
+      const formFields = _.keys(props.formFields).reduce((prev, key) => {
+        prev.push({ name: key, value: _.get(props.formFields, key) });
         return prev;
-      }, []);
+      }, [] as Array<{ name: string; value: any }>);
       return formFields;
-    },
-    addFiles(files) {
-      this.$refs.uploader.addFiles(files);
-    },
-    reset() {
-      this.$refs.uploader.reset();
-    },
-    upload() {
-      this.$refs.uploader.upload();
-    },
-    uploading(entries) {
+    };
+
+    const addFiles = (files: Array<File> | File) => {
+      uploader.value.addFiles(files);
+    };
+
+    const reset = () => {
+      uploader.value.reset();
+    };
+
+    const uploading = (entries: any) => {
       const response = _.get(entries, 'xhr.response');
       try {
-        this.$emit('uploading', JSON.parse(JSON.stringify(response)));
+        context.emit('uploading', JSON.parse(JSON.stringify(response)));
       } catch (error) {
-        this.$emit('rejected', entries);
+        context.emit('rejected', entries);
       }
-    },
-    uploaded(entries) {
+    };
+
+    const uploaded = (entries: any) => {
       const response = _.get(entries, 'xhr.response');
       try {
-        this.$emit('uploaded', JSON.parse(JSON.stringify(response)));
+        context.emit('uploaded', JSON.parse(JSON.stringify(response)));
       } catch (error) {
-        this.$emit('rejected', entries);
+        context.emit('rejected', entries);
       }
-    },
-    rejected(entries) {
+    };
+
+    const rejected = (entries: any) => {
       console.error('rejected', entries);
-      this.$emit('rejected', entries);
-      this.$q.notify({
+      context.emit('rejected', entries);
+      $q.notify({
         type: 'negative',
         message: 'File extension or size is not allowed.',
       });
-    },
-    failed(entries) {
+    };
+
+    const failed = (entries: any) => {
       const response = _.get(entries, 'xhr.response');
       try {
-        this.$emit('failed', JSON.parse(JSON.stringify(response)));
+        context.emit('failed', JSON.parse(JSON.stringify(response)));
       } catch (error) {
         console.error('failed', entries);
-        this.$emit('failed', entries);
+        context.emit('failed', entries);
       }
-    },
+    };
+
+    return {
+      filter,
+      factory,
+      generateFormFields,
+      addFiles,
+      reset,
+      uploading,
+      uploaded,
+      rejected,
+      failed,
+    };
   },
-  computed: {
-    ...mapState('auth', ['token']),
-  },
-};
+});
 </script>
