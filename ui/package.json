@@ -1,6 +1,6 @@
 {
   "name": "quasar-ui-linkage-cms-ui",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "author": "Robby <ta7382@gmail.com>",
   "description": "Linkage CMS UI",
   "license": "MIT",
@@ -20,7 +20,8 @@
   "homepage": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate",
   "dependencies": {
     "lodash": "^4.17.21",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
