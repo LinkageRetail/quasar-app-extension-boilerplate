@@ -72,11 +72,12 @@ module.exports = {
 
     quotes: ['warn', 'single', { avoidEscape: true }],
 
+    '@typescript-eslint/ban-ts-comment': 'off',
+
     // this rule, if on, would require explicit return type on the `render` function
     '@typescript-eslint/explicit-function-return-type': 'off',
 
     '@typescript-eslint/no-explicit-any': 'off',
-
     // in plain CommonJS modules, you can't use `import foo = require('foo')` to pass this rule, so it has to be disabled
     '@typescript-eslint/no-var-requires': 'off',
 
@@ -87,6 +88,8 @@ module.exports = {
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+
+    'vue/no-v-model-argument': 'off',
   },
 };
