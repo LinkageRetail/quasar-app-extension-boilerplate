@@ -569,7 +569,7 @@ export default {
 .table-header-dark {
   :deep(thead tr) {
     color: #fff;
-    background-color: var(--q-color-primary);
+    background-color: var(--q-primary);
   }
 }
 </style>

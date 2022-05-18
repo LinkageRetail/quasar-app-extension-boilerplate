@@ -113,7 +113,7 @@ export default defineComponent({
     padding-bottom: 2rem;
     height: 40px;
     color: #fff;
-    background-color: var(--q-color-primary);
+    background-color: var(--q-primary);
 
     > span {
       padding-bottom: 0.25rem;

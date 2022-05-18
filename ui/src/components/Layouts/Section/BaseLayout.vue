@@ -21,7 +21,10 @@
     <!-- Search -->
     <section class="search" v-if="search">
       <q-card flat bordered>
-        <q-card-section class="row justify-between q-gutter-y-sm q-gutter-x-md search-section" :style="searchStyle">
+        <q-card-section
+          class="row justify-between q-gutter-y-sm q-gutter-x-md search-section"
+          :style="searchStyle"
+        >
           <!-- Slot search -->
           <slot name="search" />
           <!-- Example -->
@@ -85,7 +88,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .wrapper {
   padding: 30px;
-  color: var(--q-color-primary);
+  color: var(--q-primary);
 }
 
 .head {
@@ -94,7 +97,7 @@ export default defineComponent({
 
   .title {
     font-size: 20px;
-    border-bottom: 3px solid var(--q-color-primary);
+    border-bottom: 3px solid var(--q-primary);
   }
 
   .buttons {

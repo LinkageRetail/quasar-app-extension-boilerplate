@@ -294,7 +294,7 @@ export default defineComponent({
 // Tree node
 .tree {
   overflow: auto;
-  color: var(--q-color-primary);
+  color: var(--q-primary);
 }
 
 :deep(.q-tree__arrow) {

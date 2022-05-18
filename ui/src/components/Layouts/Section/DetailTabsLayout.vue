@@ -95,7 +95,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .wrapper {
   padding: 30px 0px;
-  color: var(--q-color-primary);
+  color: var(--q-primary);
 }
 .header-buttons {
   position: absolute;
