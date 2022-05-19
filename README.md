@@ -34,14 +34,15 @@ cd ui && yarn dev
 - 請確認發行前的 `package.json` 版本
 
 ```sh
-cd ./app-extension && npm publish
+cd ./app-extension && npm publish --tag beta
 ```
 
 ```sh
-cd ./ui && npm run build && npm publish
+cd ./ui && npm run build && npm publish --tag beta
 ```
 
-發行後請將原本 v1 版本暫時設置回 lastest
+由於 npm publish 指令有添加 --tag beta, 因此不影響 v1 版本.
+如果發現版本 latest 指向到 v2, 請將 v1 版本設置回 lastest
 
 ```sh
 npm dist-tag add quasar-ui-linkage-cms-ui@1.x.x latest
