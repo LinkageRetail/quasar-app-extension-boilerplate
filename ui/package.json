@@ -1,8 +1,8 @@
 {
   "name": "quasar-ui-linkage-cms-ui",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Robby <ta7382@gmail.com>",
-  "description": "Linkage CMS UI",
+  "description": "Quasar UI For Linkage CMS UI",
   "license": "MIT",
   "module": "dist/index.esm.js",
   "main": "dist/index.common.js",

@@ -1,13 +1,13 @@
 {
   "name": "linkage-cms-ui",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "author": "Robby <ta7382@gmail.com>",
   "description": "Linkage CMS UI",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/explooosion/quasar-app-extension-boilerplate"
+    "url": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate"
   },
-  "bugs": "https://github.com/explooosion/quasar-app-extension-boilerplate/issues",
-  "homepage": "https://github.com/explooosion/quasar-app-extension-boilerplate"
+  "bugs": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate/issues",
+  "homepage": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate"
 }
