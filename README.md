@@ -41,6 +41,13 @@ cd ./app-extension && npm publish
 cd ./ui && npm run build && npm publish
 ```
 
+發行後請將原本 v1 版本暫時設置回 lastest
+
+```sh
+npm dist-tag add quasar-ui-linkage-cms-ui@1.x.x latest
+npm dist-tag add quasar-app-extension-linkage-cms-ui@1.x.x latest
+```
+
 完成發行後可使用 `quasar ext add` 進行安裝
 
 ```sh
