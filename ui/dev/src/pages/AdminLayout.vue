@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <AdminLayout user-name="Admin" @logout="logout" bg-color="#f4f5f6">
+    <AdminLayout user-name="Admin" @logout="onLogout" bg-color="#f4f5f6">
       <template #left-drawer-header> <span class="text-white">left-drawer-header</span> </template>
       <template #left-drawer-footer> left-drawer-footer </template>
       <template #menu-list>
@@ -12,12 +12,14 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  setup() {
     return {
-      home: [{ label: 'Dashboard', path: '', icon: 'o_home' }],
-      management: [
+      home: ref([{ label: 'Dashboard', path: '', icon: 'o_home' }]),
+      management: ref([
         {
           label: 'Order Mgmt',
           path: '',
@@ -28,13 +30,11 @@ export default {
             { label: 'Orders History', path: '' },
           ],
         },
-      ],
+      ]),
+      onLogout() {
+        console.log('logout');
+      },
     };
   },
-  methods: {
-    logout() {
-      console.log('logout');
-    },
-  },
-};
+});
 </script>

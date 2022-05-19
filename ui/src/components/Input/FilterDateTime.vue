@@ -1,47 +1,56 @@
 <template>
-  <!-- This input date use for filter or search bar -->
   <q-input
-    :clearable="clearable"
-    :value="value"
-    @change="handleChange"
-    @clear="handleClear"
+    ref="refEl"
     dense
     outlined
+    mask="datetime"
+    :color="color"
+    :bg-color="bgColor"
+    :label-color="labelColor"
+    :disable="disable"
+    :readonly="readonly"
+    :label="label"
+    :clearable="clearable"
+    @change="handleChange"
+    @clear="handleClear"
+    v-model="model"
   >
     <template #prepend>
-      <q-icon :name="icon" class="cursor-pointer">
+      <q-icon class="cursor-pointer" :name="icon">
         <q-popup-proxy
+          ref="datePickProxy"
           :transition-hide="transition"
           :transition-show="transition"
-          ref="datePickProxy"
         >
           <q-date
-            :options="options"
-            :subtitle="parseSubTitle(value)"
-            :title="parseTitle(value)"
+            :title="parseTitle(model)"
+            :subtitle="parseSubTitle(model)"
+            :options="optionsVal"
+            :mask="mask"
             @input="handleInput"
-            mask="YYYY-MM-DD HH:mm:ss"
+            @update:model-value="handleInput"
             v-model="model"
           />
         </q-popup-proxy>
       </q-icon>
     </template>
     <template #append>
-      <q-icon class="cursor-pointer" name="access_time">
-        <q-popup-proxy :transition-hide="transition" :transition-show="transition">
+      <q-icon class="cursor-pointer" :name="iconTime">
+        <q-popup-proxy
+          ref="timePickProxy"
+          :transition-hide="transition"
+          :transition-show="transition"
+        >
           <q-time
-            :options="options"
-            :subtitle="parseSubTitle(value)"
-            :title="parseTitle(value)"
-            @input="handleInput"
             format24h
-            mask="YYYY-MM-DD HH:mm:ss"
+            :title="parseTitle(model)"
+            :subtitle="parseSubTitle(model)"
+            :options="optionsVal"
+            :mask="mask"
+            @input="handleInput"
+            @update:model-value="handleInput"
             v-model="model"
-            with-seconds
           >
-            <div class="row items-center justify-end">
-              <q-btn color="primary" flat label="Close" v-close-popup />
-            </div>
           </q-time>
         </q-popup-proxy>
       </q-icon>
@@ -49,23 +58,47 @@
   </q-input>
 </template>
 
-<script>
-import { date, QInput } from 'quasar';
+<script lang="ts">
+import { defineComponent, ref, toRef } from 'vue';
+import { QInput, QIcon, QPopupProxy, QDate, QTime, date } from 'quasar';
 
-export default {
+import { useModelWrapper } from '../../hooks';
+
+export default defineComponent({
   name: 'FilterDateTime',
-  components: {
-    QInput,
-  },
+  components: { QInput, QIcon, QPopupProxy, QDate, QTime },
   props: {
-    ...QInput,
-    value: {
+    modelValue: {
       type: [Number, String, Date],
-      default: '',
+      default: undefined,
+    },
+    color: {
+      type: String,
+      default: 'primary',
+    },
+    bgColor: {
+      type: String,
+      default: null,
+    },
+    labelColor: {
+      type: String,
+      default: null,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+    disable: {
+      type: Boolean,
+      default: false,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
     },
     mask: {
       type: String,
-      default: 'datetime',
+      default: 'YYYY/MM/DD HH:mm',
     },
     clearable: {
       type: Boolean,
@@ -74,6 +107,10 @@ export default {
     icon: {
       type: String,
       default: 'event',
+    },
+    iconTime: {
+      type: String,
+      default: 'access_time',
     },
     transition: {
       type: String,
@@ -91,33 +128,41 @@ export default {
       type: String,
       default: 'YYYY',
     },
-    options: {
-      type: [Array, Function, String, Date],
-      default: date => date,
-    },
+    options: {},
   },
-  data() {
+  setup(props, context) {
+    const refEl = ref();
+    const datePickProxy = ref();
+    const timePickProxy = ref();
+    const optionsVal: any = toRef(props, 'options');
+    const model = ref(useModelWrapper(props, context.emit, 'modelValue'));
+
     return {
-      model: this.value, // Inner value for q-date
+      refEl,
+      datePickProxy,
+      timePickProxy,
+      optionsVal,
+      model,
+      handleChange(newVal: any) {
+        context.emit('update:modelValue', newVal);
+      },
+      handleInput(newVal: any) {
+        context.emit('update:modelValue', newVal);
+        if (props.autoHide) {
+          datePickProxy.value?.hide();
+          timePickProxy.value?.hide();
+        }
+      },
+      handleClear() {
+        context.emit('update:modelValue', null);
+      },
+      parseTitle(value: any) {
+        return value ? date.formatDate(value, props.formatTitle) : ' ';
+      },
+      parseSubTitle(value: any) {
+        return value ? date.formatDate(value, props.formatSubTitle) : ' ';
+      },
     };
   },
-  methods: {
-    handleChange(newVal) {
-      this.$emit('input', newVal.target.value);
-    },
-    handleInput() {
-      this.$emit('input', this.model);
-      if (this.autoHide) this.$refs.datePickProxy.hide();
-    },
-    handleClear() {
-      this.$emit('input', null);
-    },
-    parseTitle(value) {
-      return value ? date.formatDate(value, this.formatTitle) : ' ';
-    },
-    parseSubTitle(value) {
-      return value ? date.formatDate(value, this.formatSubTitle) : ' ';
-    },
-  },
-};
+});
 </script>

@@ -1,3 +1,5 @@
+import { RouteRecordRaw } from 'vue-router';
+
 import pages from './pages';
 
 const children = pages.map(page => ({
@@ -5,18 +7,18 @@ const children = pages.map(page => ({
   component: () => import('pages/' + page.file + '.vue'),
 }));
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('layouts/MyLayout.vue'),
-    children: [{ path: '', component: () => import('pages/Index.vue') }].concat(children),
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/IndexPage.vue') }].concat(children),
   },
 
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue'),
+    component: () => import('pages/ErrorNotFound.vue'),
   },
 ];
 

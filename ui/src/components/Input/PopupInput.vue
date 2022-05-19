@@ -1,98 +1,91 @@
-<script>
-import { QPopupEdit, QInput } from 'quasar';
-import _ from 'lodash';
-
-/*
-
-Example:
-    <PopupInput
-      title="Quantity"
-      type="number"
-      @save="savePopup(props.row)"
-      v-model="props.row.qty"
-    />
-
-Origin:
-  <q-popup-edit
-    @save="savePopup(props.row)"
-    v-model="props.row.qty"
-    :validate="val => val > 0"
-    max-width="250px"
-    title="Quantity"
-    buttons
-  >
+<template>
+  <q-popup-edit buttons :title="title" :validate="validate" v-model="model" v-slot="scope">
     <q-input
-      v-model="props.row.qty"
-      :error="props.row.qty <= 0"
-      hint="Use buttons to close"
       dense
       autofocus
+      hint="Use buttons to close"
+      :type="type"
+      :error="error"
+      :error-message="errorMsg"
+      @keyup.enter="scope.set"
+      v-model="scope.value"
     />
   </q-popup-edit>
-*/
+</template>
 
-export default {
+<script lang="ts">
+import { defineComponent, ref, computed, PropType } from 'vue';
+import { QPopupEdit, QInput } from 'quasar';
+
+import { useModelWrapper } from '../../hooks';
+
+/**
+ * @see https://v2.quasar.dev/vue-components/popup-edit#example--click-on-text
+ */
+export default defineComponent({
   name: 'PopupInput',
-  extends: QPopupEdit,
-  functional: true,
+  components: { QInput, QPopupEdit },
   props: {
+    modelValue: {},
     title: {
       type: String,
-      required: true,
     },
     buttons: {
       type: Boolean,
       default: true,
     },
-    maxWidth: {
+    type: {
+      type: String as PropType<'number' | 'text'>,
+      default: 'text', // 'text' || 'number'
+    },
+    errorMessage: {
       type: String,
-      default: '250px',
+      default: '',
     },
     required: {
       type: Boolean,
       default: true,
     },
-    type: {
-      type: String,
-      default: 'string',
-      validator: value => ['string', 'number'].includes(value.toLowerCase()),
-    },
   },
-  render(h, ctx) {
-    // Initial validation
-    const valid = { validate: () => {}, error: false };
-    if (ctx.props.required) {
-      switch (ctx.props.type) {
-        default:
-        case 'string':
-          valid.validate = val => !_.isEmpty(val);
-          valid.error = _.isEmpty(ctx.data.model.value);
-          break;
-        case 'number':
-          valid.validate = val => val > 0;
-          valid.error = Number(ctx.data.model.value) <= 0 || _.isNaN(Number(ctx.data.model.value));
-          break;
-      }
-    }
+  setup(props, context) {
+    const model = ref(useModelWrapper(props, context.emit, 'modelValue'));
+    const error = ref(false);
+    const errorMsg = ref('');
 
-    const { error, value, ...props } = _.extend(ctx.props, valid);
-    const SlotInput = h(QInput, {
-      ...ctx.data,
-      props: { error, dense: true, autofocus: true, hint: 'Use buttons to close' },
+    const validateText = (value: string) => {
+      if (value.length === 0) {
+        error.value = true;
+        errorMsg.value = props.errorMessage;
+        return false;
+      }
+      error.value = false;
+      errorMsg.value = '';
+      return true;
+    };
+
+    const validateNumber = (value: number) => {
+      if (value < 0) {
+        error.value = true;
+        errorMsg.value = props.errorMessage;
+        return false;
+      }
+      error.value = false;
+      errorMsg.value = '';
+      return true;
+    };
+
+    const validate = computed(() => {
+      if (props.required && props.type === 'text') return validateText;
+      if (props.required && props.type === 'number') return validateNumber;
+      return () => true;
     });
 
-    return h(
-      QPopupEdit,
-      {
-        ...ctx.data,
-        props,
-        scopedSlots: {
-          ...ctx.scopedSlots,
-          default: () => SlotInput,
-        },
-      },
-      ...(ctx.children || [])
-    );
+    return {
+      model,
+      validate,
+      error,
+      errorMsg,
+    };
   },
-};
+});
 </script>

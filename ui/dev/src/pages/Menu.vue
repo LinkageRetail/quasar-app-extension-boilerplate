@@ -7,12 +7,14 @@
   </q-page>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  setup() {
     return {
-      home: [{ label: 'Dashboard', path: '', icon: 'o_home' }],
-      management: [
+      home: ref([{ label: 'Dashboard', path: '', icon: 'o_home' }]),
+      management: ref([
         {
           label: 'Order Mgmt',
           path: '',
@@ -23,8 +25,8 @@ export default {
             { label: 'Orders History', path: '' },
           ],
         },
-      ],
+      ]),
     };
   },
-};
+});
 </script>

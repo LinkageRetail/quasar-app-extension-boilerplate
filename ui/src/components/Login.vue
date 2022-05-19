@@ -34,8 +34,8 @@
             name="username"
             type="text"
             placeholder="Email Address (compulsory)"
-            v-model="form.username"
             :rules="[val => (val && val.length > 0) || 'Please input Email Address']"
+            v-model="formLogin.username"
           >
             <template #prepend>
               <q-icon name="person_outline" />
@@ -48,21 +48,21 @@
             outlined
             class="q-mt-md"
             name="username"
-            :type="loginIsPwd ? 'password' : 'text'"
             autocomplete="off"
             placeholder="Password (compulsory)"
-            v-model="form.password"
-            @keyup.enter="$emit('login', form)"
+            :type="visiblePwd ? 'password' : 'text'"
             :rules="[val => (val && val.length > 0) || 'Please input Password']"
+            @keyup.enter="$emit('login', formLogin)"
+            v-model="formLogin.password"
           >
             <template #prepend>
               <q-icon name="o_lock" />
             </template>
             <template #append>
               <q-icon
-                :name="loginIsPwd ? 'visibility_off' : 'visibility'"
                 class="cursor-pointer"
-                @click="loginIsPwd = !loginIsPwd"
+                :name="visiblePwd ? 'visibility_off' : 'visibility'"
+                @click="visiblePwd = !visiblePwd"
               />
             </template>
           </q-input>
@@ -79,9 +79,10 @@
         <q-btn
           unelevated
           class="q-mt-lg q-px-lg"
-          :color="buttonColor"
           label="Login"
-          @click="$emit('login', form)"
+          :loading="loadingLogin"
+          :color="buttonColor"
+          @click="$emit('login', formLogin)"
         />
       </q-form>
 
@@ -110,8 +111,8 @@
           name="username"
           type="text"
           placeholder="Email Address"
-          v-model="email"
           :rules="[val => (val && val.length > 0) || 'Please input Email Address']"
+          v-model="email"
         >
           <template #prepend>
             <q-icon name="o_email" />
@@ -120,8 +121,9 @@
         <q-btn
           unelevated
           class="q-mt-lg q-px-lg text-capitalize"
-          :color="buttonColor"
           label="Request reset password"
+          :loading="loadingForget"
+          :color="buttonColor"
           @click="$emit('sendEmail', email)"
         />
         <div class="absolute-bottom text-right text-grey-8" :style="{ color: captionColor }">
@@ -134,7 +136,7 @@
       <q-form
         v-show="loginModel === 'RESET'"
         class="forget-box"
-        @submit="$emit('resetPassword', reset)"
+        @submit="$emit('resetPassword', formReset)"
       >
         <div class="text-h5 text-weight-medium" style="letter-spacing: 1px">Reset Password</div>
 
@@ -147,18 +149,18 @@
           name="new-password"
           autocomplete="new-password"
           placeholder="Enter New Password"
-          v-model="reset.newPassword"
-          :type="isPwd.newPwd ? 'password' : 'text'"
+          :type="visible.newPwd ? 'password' : 'text'"
           :rules="[val => (val && val.length > 0) || 'Please input new password']"
+          v-model="formReset.newPassword"
         >
           <template #prepend>
             <q-icon name="o_lock" />
           </template>
           <template #append>
             <q-icon
-              :name="isPwd.newPwd ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
-              @click="isPwd.newPwd = !isPwd.newPwd"
+              :name="visible.newPwd ? 'visibility_off' : 'visibility'"
+              @click="visible.newPwd = !visible.newPwd"
             />
           </template>
         </q-input>
@@ -171,22 +173,23 @@
           class="q-mt-sm"
           name="new-password"
           autocomplete="new-password"
-          v-model="reset.rePassword"
           placeholder="Enter Confirm Password"
-          :type="isPwd.rePwd ? 'password' : 'text'"
+          :type="visible.rePwd ? 'password' : 'text'"
           :rules="[
             val => (val && val.length > 0) || 'Please input confirm password',
-            val => val === reset.newPassword || 'Confirm password must be same as the new password',
+            val =>
+              val === formReset.newPassword || 'Confirm password must be same as the new password',
           ]"
+          v-model="formReset.rePassword"
         >
           <template #prepend>
             <q-icon name="o_lock" />
           </template>
           <template #append>
             <q-icon
-              :name="isPwd.rePwd ? 'visibility_off' : 'visibility'"
               class="cursor-pointer"
-              @click="isPwd.rePwd = !isPwd.rePwd"
+              :name="visible.rePwd ? 'visibility_off' : 'visibility'"
+              @click="visible.rePwd = !visible.rePwd"
             />
           </template>
         </q-input>
@@ -194,9 +197,9 @@
         <q-input
           name="username"
           autocomplete="username"
-          style="opacity: 0"
-          :value="form.username"
           hidden
+          style="opacity: 0"
+          :model-value="formLogin.username"
         />
 
         <q-btn
@@ -204,8 +207,9 @@
           no-caps
           color="grey-9"
           type="submit"
-          style="width: 120px; color: #ffc119"
           class="q-mt-lg q-px-lg"
+          style="width: 120px; color: #ffc119"
+          :loading="loadingReset"
         >
           Reset
         </q-btn>
@@ -214,9 +218,13 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, ref, reactive, watch } from 'vue';
+import { QForm, QInput, QBtn, QIcon } from 'quasar';
+
+export default defineComponent({
   name: 'Login',
+  components: { QForm, QInput, QBtn, QIcon },
   props: {
     title: {
       type: String,
@@ -258,35 +266,59 @@ export default {
       type: String,
       default: '',
     },
-  },
-  data() {
-    return {
-      form: {
-        username: '',
-        password: '',
-      },
-      forget: false,
-      email: '',
-      loginModel: 'LOGIN',
-      loginIsPwd: true,
-      isPwd: {
-        newPwd: true,
-        rePwd: true,
-      },
-      resetError1: '',
-      resetError2: '',
-      reset: {
-        newPassword: '',
-        rePassword: '',
-      },
-    };
-  },
-  watch: {
-    modelType(val) {
-      this.loginModel = val;
+    loadingLogin: {
+      type: Boolean,
+      default: false,
+    },
+    loadingForget: {
+      type: Boolean,
+      default: false,
+    },
+    loadingReset: {
+      type: Boolean,
+      default: false,
     },
   },
-};
+  setup(props) {
+    const formLogin = reactive({
+      username: '',
+      password: '',
+    });
+
+    const formReset = reactive({
+      newPassword: '',
+      rePassword: '',
+    });
+
+    const forget = ref(false);
+
+    const email = ref('');
+
+    const loginModel = ref('LOGIN');
+
+    const visiblePwd = ref(true);
+
+    const visible = reactive({
+      newPwd: true,
+      rePwd: true,
+    });
+
+    watch(
+      () => props.modelType,
+      value => (loginModel.value = value)
+    );
+
+    return {
+      formLogin,
+      formReset,
+      forget,
+      email,
+      loginModel,
+      visiblePwd,
+      visible,
+    };
+  },
+});
 </script>
 
 <style lang="scss" scoped>
@@ -296,7 +328,7 @@ export default {
   box-shadow: 2px 18px 48px -34px #242424;
 }
 
-::v-deep .q-field__native {
+:deep(.q-field__native) {
   padding: 6px;
 }
 </style>

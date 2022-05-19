@@ -50,9 +50,13 @@
   </main>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { QCard, QCardSection } from 'quasar';
+
+export default defineComponent({
   name: 'BaseLayout',
+  components: { QCard, QCardSection },
   props: {
     title: {
       type: String,
@@ -80,13 +84,13 @@ export default {
       example: 'justify-content: space-between;',
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
   padding: 30px;
-  color: var(--q-color-primary);
+  color: var(--q-primary);
 }
 
 .head {
@@ -95,7 +99,7 @@ export default {
 
   .title {
     font-size: 20px;
-    border-bottom: 3px solid var(--q-color-primary);
+    border-bottom: 3px solid var(--q-primary);
   }
 
   .buttons {

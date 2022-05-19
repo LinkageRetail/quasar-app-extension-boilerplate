@@ -1,35 +1,13 @@
 {
   "name": "linkage-cms-ui",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "author": "Robby <ta7382@gmail.com>",
   "description": "Linkage CMS UI",
   "license": "MIT",
-  "scripts": {
-    "lint": "eslint --ext .js,.vue ui/src && eslint --ext .js,.vue ui/dev/src",
-    "lint:fix": "eslint --ext .js,.vue ui/src --fix && eslint --ext .js,.vue ui/dev/src --fix",
-    "stylelint": "stylelint ui/{src,dev/src}/**/**/**/*.{vue,css,sass,scss}",
-    "stylelint:fix": "stylelint ui/{src,dev/src}/**/**/**/*.{vue,css,sass,scss} --fix",
-    "lint:all": "npm run lint && npm run stylelint",
-    "lint:all:fix": "npm run lint:fix && npm run stylelint:fix",
-    "format": "prettier --write \"ui/{src,dev/src}/**/*.{js,vue,scss}\""
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/explooosion/quasar-app-extension-boilerplate"
   },
   "bugs": "https://github.com/explooosion/quasar-app-extension-boilerplate/issues",
-  "homepage": "https://github.com/explooosion/quasar-app-extension-boilerplate",
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-vue": "^7.7.0",
-    "prettier": "^2.6.0",
-    "stylelint": "^13.13.1",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-sass-guidelines": "^7.1.0",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.18.0"
-  }
+  "homepage": "https://github.com/explooosion/quasar-app-extension-boilerplate"
 }

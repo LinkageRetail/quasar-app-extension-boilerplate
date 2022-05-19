@@ -83,7 +83,7 @@
                     selected-color="primary"
                     @update:selected="onSelectedTree"
                     :nodes="treeNodesData"
-                    :selected.sync="treeSelectedData"
+                    v-model:selected="treeSelectedData"
                     :default-expand-all="treeExpandAll"
                   />
                 </template>
@@ -137,10 +137,17 @@
   </BaseLayout>
 </template>
 
-<script>
-import _ from 'lodash';
-export default {
+<script lang="ts">
+import { defineComponent, PropType, ref, watch } from 'vue';
+import { QCard, QCardSection, QSplitter, QTree, QTreeNode, QTabPanels, QTabPanel } from 'quasar';
+import { isNull } from 'lodash';
+
+import { useModelWrapper } from '../../../hooks';
+import BaseLayout from './BaseLayout.vue';
+
+export default defineComponent({
   name: 'DetailTreeLayout',
+  components: { BaseLayout, QCard, QCardSection, QSplitter, QTree, QTabPanels, QTabPanel },
   props: {
     title: {
       type: String,
@@ -159,7 +166,7 @@ export default {
       default: 20,
     },
     treeNodes: {
-      type: Array,
+      type: Array as PropType<Array<string | number>>,
       default: () => [],
     },
     treeLabel: {
@@ -175,52 +182,67 @@ export default {
       default: true,
     },
   },
-  data() {
+  setup(props, context) {
+    const splitterModelData = ref(useModelWrapper(props, context.emit, 'splitterModel'));
+    const treeSelectedData = ref(useModelWrapper(props, context.emit, 'treeSelected'));
+    const treeSelectedDataPrev = ref(useModelWrapper(props, context.emit, 'treeSelected'));
+    const panelSelected = ref(useModelWrapper(props, context.emit, 'treeSelected'));
+
+    const treeNodesData = ref<any>([
+      {
+        id: -1,
+        label: props.treeLabel,
+        children: props.treeNodes.map((label, id) => ({ id, label })),
+      },
+    ]);
+
+    const tree = ref();
+
+    const onSelectedTree = (val: string | number) => {
+      panelSelected.value = val;
+      context.emit('selected', val);
+    };
+
+    watch(
+      () => props.treeSelected,
+      val => {
+        treeSelectedData.value = val;
+        panelSelected.value = val;
+      }
+    );
+
+    watch(
+      () => props.treeLabel,
+      val => {
+        // Reexpand tree when label update
+        if (tree.value) tree.value.expandAll();
+
+        const node = (treeNodesData.value as QTreeNode<unknown>[]).find(data => data.id === -1);
+        if (node) node.label = val.toString();
+      }
+    );
+
+    watch(treeSelectedData, val => {
+      // If reverse click or select tree label, then set current panel
+      if (isNull(val) || val === treeNodesData.value[0].id) {
+        panelSelected.value = treeSelectedDataPrev.value;
+        treeSelectedData.value = treeSelectedDataPrev.value;
+      } else {
+        treeSelectedDataPrev.value = val;
+        context.emit('update:treeSelected', val);
+      }
+    });
+
     return {
-      splitterModelData: this.splitterModel,
-      treeNodesData: [
-        {
-          id: -1,
-          label: this.treeLabel,
-          children: this.treeNodes.map((label, id) => ({ id, label })),
-        },
-      ],
-      treeSelectedData: this.treeSelected,
-      treeSelectedDataPrev: this.treeSelected,
-      panelSelected: this.treeSelected,
+      splitterModelData,
+      treeSelectedData,
+      treeSelectedDataPrev,
+      panelSelected,
+      treeNodesData,
+      onSelectedTree,
     };
   },
-  methods: {
-    onSelectedTree(val) {
-      this.panelSelected = val;
-      this.$emit('selected', val);
-    },
-  },
-  watch: {
-    treeSelected(val) {
-      this.treeSelectedData = val;
-      this.panelSelected = val;
-    },
-    treeSelectedData(val) {
-      // If reverse click or select tree label, then set current panel
-      if (_.isNull(val) || val === this.treeNodesData[0].id) {
-        this.panelSelected = this.treeSelectedDataPrev;
-        this.treeSelectedData = this.treeSelectedDataPrev;
-      } else {
-        this.treeSelectedDataPrev = val;
-        this.$emit('update:treeSelected', val);
-      }
-    },
-    treeLabel(val) {
-      // Reexpand tree when label update
-      this.$refs['tree'].expandAll();
-      this.treeNodesData.find(data => data.id === -1).label = val;
-    },
-  },
-  components: {
-    BaseLayout: () => import('./BaseLayout'),
-  },
-};
+});
 </script>
 
 <style lang="scss" scoped>
@@ -250,7 +272,7 @@ export default {
 }
 
 // Tree container scrollable
-::v-deep .q-splitter__panel.q-splitter__before {
+:deep(.q-splitter__panel.q-splitter__before) {
   overflow: auto;
   min-width: 180px;
 
@@ -259,7 +281,7 @@ export default {
   }
 }
 
-::v-deep .q-splitter__panel.q-splitter__after {
+:deep(.q-splitter__panel.q-splitter__after) {
   overflow: auto;
 
   > .q-tab-panels {
@@ -270,14 +292,14 @@ export default {
 // Tree node
 .tree {
   overflow: auto;
-  color: var(--q-color-primary);
+  color: var(--q-primary);
 }
 
-::v-deep .q-tree__arrow {
+:deep(.q-tree__arrow) {
   color: #c7c7c7;
 }
 
-::v-deep .q-tree__node--selected {
+:deep(.q-tree__node--selected) {
   font-weight: bold;
   user-select: none;
 }

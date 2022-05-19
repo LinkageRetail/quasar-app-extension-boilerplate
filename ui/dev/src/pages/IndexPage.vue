@@ -17,21 +17,15 @@
   </q-page>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
+
 import pages from '../router/pages';
 
-export default {
-  data() {
-    return {
-      pages,
-    };
+export default defineComponent({
+  name: 'IndexPage',
+  setup() {
+    return { pages };
   },
-};
+});
 </script>
-
-<style lang="scss" scoped>
-.list {
-  width: 700px;
-  max-width: 100%;
-}
-</style>

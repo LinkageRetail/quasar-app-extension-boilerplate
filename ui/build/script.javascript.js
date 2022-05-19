@@ -10,6 +10,7 @@ const replace = require('@rollup/plugin-replace')
 const vue = require('rollup-plugin-vue')
 const postcss = require('rollup-plugin-postcss')
 const commonjs = require('@rollup/plugin-commonjs')
+const typescript = require('rollup-plugin-typescript')
 
 const { version } = require('../package.json')
 
@@ -24,7 +25,7 @@ const rollupPlugins = [
     }
   }),
   nodeResolve({
-    extensions: ['.js', '.vue'],
+    extensions: ['.ts', '.js', '.vue'],
     preferBuiltins: false
   }),
   vue({
@@ -32,6 +33,12 @@ const rollupPlugins = [
   }),
   postcss(),
   commonjs(),
+  // https://rollup-plugin-vue.vuejs.org/examples.html#typescript
+  typescript({
+    tsconfig: false,
+    experimentalDecorators: true,
+    module: 'es2015'
+  }),
   json(),
   buble({
     objectAssign: 'Object.assign'
@@ -143,12 +150,12 @@ function build(builds) {
 function genConfig(opts) {
   Object.assign(opts.rollup.input, {
     plugins: rollupPlugins,
-    external: ['vue', 'quasar']
+    external: ['vue', 'quasar', 'vue-router', 'lodash']
   })
 
   Object.assign(opts.rollup.output, {
     banner: buildConf.banner,
-    globals: { vue: 'Vue', quasar: 'Quasar' }
+    globals: { vue: 'Vue', quasar: 'Quasar', 'vue-router': 'vueRouter', lodash: '_' }
   })
 
   return opts

@@ -1,10 +1,12 @@
-<script>
+<script lang="ts">
+import { defineComponent, h } from 'vue';
 import { QInput } from 'quasar';
 
-export default {
+export default defineComponent({
   name: 'FieldInput',
-  extends: QInput,
+  components: { QInput },
   props: {
+    modelValue: {},
     dense: {
       type: Boolean,
       default: true,
@@ -48,7 +50,7 @@ export default {
     },
     rules: {
       type: Array,
-      default: () => [val => !!val],
+      default: () => [(val: any) => !!val],
     },
     clearable: {
       type: Boolean,
@@ -58,9 +60,33 @@ export default {
       type: String,
       default: '',
     },
+    error: {
+      type: Boolean,
+      default: false,
+    },
+    errorMessage: {
+      type: String,
+      default: '',
+    },
+    hint: {
+      type: String,
+      default: '',
+    },
   },
-};
+  emits: ['update:modelValue'],
+  setup(props, context) {
+    return () =>
+      /**
+       * @see https://vuejs.org/guide/extras/render-function.html#v-model
+       */
+      h(QInput, {
+        ...props,
+        'onUpdate:modelValue': (value: any) => context.emit('update:modelValue', value),
+      });
+  },
+});
 </script>
+
 <style lang="scss" scoped>
 .q-field {
   padding-bottom: 0;

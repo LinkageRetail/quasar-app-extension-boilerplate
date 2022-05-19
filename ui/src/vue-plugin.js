@@ -1,11 +1,11 @@
 import Editor from './components/Editor.vue';
 import FileUpload from './components/FileUpload.vue';
-import FormDialog from './components/FormDialog.vue';
 import Login from './components/Login.vue';
 import Table from './components/Table.vue';
 
 //#region Dialog
 
+import FormDialog from './components/FormDialog.vue';
 import ImageUpload from './components/Dialog/ImageUpload.vue';
 
 //#endregion
@@ -49,19 +49,19 @@ import DetailTabsLayout from './components/Layouts/Section/DetailTabsLayout.vue'
 function install(app) {
   app.component(Editor.name, Editor);
   app.component(FileUpload.name, FileUpload);
-  app.component(FormDialog.name, FormDialog);
   app.component(Login.name, Login);
   app.component(Table.name, Table);
 
   //#region Dialog
 
+  app.component(FormDialog.name, FormDialog);
   app.component(ImageUpload.name, ImageUpload);
 
   //#endregion
 
   //#region Input
 
-  // // Field
+  // Field
   app.component(FieldDate.name, FieldDate);
   app.component(FieldDateTime.name, FieldDateTime);
   app.component(FieldInput.name, FieldInput);
@@ -104,10 +104,10 @@ export {
   // Components
   Editor,
   FileUpload,
-  FormDialog,
   Login,
   Table,
   // Dialog
+  FormDialog,
   ImageUpload,
   // Input - Field
   FieldDate,

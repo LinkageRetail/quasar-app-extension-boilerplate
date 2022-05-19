@@ -1,7 +1,7 @@
 <template>
   <main class="wrapper" style="background: #f4f5f6">
     <!-- Header -->
-    <section class="relative-position row items-center head" style="padding: 0px 30px">
+    <section class="relative-position row items-center head" style="padding: 0 30px">
       <!-- Props title -->
       <div class="on-left text-weight-bold text-h6">{{ title }}</div>
 
@@ -11,7 +11,7 @@
       </div>
     </section>
     <!-- Tabs -->
-    <section v-if="tabNodesData.length > 0" class="q-mt-lg" style="padding: 0px 30px">
+    <section v-if="tabNodesData.length > 0" class="q-mt-lg" style="padding: 0 30px">
       <div class="relative-position">
         <q-tabs
           dense
@@ -48,9 +48,15 @@
   </main>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType, ref } from 'vue';
+import { QTabs, QTab, QTabPanels, QTabPanel, QCard, QCardSection, QSeparator } from 'quasar';
+
+import { useModelWrapper } from '../../../hooks';
+
+export default defineComponent({
   name: 'DetailTabsLayout',
+  components: { QTabs, QTab, QTabPanels, QTabPanel, QCard, QCardSection, QSeparator },
   props: {
     animated: {
       type: Boolean,
@@ -69,7 +75,7 @@ export default {
       default: true,
     },
     tabNodes: {
-      type: Array,
+      type: Array as PropType<Array<string | number>>,
       default: () => [],
     },
     tabSelected: {
@@ -77,19 +83,22 @@ export default {
       default: 0,
     },
   },
-  data() {
+  setup(props, context) {
+    const tabIndex = ref(useModelWrapper(props, context.emit, 'tabSelected'));
+    const tabNodesData = ref<any>(props.tabNodes.map((label, id) => ({ id, label })));
+
     return {
-      tabIndex: this.tabSelected,
-      tabNodesData: this.tabNodes.map((label, id) => ({ id, label })),
+      tabIndex,
+      tabNodesData,
     };
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
-  padding: 30px 0px;
-  color: var(--q-color-primary);
+  padding: 30px 0;
+  color: var(--q-primary);
 }
 .header-buttons {
   position: absolute;
@@ -104,7 +113,7 @@ export default {
   padding: 25px 30px;
 }
 .shadow-card {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 6px 0px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0 2px 6px 0;
 }
 .section-group {
   padding: 1.25rem 1.75rem;

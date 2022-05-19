@@ -1,10 +1,10 @@
 <template>
-  <div v-if="value && value.length !== 0" class="q-my-xs">
+  <div v-if="modelValue && modelValue.length !== 0" class="q-my-xs">
     <div v-if="title" class="q-px-md q-mt-md text-caption text-weight-regular" style="opacity: 0.3">
       {{ title }}
     </div>
     <q-expansion-item
-      v-for="(menu, index) in value"
+      v-for="(menu, index) in modelValue"
       expand-separator
       exact-active-class="exact-active-link"
       :ref="menu.label"
@@ -39,12 +39,23 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent, PropType } from 'vue';
+import { QExpansionItem } from 'quasar';
+
+interface IItem {
+  label: string;
+  path: string;
+  icon?: string;
+  children?: Array<IItem>;
+}
+
+export default defineComponent({
   name: 'Menu',
+  components: { QExpansionItem },
   props: {
-    value: {
-      type: Array,
+    modelValue: {
+      type: Array as PropType<Array<IItem>>,
       required: true,
     },
     title: {
@@ -52,31 +63,31 @@ export default {
       default: '',
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
-::v-deep .q-item__section--side > .q-icon {
+:deep(.q-item__section--side > .q-icon) {
   font-size: 22px;
 }
 
-::v-deep .hid-expand-icon {
+:deep(.hid-expand-icon) {
   display: none;
 }
 
-::v-deep .exact-active-link {
+:deep(.exact-active-link) {
   color: #fff;
   background-color: rgba(255, 255, 255, 0.15);
   opacity: 1 !important;
 }
 
-::v-deep .q-item {
+:deep(.q-item) {
   color: #fff;
   border-radius: 5px;
   opacity: 0.6;
 }
 
-::v-deep .active-header {
+:deep(.active-header) {
   color: #fff;
   opacity: 1 !important;
 }

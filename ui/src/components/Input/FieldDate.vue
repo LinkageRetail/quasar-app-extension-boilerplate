@@ -1,35 +1,35 @@
 <template>
-  <!-- This input date use for form field -->
   <q-input
-    ref="ref"
+    ref="refEl"
     dense
-    color="blue-8"
-    label-color="blue-8"
+    mask="date"
+    :color="color"
+    :bg-color="bgColor"
+    :label-color="labelColor"
     :filled="filled"
     :disable="disable"
     :readonly="readonly"
-    :mask="mask"
     :label="label"
     :rules="rulesData"
     :clearable="clearable"
-    :value="value"
     @change="handleChange"
     @clear="handleClear"
-    v-on="$listeners"
-    v-bind="[$attrs, $props]"
+    v-model="model"
   >
     <template #append>
-      <q-icon :name="icon" class="cursor-pointer">
+      <q-icon class="cursor-pointer" :name="icon">
         <q-popup-proxy
           ref="datePickProxy"
           :transition-show="transition"
           :transition-hide="transition"
         >
           <q-date
-            :title="parseTitle(value)"
-            :subtitle="parseSubTitle(value)"
-            :options="options"
+            :title="parseTitle(model)"
+            :subtitle="parseSubTitle(model)"
+            :options="optionsVal"
+            :mask="mask"
             @input="handleInput"
+            @update:model-value="handleInput"
             v-model="model"
           />
         </q-popup-proxy>
@@ -38,21 +38,30 @@
   </q-input>
 </template>
 
-<script>
-import { QInput, date } from 'quasar';
-import _ from 'loadsh';
+<script lang="ts">
+import { defineComponent, ref, computed, toRef } from 'vue';
+import { QInput, QIcon, QPopupProxy, QDate, date } from 'quasar';
 
-export default {
+import { useModelWrapper } from '../../hooks';
+
+export default defineComponent({
   name: 'FieldDate',
-  components: {
-    QInput,
-  },
+  components: { QInput, QIcon, QPopupProxy, QDate },
   props: {
-    ...QInput.props,
-    value: {
-      // v-model
+    modelValue: {
       type: [Number, String, Date],
-      default: '',
+    },
+    color: {
+      type: String,
+      default: 'blue-8',
+    },
+    bgColor: {
+      type: String,
+      default: null,
+    },
+    labelColor: {
+      type: String,
+      default: 'blue-8',
     },
     label: {
       type: String,
@@ -76,15 +85,15 @@ export default {
     },
     rules: {
       type: Array,
-      default: () => [val => !!val],
+      default: () => [(val: any) => !!val],
     },
     mask: {
       type: String,
-      default: 'date',
+      default: 'YYYY/MM/DD',
     },
     clearable: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     icon: {
       type: String,
@@ -106,38 +115,43 @@ export default {
       type: String,
       default: 'YYYY',
     },
-    options: {
-      type: [Array, Function, String, Date],
-      default: date => date,
-    },
+    options: {},
   },
-  data() {
+  setup(props, context) {
+    const refEl = ref();
+    const datePickProxy = ref();
+    const optionsVal: any = toRef(props, 'options');
+    const model = ref(useModelWrapper(props, context.emit, 'modelValue'));
+    const rulesData: any = computed(() => (props.required ? props.rules : []));
+    const hasError = computed(() => refEl.value?.hasError ?? false);
+
     return {
-      model: this.value, // Inner value for q-date
-      rulesData: this.required ? this.rules : [],
-      hasError: _.has(this.$refs['ref'], 'hasError') ? this.$refs['ref'].hasError : false,
+      refEl,
+      datePickProxy,
+      optionsVal,
+      model,
+      rulesData,
+      hasError,
+      handleChange(newVal: any) {
+        context.emit('update:modelValue', newVal);
+      },
+      handleInput(newVal: any) {
+        context.emit('update:modelValue', newVal);
+        if (props.autoHide) datePickProxy.value?.hide();
+      },
+      handleClear() {
+        context.emit('update:modelValue', null);
+      },
+      parseTitle(value: any) {
+        return value ? date.formatDate(value, props.formatTitle) : ' ';
+      },
+      parseSubTitle(value: any) {
+        return value ? date.formatDate(value, props.formatSubTitle) : ' ';
+      },
+      validate() {
+        return refEl.value?.validate();
+      },
     };
   },
-  methods: {
-    handleChange(newVal) {
-      this.$emit('input', newVal.target.value);
-    },
-    handleInput() {
-      this.$emit('input', this.model);
-      if (this.autoHide) this.$refs.datePickProxy.hide();
-    },
-    handleClear() {
-      this.$emit('input', null);
-    },
-    parseTitle(value) {
-      return value ? date.formatDate(value, this.formatTitle) : ' ';
-    },
-    parseSubTitle(value) {
-      return value ? date.formatDate(value, this.formatSubTitle) : ' ';
-    },
-    validate() {
-      return _.isFunction(this.$refs['ref'].validate) && this.$refs['ref'].validate();
-    },
-  },
-};
+});
 </script>

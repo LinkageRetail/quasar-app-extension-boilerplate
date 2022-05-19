@@ -3,7 +3,7 @@
     <DetailTabsLayout
       title="DetailTabsLayout"
       :tab-nodes="tabNodes"
-      :tab-selected.sync="tabSelected"
+      v-model:tab-selected="tabSelected"
     >
       <template #buttons>
         <q-btn unelevated no-caps color="primary" label="Back" />
@@ -16,13 +16,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+
+export default defineComponent({
+  name: 'DetailTabsLayoutPage',
+  setup() {
     return {
-      tabNodes: ['Panel0', 'Panel1', 'Panel2'],
-      tabSelected: 0,
+      tabNodes: ref(['Panel0', 'Panel1', 'Panel2']),
+      tabSelected: ref(0),
     };
   },
-};
+});
 </script>

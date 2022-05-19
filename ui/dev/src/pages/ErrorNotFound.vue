@@ -18,8 +18,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Error404',
-};
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'ErrorNotFound',
+});
 </script>
