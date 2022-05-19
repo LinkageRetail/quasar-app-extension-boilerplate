@@ -7,6 +7,10 @@ Compatible with Quasar UI v2 and Vue 3.
 
 `quasar ext add linkage-cms-ui@2`
 
+or
+
+`quasar ext add linkage-cms-ui@beta`
+
 # 目錄結構
 
 - [/ui](ui) - standalone npm package
