@@ -8,7 +8,11 @@
 # Install
 
 ```bash
-quasar ext add linkage-cms-ui
+quasar ext add linkage-cms-ui@2
+
+# or
+
+quasar ext add linkage-cms-ui@beta
 ```
 
 Quasar CLI will retrieve it from NPM and install the extension.
