@@ -4,6 +4,8 @@
     ref="ref"
     dense
     outlined
+    color="blue-8"
+    label-color="blue-8"
     :filled="filled"
     :disable="disable"
     :readonly="readonly"
