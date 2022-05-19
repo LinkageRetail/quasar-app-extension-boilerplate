@@ -1,6 +1,6 @@
 import { boot } from 'quasar/wrappers';
 import VuePlugin from 'quasar-ui-linkage-cms-ui';
 
-export default boot(({ Vue }) => {
-  Vue.use(VuePlugin);
+export default boot(({ app }) => {
+  app.use(VuePlugin);
 });
