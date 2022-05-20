@@ -49,8 +49,11 @@
 </template>
 
 <script>
+import { QTabs, QTab, QTabPanels, QTabPanel, QCard, QCardSection, QSeparator } from 'quasar';
+
 export default {
   name: 'DetailTabsLayout',
+  components: { QTabs, QTab, QTabPanels, QTabPanel, QCard, QCardSection, QSeparator },
   props: {
     animated: {
       type: Boolean,

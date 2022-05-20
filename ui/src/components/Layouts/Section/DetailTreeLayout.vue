@@ -138,9 +138,22 @@
 </template>
 
 <script>
+import { QCard, QCardSection, QSplitter, QTree, QTabPanels, QTabPanel } from 'quasar';
 import _ from 'lodash';
+
+import BaseLayout from './BaseLayout.vue';
+
 export default {
   name: 'DetailTreeLayout',
+  components: {
+    BaseLayout,
+    QCard,
+    QCardSection,
+    QSplitter,
+    QTree,
+    QTabPanels,
+    QTabPanel,
+  },
   props: {
     title: {
       type: String,

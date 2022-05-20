@@ -39,14 +39,12 @@
 </template>
 
 <script>
-import { QInput, date } from 'quasar';
+import { QInput, date, QIcon, QPopupProxy, QDate } from 'quasar';
 import _ from 'loadsh';
 
 export default {
   name: 'FieldDate',
-  components: {
-    QInput,
-  },
+  components: { QInput, QIcon, QPopupProxy, QDate },
   props: {
     ...QInput.props,
     value: {

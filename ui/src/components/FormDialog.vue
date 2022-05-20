@@ -55,8 +55,11 @@
 </template>
 
 <script>
+import { QDialog, QCard, QCardSection, QCardActions, QBtn } from 'quasar';
+
 export default {
   name: 'FormDialog',
+  components: { QDialog, QCard, QCardSection, QCardActions, QBtn },
   props: {
     title: {
       type: String,

@@ -122,8 +122,12 @@
 </template>
 
 <script>
+import { QCard, QCardSection } from 'quasar';
+import BaseLayout from './BaseLayout.vue';
+
 export default {
   name: 'DetailListLayout',
+  components: { BaseLayout, QCard, QCardSection },
   props: {
     title: {
       type: String,

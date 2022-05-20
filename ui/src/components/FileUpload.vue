@@ -30,10 +30,12 @@
 
 <script>
 import { mapState } from 'vuex';
+import { QUploader } from 'quasar';
 import _ from 'lodash';
 
 export default {
   name: 'FileUpload',
+  components: { QUploader },
   props: {
     api: {
       type: String,

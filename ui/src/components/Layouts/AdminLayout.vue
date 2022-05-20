@@ -69,10 +69,36 @@
 </template>
 
 <script>
-import { date } from 'quasar';
+import {
+  date,
+  QLayout,
+  QHeader,
+  QToolbar,
+  QToolbarTitle,
+  QBtn,
+  QAvatar,
+  QDrawer,
+  QSeparator,
+  QList,
+  QIcon,
+  QPageContainer,
+} from 'quasar';
 
 export default {
   name: 'AdminLayout',
+  components: {
+    QLayout,
+    QHeader,
+    QToolbar,
+    QToolbarTitle,
+    QBtn,
+    QAvatar,
+    QDrawer,
+    QSeparator,
+    QList,
+    QIcon,
+    QPageContainer,
+  },
   props: {
     userName: {
       type: String,

@@ -215,8 +215,11 @@
 </template>
 
 <script>
+import { QForm, QInput, QBtn, QIcon } from 'quasar';
+
 export default {
   name: 'Login',
+  components: { QForm, QInput, QBtn, QIcon },
   props: {
     title: {
       type: String,

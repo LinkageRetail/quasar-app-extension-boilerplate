@@ -51,8 +51,11 @@
 </template>
 
 <script>
+import { QCard, QCardSection } from 'quasar';
+
 export default {
   name: 'BaseLayout',
+  components: { QCard, QCardSection },
   props: {
     title: {
       type: String,

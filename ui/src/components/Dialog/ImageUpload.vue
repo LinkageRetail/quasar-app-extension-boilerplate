@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import { QDialog, QCard, QCardSection, QCardActions } from 'quasar';
 import FileUpload from '../FileUpload.vue';
 import FilterInput from '../Input/FilterInput.vue';
 
@@ -63,6 +64,10 @@ import FilterInput from '../Input/FilterInput.vue';
 export default {
   name: 'ImageUpload',
   components: {
+    QDialog,
+    QCard,
+    QCardSection,
+    QCardActions,
     FileUpload,
     FilterInput,
   },

@@ -40,8 +40,11 @@
 </template>
 
 <script>
+import { QExpansionItem } from 'quasar';
+
 export default {
   name: 'Menu',
+  components: { QExpansionItem },
   props: {
     value: {
       type: Array,

@@ -61,13 +61,11 @@
 </template>
 
 <script>
-import { date, QInput } from 'quasar';
+import { QInput, QIcon, QPopupProxy, QDate, QTime, date } from 'quasar';
 
 export default {
   name: 'FieldDateTime',
-  components: {
-    QInput,
-  },
+  components: { QInput, QIcon, QPopupProxy, QDate, QTime },
   props: {
     ...QInput,
     value: {

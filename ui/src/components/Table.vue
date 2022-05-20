@@ -86,10 +86,12 @@
 </template>
 
 <script>
+import { QTable, QBadge, QIcon } from 'quasar';
 import _ from 'lodash';
 
 export default {
   name: 'Table',
+  components: { QTable, QBadge, QIcon },
   props: {
     value: {
       type: Array, // .sync

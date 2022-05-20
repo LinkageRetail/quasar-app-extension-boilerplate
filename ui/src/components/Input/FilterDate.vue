@@ -34,12 +34,10 @@
 </template>
 
 <script>
-import { QInput, date } from 'quasar';
+import { QInput, QIcon, QPopupProxy, QDate, date } from 'quasar';
 export default {
   name: 'FilterDate',
-  components: {
-    QInput,
-  },
+  components: { QInput, QIcon, QPopupProxy, QDate },
   props: {
     ...QInput,
     value: {
