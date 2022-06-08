@@ -15,8 +15,7 @@
         <span class="text-black">{{ userName }}</span>
         <q-btn dense flat round class="q-ml-xs" @click="rightDrawerOpen = !rightDrawerOpen">
           <q-avatar class="bg-primary" size="26px">
-            <div>{{ userName.slice(0, 1) }}</div>
-            <!-- <img src="~assets/boy-avatar.png" /> -->
+            <div>{{ userNameAvatar }}</div>
           </q-avatar>
         </q-btn>
       </q-toolbar>
@@ -89,6 +88,7 @@ export default {
       rightDrawerOpen: false,
       leftDrawerwidth: 250,
       DateTime: date.formatDate(new Date(), 'DD, MMM YYYY HH:mm'),
+      userNameAvatar: '',
     };
   },
   created() {
@@ -96,6 +96,17 @@ export default {
       () => (this.DateTime = date.formatDate(new Date(), 'DD, MMM YYYY HH:mm')),
       1000 * 60
     );
+    this.getUserNameAvatar();
+  },
+  methods: {
+    getUserNameAvatar() {
+      const name = this.userName.trim();
+      if (name.length === 0) {
+        this.userNameAvatar = 'N';
+      } else {
+        this.userNameAvatar = userName.slice(0, 1);
+      }
+    },
   },
 };
 </script>
