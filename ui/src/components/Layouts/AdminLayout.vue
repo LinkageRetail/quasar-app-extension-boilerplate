@@ -104,7 +104,7 @@ export default {
       if (name.length === 0) {
         this.userNameAvatar = 'N';
       } else {
-        this.userNameAvatar = userName.slice(0, 1);
+        this.userNameAvatar = name.slice(0, 1);
       }
     },
   },
