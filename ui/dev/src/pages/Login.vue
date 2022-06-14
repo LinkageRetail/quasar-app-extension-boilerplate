@@ -5,6 +5,8 @@
       title="Ekbuy CMS"
       subtitle="BACKEND MANAGEMENT SYSTEM"
       version="Version: 1.0.0"
+      account-placeholder="Email Address"
+      password-placeholder="Password"
       :model-type="type"
       @login="login"
       @sendEmail="sendEmail"
