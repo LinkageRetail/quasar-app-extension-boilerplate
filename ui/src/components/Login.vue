@@ -33,9 +33,9 @@
             class="q-mt-lg"
             name="username"
             type="text"
-            placeholder="Email Address (compulsory)"
+            :placeholder="accountPlaceholder"
             v-model="form.username"
-            :rules="[val => (val && val.length > 0) || 'Please input Email Address']"
+            :rules="[val => (val && val.length > 0) || `Please input ${accountPlaceholder}`]"
           >
             <template #prepend>
               <q-icon name="person_outline" />
@@ -50,10 +50,10 @@
             name="username"
             :type="loginIsPwd ? 'password' : 'text'"
             autocomplete="off"
-            placeholder="Password (compulsory)"
+            :placeholder="passwordPlaceholder"
             v-model="form.password"
             @keyup.enter="$emit('login', form)"
-            :rules="[val => (val && val.length > 0) || 'Please input Password']"
+            :rules="[val => (val && val.length > 0) || `Please input Password`]"
           >
             <template #prepend>
               <q-icon name="o_lock" />
@@ -258,6 +258,14 @@ export default {
       default: '',
     },
     captionColor: {
+      type: String,
+      default: '',
+    },
+    accountPlaceholder: {
+      type: String,
+      default: '',
+    },
+    passwordPlaceholder: {
       type: String,
       default: '',
     },
