@@ -1,6 +1,6 @@
 {
   "name": "quasar-app-extension-linkage-cms-ui",
-  "version": "1.7.1",
+  "version": "1.8.1",
   "description": "A Quasar App Extension",
   "author": "Robby <ta7382@gmail.com>",
   "license": "MIT",
@@ -12,7 +12,7 @@
   "bugs": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate/issues",
   "homepage": "https://github.com/LinkageRetail/quasar-app-extension-boilerplate",
   "dependencies": {
-    "quasar-ui-linkage-cms-ui": "^1.7.1"
+    "quasar-ui-linkage-cms-ui": "^1.8.1"
   },
   "engines": {
     "node": ">= 10.18.1",
