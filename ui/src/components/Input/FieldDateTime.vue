@@ -148,6 +148,7 @@ export default {
     },
     handleClear() {
       this.$emit('input', null);
+      this.model = null;
     },
     parseTitle(value) {
       return value ? date.formatDate(value, this.formatTitle) : ' ';
