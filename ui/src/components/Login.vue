@@ -17,13 +17,13 @@
           style="letter-spacing: 1px"
           :style="{ color: titleColor }"
         >
-          Login to CMS
+          登入後台
         </div>
         <div
           class="text-subtitle1 text-weight-regular text-grey-6"
           :style="{ color: subtitleColor }"
         >
-          Sign in to your account
+          登入你的帳號
         </div>
         <section class="q-mb-md">
           <q-input
@@ -35,7 +35,7 @@
             type="text"
             :placeholder="accountPlaceholder"
             v-model="form.username"
-            :rules="[val => (val && val.length > 0) || `Please input ${accountPlaceholder}`]"
+            :rules="[val => (val && val.length > 0) || `請輸入 ${accountPlaceholder}`]"
           >
             <template #prepend>
               <q-icon name="person_outline" />
@@ -53,7 +53,7 @@
             :placeholder="passwordPlaceholder"
             v-model="form.password"
             @keyup.enter="$emit('login', form)"
-            :rules="[val => (val && val.length > 0) || `Please input Password`]"
+            :rules="[val => (val && val.length > 0) || `請輸入密碼`]"
           >
             <template #prepend>
               <q-icon name="o_lock" />
@@ -67,7 +67,7 @@
             </template>
           </q-input>
         </section>
-        <div class="q-mt-md flex justify-end">
+        <div v-if="enableForgetPassword" class="q-mt-md flex justify-end">
           <div
             class="cursor-pointer text-grey-8"
             :style="{ color: captionColor }"
@@ -80,7 +80,7 @@
           unelevated
           class="q-mt-lg q-px-lg"
           :color="buttonColor"
-          label="Login"
+          label="登入"
           @click="$emit('login', form)"
         />
       </q-form>
@@ -265,6 +265,10 @@ export default {
     passwordPlaceholder: {
       type: String,
       default: '',
+    },
+    enableForgetPassword: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

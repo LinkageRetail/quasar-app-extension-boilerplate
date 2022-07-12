@@ -56,7 +56,7 @@
       <div class="absolute-bottom text-center">
         <q-separator />
         <div class="q-py-lg text-grey-9 text-h6 cursor-pointer" @click="$emit('logout')">
-          <q-icon name="logout" size="30px" class="q-mr-sm" />Logout
+          <q-icon name="logout" size="30px" class="q-mr-sm" />登出
         </div>
       </div>
     </q-drawer>

@@ -39,6 +39,7 @@
     :row-key="rowKey"
     :class="tableHeaderDark && 'table-header-dark'"
     :table-header-class="tableHeaderClass"
+    :rows-per-page-label="rowsPerPageLabel"
     :flat="flat"
     :hide-bottom="hideBottom"
     :data="list"
@@ -196,6 +197,10 @@ export default {
       // 如果為 true, 則套用 class='table-header-dark'
       type: Boolean,
       default: false,
+    },
+    rowsPerPageLabel: {
+      type: String,
+      default: '每頁紀錄',
     },
     flat: {
       type: Boolean,
