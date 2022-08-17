@@ -4,8 +4,8 @@
       dense
       filled
       autofocus
-      color="blue-8"
-      label-color="blue-8"
+      color="primary"
+      label-color="primary"
       hint="Use buttons to close"
       :type="type"
       :error="error"

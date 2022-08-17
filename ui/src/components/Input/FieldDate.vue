@@ -53,7 +53,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: 'blue-8',
+      default: 'primary',
     },
     bgColor: {
       type: String,
@@ -61,7 +61,7 @@ export default defineComponent({
     },
     labelColor: {
       type: String,
-      default: 'blue-8',
+      default: 'primary',
     },
     label: {
       type: String,

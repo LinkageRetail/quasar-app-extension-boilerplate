@@ -17,11 +17,11 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: 'blue-8',
+      default: 'primary',
     },
     labelColor: {
       type: String,
-      default: 'blue-8',
+      default: 'primary',
     },
     lazyRules: {
       type: Boolean,
