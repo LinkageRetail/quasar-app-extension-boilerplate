@@ -15,8 +15,7 @@
         <span class="text-black">{{ userName }}</span>
         <q-btn dense flat round class="q-ml-xs" @click="rightDrawerOpen = !rightDrawerOpen">
           <q-avatar class="bg-primary" size="26px">
-            <div>{{ userName.slice(0, 1) }}</div>
-            <!-- <img src="~assets/boy-avatar.png" /> -->
+            <div>{{ userNameAvatar }}</div>
           </q-avatar>
         </q-btn>
       </q-toolbar>
@@ -103,17 +102,28 @@ export default defineComponent({
   props: {
     userName: {
       type: String,
-      default: 'Admin',
+      default: '',
     },
     bgColor: {
       type: String,
       default: '#f4f5f6',
     },
   },
-  setup() {
+  setup(props) {
     const dateTime = ref(date.formatDate(new Date(), 'DD, MMM YYYY HH:mm'));
+    const userNameAvatar = ref('');
+
+    const getUserNameAvatar = () => {
+      const name = props.userName.trim();
+      if (name.length === 0) {
+        userNameAvatar.value = 'N';
+      } else {
+        userNameAvatar.value = name.slice(0, 1);
+      }
+    };
 
     onMounted(() => {
+      getUserNameAvatar();
       setInterval(
         () => (dateTime.value = date.formatDate(new Date(), 'DD, MMM YYYY HH:mm')),
         1000 * 60
@@ -121,6 +131,7 @@ export default defineComponent({
     });
 
     return {
+      userNameAvatar,
       leftDrawerOpen: ref(true),
       rightDrawerOpen: ref(false),
       leftDrawerwidth: ref(250),
