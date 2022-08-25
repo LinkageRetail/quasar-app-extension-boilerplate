@@ -11,17 +11,33 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
-    filled: {
+    rounded: {
+      type: Boolean,
+      default: false,
+    },
+    borderless: {
       type: Boolean,
       default: true,
     },
+    filled: {
+      type: Boolean,
+      default: false,
+    },
+    outlined: {
+      type: Boolean,
+      default: false,
+    },
     color: {
       type: String,
-      default: 'primary',
+      default: 'grey-13',
+    },
+    bgColor: {
+      type: String,
+      default: 'grey-11',
     },
     labelColor: {
       type: String,
-      default: 'primary',
+      require: false,
     },
     lazyRules: {
       type: Boolean,
@@ -29,12 +45,7 @@ export default defineComponent({
     },
     label: {
       type: String,
-      default: '',
       require: false,
-    },
-    borderless: {
-      type: Boolean,
-      default: false,
     },
     disable: {
       type: Boolean,
@@ -48,6 +59,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    required: {
+      type: Boolean,
+      default: false,
+    },
     rules: {
       type: Array,
       default: () => [(val: any) => !!val],
@@ -58,19 +73,23 @@ export default defineComponent({
     },
     prefix: {
       type: String,
-      default: '',
-    },
-    error: {
-      type: Boolean,
-      default: false,
-    },
-    errorMessage: {
-      type: String,
-      default: '',
+      require: false,
     },
     hint: {
       type: String,
-      default: '',
+      require: false,
+    },
+    noErrorIcon: {
+      type: Boolean,
+      default: true,
+    },
+    hideBottomSpace: {
+      type: Boolean,
+      default: true,
+    },
+    inputClass: {
+      type: String || Array || Object,
+      require: false,
     },
   },
   emits: ['update:modelValue'],
@@ -82,17 +101,10 @@ export default defineComponent({
       h(QInput, {
         ...props,
         'onUpdate:modelValue': (value: any) => context.emit('update:modelValue', value),
+        rules: props.required ? props.rules : [],
       });
   },
 });
 </script>
 
-<style lang="scss" scoped>
-.q-field {
-  padding-bottom: 0;
-
-  .q-field__bottom {
-    display: none;
-  }
-}
-</style>
+<style scoped lang="scss" src="../../css/input.scss"></style>

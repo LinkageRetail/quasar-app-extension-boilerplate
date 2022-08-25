@@ -34,7 +34,7 @@
             name="username"
             type="text"
             placeholder="Email Address (compulsory)"
-            :rules="[val => (val && val.length > 0) || 'Please input Email Address']"
+            :rules="[(val:any) => (val && val.length > 0) || 'Please input Email Address']"
             v-model="formLogin.username"
           >
             <template #prepend>
@@ -51,7 +51,7 @@
             autocomplete="off"
             placeholder="Password (compulsory)"
             :type="visiblePwd ? 'password' : 'text'"
-            :rules="[val => (val && val.length > 0) || 'Please input Password']"
+            :rules="[(val:any) => (val && val.length > 0) || 'Please input Password']"
             @keyup.enter="$emit('login', formLogin)"
             v-model="formLogin.password"
           >
@@ -111,7 +111,7 @@
           name="username"
           type="text"
           placeholder="Email Address"
-          :rules="[val => (val && val.length > 0) || 'Please input Email Address']"
+          :rules="[(val:any) => (val && val.length > 0) || 'Please input Email Address']"
           v-model="email"
         >
           <template #prepend>
@@ -150,7 +150,7 @@
           autocomplete="new-password"
           placeholder="Enter New Password"
           :type="visible.newPwd ? 'password' : 'text'"
-          :rules="[val => (val && val.length > 0) || 'Please input new password']"
+          :rules="[(val:any) => (val && val.length > 0) || 'Please input new password']"
           v-model="formReset.newPassword"
         >
           <template #prepend>
@@ -176,8 +176,8 @@
           placeholder="Enter Confirm Password"
           :type="visible.rePwd ? 'password' : 'text'"
           :rules="[
-            val => (val && val.length > 0) || 'Please input confirm password',
-            val =>
+            (val:any) => (val && val.length > 0) || 'Please input confirm password',
+            (val:any) =>
               val === formReset.newPassword || 'Confirm password must be same as the new password',
           ]"
           v-model="formReset.rePassword"

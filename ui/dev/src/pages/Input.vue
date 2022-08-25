@@ -3,31 +3,67 @@
     <div class="q-gutter-y-md" style="max-width: 600px">
       <div>
         <div class="text-h6">Field</div>
-        <div class="text-body1">用於表單填寫欄位, 需要驗證的欄位</div>
+        <div class="text-body1">用於表單填寫欄位</div>
       </div>
-      <FieldDate ref="aaa" label="FieldDate" v-model="FieldDate" />
-      {{ FieldDate }}
-      <FieldDateTime label="FieldDateTime" v-model="FieldDateTime" />
-      {{ FieldDateTime }}
-      <FieldInput label="FieldInput" v-model="FieldInput" />
-      {{ FieldInput }}
-      <FieldSelect label="FieldSelect" :options="['Red', 'Blue']" v-model="FieldSelect" />
-      {{ FieldSelect }}
-
-      <hr />
-
-      <div>
-        <div class="text-h6">Filter</div>
-        <div class="text-body1">用於查詢欄位, 不會進行數值驗證</div>
+      <div style="height: 55px">
+        <FieldDate placeholder="FieldDate" v-model="FieldDate" />
+        <span class="text-caption text-grey-7">{{ FieldDate }}</span>
       </div>
-      <FilterDate label="FilterDate" v-model="FilterDate" />
-      {{ FilterDate }}
-      <FilterDateTime label="FilterDateTime" v-model="FilterDateTime" />
-      {{ FilterDateTime }}
-      <FilterInput label="FilterInput" v-model="FilterInput" />
-      {{ FilterInput }}
-      <FilterSelect label="FilterSelect" :options="['Red', 'Blue']" v-model="FilterSelect" />
-      {{ FilterSelect }}
+      <div style="height: 55px">
+        <FieldDateTime rounded placeholder="FieldDateTime" v-model="FieldDateTime" />
+        <span class="text-caption text-grey-7">{{ FieldDateTime }}</span>
+      </div>
+      <div style="height: 55px">
+        <FieldInput placeholder="FieldInput" v-model="FieldInput" />
+        <span class="text-caption text-grey-7">{{ FieldInput }}</span>
+      </div>
+
+      <div style="height: 55px">
+        <FieldSelect placeholder="FieldSelect" :options="['Red', 'Blue']" v-model="FieldSelect" />
+        <span class="text-caption text-grey-7">{{ FieldSelect }}</span>
+      </div>
+
+      <div style="height: 55px">
+        <FieldDate outlined placeholder="FieldDate - outlined" v-model="FieldDateOutlined" />
+        <span class="text-caption text-grey-7">{{ FieldDateOutlined }}</span>
+      </div>
+      <div style="height: 55px">
+        <FieldDateTime
+          outlined
+          rounded
+          placeholder="FieldDateTime - outlined"
+          v-model="FieldDateTimeOutlined"
+        />
+        <span class="text-caption text-grey-7">{{ FieldDateTimeOutlined }}</span>
+      </div>
+      <div style="height: 55px">
+        <FieldInput
+          outlined
+          required
+          placeholder="FieldInput - outlined"
+          v-model="FieldInputOutlined"
+        />
+        <span class="text-caption text-grey-7"> required {{ FieldInputOutlined }}</span>
+      </div>
+      <div style="height: 55px">
+        <FieldInput
+          outlined
+          placeholder="FieldInput - outlined - bg-white"
+          bgColor="bg-white"
+          v-model="FieldInputOutlined"
+        />
+        <span class="text-caption text-grey-7"> {{ FieldInputOutlined }}</span>
+      </div>
+      <div style="height: 55px">
+        <FieldSelect
+          outlined
+          required
+          placeholder="FieldSelect - outlined"
+          :options="['Red', 'Blue']"
+          v-model="FieldSelectOutlined"
+        />
+        <span class="text-caption text-grey-7"> required{{ FieldSelectOutlined }}</span>
+      </div>
 
       <hr />
 
@@ -85,16 +121,16 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   setup() {
     return {
-      // Field
+      // Field - Standard
       FieldDate: ref(null),
       FieldDateTime: ref(null),
       FieldInput: ref(null),
       FieldSelect: ref(null),
-      // Filter
-      FilterDate: ref(null),
-      FilterDateTime: ref(null),
-      FilterInput: ref(null),
-      FilterSelect: ref(null),
+      // Field - Outlined
+      FieldDateOutlined: ref(null),
+      FieldDateTimeOutlined: ref(null),
+      FieldInputOutlined: ref(null),
+      FieldSelectOutlined: ref(null),
       // Popup
       PopupDate: ref(null),
       PopupEditInput: ref(null),
