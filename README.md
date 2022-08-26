@@ -3,13 +3,13 @@
 
 Compatible with Quasar UI v2 and Vue 3.
 
-組件庫目前仍以 v1 為主要版本，如果需要安裝 [v2](https://github.com/LinkageRetail/quasar-app-extension-boilerplate/tree/v2) 版本，請指定版本：
+組件庫目前仍以 v1 為主要版本，如果需要安裝 [v3](https://github.com/LinkageRetail/quasar-app-extension-boilerplate/tree/v3) 版本，請指定版本：
 
-`quasar ext add linkage-cms-ui@2`
+`quasar ext add linkage-cms-ui@3`
 
 or
 
-`quasar ext add linkage-cms-ui@beta`
+`quasar ext add linkage-cms-ui@alpha`
 
 # 目錄結構
 
@@ -38,15 +38,15 @@ cd ui && yarn dev
 - 請確認發行前的 `package.json` 版本
 
 ```sh
-cd ./app-extension && npm publish --tag beta
+cd ./app-extension && npm publish --tag alpha
 ```
 
 ```sh
-cd ./ui && npm run build && npm publish --tag beta
+cd ./ui && npm run build && npm publish --tag alpha
 ```
 
-由於 npm publish 指令有添加 --tag beta, 因此不影響 v1 版本.
-如果發現版本 latest 指向到 v2, 請將 v1 版本設置回 lastest
+由於 npm publish 指令有添加 --tag alpha, 因此不影響 v1 版本.
+如果發現版本 latest 指向到 v3, 請將 v1 版本設置回 lastest
 
 ```sh
 npm dist-tag add quasar-ui-linkage-cms-ui@1.x.x latest
