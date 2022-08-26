@@ -1,17 +1,24 @@
 <template>
   <q-input
     ref="refEl"
-    dense
     mask="datetime"
+    :dense="dense"
+    :rounded="rounded"
     :color="color"
     :bg-color="bgColor"
     :label-color="labelColor"
+    :borderless="borderless"
     :filled="filled"
+    :outlined="outlined"
     :disable="disable"
     :readonly="readonly"
     :label="label"
     :rules="rulesData"
+    :lazyRules="lazyRules"
     :clearable="clearable"
+    :noErrorIcon="noErrorIcon"
+    :hide-bottom-space="hideBottomSpace"
+    :input-class="inputClass"
     @change="handleChange"
     @clear="handleClear"
     v-model="model"
@@ -72,35 +79,52 @@ export default defineComponent({
     modelValue: {
       type: [Number, String, Date],
     },
+    dense: {
+      type: Boolean,
+      default: true,
+    },
+    rounded: {
+      type: Boolean,
+      default: false,
+    },
     color: {
       type: String,
-      default: 'primary',
+      default: 'grey-13',
     },
     bgColor: {
       type: String,
-      default: null,
+      default: 'grey-11',
     },
     labelColor: {
       type: String,
-      default: 'primary',
+      required: false,
     },
     label: {
       type: String,
-      required: true,
+      required: false,
+    },
+    borderless: {
+      type: Boolean,
+      default: true,
     },
     filled: {
       type: Boolean,
-      default: true,
+      default: false,
     },
-    required: {
+    outlined: {
       type: Boolean,
-      default: true,
+      default: false,
     },
+
     disable: {
       type: Boolean,
       default: false,
     },
     readonly: {
+      type: Boolean,
+      default: false,
+    },
+    required: {
       type: Boolean,
       default: false,
     },
@@ -139,6 +163,22 @@ export default defineComponent({
     formatSubTitle: {
       type: String,
       default: 'YYYY',
+    },
+    noErrorIcon: {
+      type: Boolean,
+      default: true,
+    },
+    hideBottomSpace: {
+      type: Boolean,
+      default: true,
+    },
+    inputClass: {
+      type: String || Array || Object,
+      require: false,
+    },
+    lazyRules: {
+      type: Boolean,
+      default: true,
     },
     options: {},
   },
@@ -185,3 +225,5 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped lang="scss" src="../../css/input.scss"></style>

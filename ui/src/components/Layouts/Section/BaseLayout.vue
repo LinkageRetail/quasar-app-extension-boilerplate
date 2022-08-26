@@ -5,43 +5,35 @@
 
   <main class="wrapper">
     <!-- Header -->
-    <section class="row items-center head">
-      <!-- Props title -->
-      <div class="title on-left text-weight-bold">{{ title }}</div>
-      <nav class="navs" v-if="navs">
-        <!-- Slot navs -->
-        <slot name="navs" />
-      </nav>
-      <div class="buttons" v-if="buttons">
-        <!-- Slot buttons -->
-        <slot name="buttons" />
-      </div>
-    </section>
-
-    <!-- Search -->
-    <section class="search" v-if="search">
-      <q-card flat bordered>
-        <q-card-section
-          class="row justify-between q-gutter-y-sm q-gutter-x-md search-section"
-          :style="searchStyle"
+    <q-card flat class="q-pa-lg q-mb-md">
+      <section class="flex items-center justify-between" style="margin-bottom: 32px">
+        <!-- Props title -->
+        <div
+          class="text-h6 text-weight-bold text-black text-weight-regular on-left"
+          :class="titleClass"
+          :style="titleStyle"
         >
-          <!-- Slot search -->
-          <slot name="search" />
-          <!-- Example -->
-          <!-- <div class="col-12 col-sm-5 col-md-2 q-gutter-y-xs">
-            <b>Memo Date</b>
-            <FilterDate v-model="filter.memoDateStart" />
-            <FilterDate v-model="filter.memoDateEnd" />
-          </div> -->
-          <div class="navs">
-            <div @click="$emit('search')">{{ searchLabel }}</div>
-          </div>
-        </q-card-section>
-      </q-card>
-    </section>
+          {{ title }}
+        </div>
+
+        <!-- Button -->
+        <div class="buttons" v-if="buttons">
+          <!-- Slot buttons -->
+          <slot name="buttons" />
+        </div>
+      </section>
+
+      <section v-if="search">
+        <slot name="search" />
+      </section>
+    </q-card>
 
     <!-- Content -->
-    <section class="content">
+    <section
+      class="content text-grey-9 text-body2 text-weight-regular"
+      :class="contentClass"
+      :style="contentStyle"
+    >
       <!-- Slot default -->
       <slot />
       <!-- Slot content -->
@@ -52,36 +44,39 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { QCard, QCardSection } from 'quasar';
 
 export default defineComponent({
   name: 'BaseLayout',
-  components: { QCard, QCardSection },
   props: {
     title: {
       type: String,
       default: '',
     },
-    navs: {
-      type: Boolean,
-      default: true,
+    titleStyle: {
+      type: String,
+      default: '',
+      example: 'justify-content: space-between;',
+    },
+    titleClass: {
+      type: String,
+      default: '',
     },
     buttons: {
       type: Boolean,
       default: true,
     },
-    search: {
-      type: Boolean,
-      default: false,
-    },
-    searchLabel: {
-      type: String,
-      default: 'filter',
-    },
-    searchStyle: {
+    contentStyle: {
       type: String,
       default: '',
       example: 'justify-content: space-between;',
+    },
+    contentClass: {
+      type: String,
+      default: '',
+    },
+    search: {
+      type: Boolean,
+      default: true,
     },
   },
 });
@@ -90,71 +85,5 @@ export default defineComponent({
 <style lang="scss" scoped>
 .wrapper {
   padding: 30px;
-  color: var(--q-primary);
-}
-
-.head {
-  position: relative;
-  margin-bottom: 1.5rem;
-
-  .title {
-    font-size: 20px;
-    border-bottom: 3px solid var(--q-primary);
-  }
-
-  .buttons {
-    position: absolute;
-    top: 0;
-    right: 0;
-
-    > button {
-      margin-left: 0.5rem;
-    }
-  }
-}
-
-.search {
-  position: relative;
-  margin-bottom: 1rem;
-
-  .search-section {
-    // fix last item position to be left
-    &::after {
-      content: '';
-      flex: auto;
-    }
-  }
-
-  .navs {
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-  }
-}
-
-.navs {
-  // Use for navs
-  //
-  // Usage:
-  // <div class="navs">
-  //   <div>link1</div>
-  //   <div>link2</div>
-  // </div>
-  //
-  // DEMO:
-  // | link1 | link2 |
-  display: flex;
-  align-items: center;
-
-  > div {
-    text-decoration: underline;
-    cursor: pointer;
-
-    &:first-child::before,
-    &::after {
-      content: '|';
-      margin: 0 0.25rem;
-    }
-  }
 }
 </style>

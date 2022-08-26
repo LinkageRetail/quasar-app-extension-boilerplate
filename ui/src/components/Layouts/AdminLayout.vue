@@ -1,50 +1,67 @@
 <template>
-  <q-layout view="lHh LpR fFf" :style="{ background: bgColor }">
-    <q-header elevated class="bg-white text-white header">
+  <q-layout view="lHh LpR fFf" class="bg-secondary" :style="{ background: bgColor }">
+    <q-header bordered class="bg-white">
       <q-toolbar>
-        <q-toolbar-title class="flex no-wrap items-center">
+        <q-btn
+          dense
+          flat
+          round
+          icon="menu"
+          class="text-grey-8"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
+
+        <q-space />
+
+        <q-separator vertical />
+
+        <section class="flex items-center q-pl-md text-caption">
+          <!-- User Avatar -->
+          <q-avatar class="bg-primary text-white" size="24px">
+            <div>{{ userNameAvatar }}</div>
+          </q-avatar>
+          <!-- User Name -->
+          <div class="text-grey-8 q-ml-md" style="letter-spacing: 0.1em">
+            {{ userName }}
+          </div>
           <q-btn
             dense
             flat
             round
-            icon="menu"
-            class="text-black"
-            @click="leftDrawerOpen = !leftDrawerOpen"
+            size="12px"
+            icon="logout"
+            class="text-grey-8 q-ml-lg"
+            @click="$emit('logout')"
           />
-        </q-toolbar-title>
-        <span class="text-black">{{ userName }}</span>
-        <q-btn dense flat round class="q-ml-xs" @click="rightDrawerOpen = !rightDrawerOpen">
-          <q-avatar class="bg-primary" size="26px">
-            <div>{{ userNameAvatar }}</div>
-          </q-avatar>
-        </q-btn>
+        </section>
       </q-toolbar>
     </q-header>
 
     <q-drawer
       show-if-above
+      bordered
       side="left"
-      class="bg-primary q-px-sm"
+      class="bg-white"
       :width="leftDrawerwidth"
       v-model="leftDrawerOpen"
     >
       <div class="column no-wrap justify-between full-height">
         <div>
-          <div class="flex items-center" style="height: 50px">
+          <div class="flex items-center" style="height: 80px">
             <slot name="left-drawer-header" />
           </div>
-          <q-separator color="white" style="opacity: 0.1" />
+          <q-separator color="grey-11" />
 
-          <q-list dark class="text-weight-regular text-caption">
+          <q-list class="q-px-md">
             <!-- # Menu List -->
             <slot name="menu-list" />
           </q-list>
         </div>
 
-        <div class="footer">
+        <div class="footer text-grey-8 q-pa-md">
           <!-- # Left Drawer Footer -->
           <slot name="left-drawer-footer" />
-          <div>{{ dateTime }}</div>
+          <div v-if="systemTime">{{ dateTime }}</div>
         </div>
       </div>
     </q-drawer>
@@ -53,12 +70,12 @@
       <!-- # Right Drawer -->
       <slot name="right-drawer" />
 
-      <div class="absolute-bottom text-center">
+      <!-- <div class="absolute-bottom text-center">
         <q-separator />
         <div class="q-py-lg text-grey-9 text-h6 cursor-pointer" @click="$emit('logout')">
           <q-icon name="logout" size="30px" class="q-mr-sm" />Logout
         </div>
-      </div>
+      </div> -->
     </q-drawer>
 
     <q-page-container>
@@ -74,13 +91,11 @@ import {
   QLayout,
   QHeader,
   QToolbar,
-  QToolbarTitle,
   QBtn,
   QAvatar,
   QDrawer,
   QSeparator,
   QList,
-  QIcon,
   QPageContainer,
 } from 'quasar';
 
@@ -90,13 +105,11 @@ export default defineComponent({
     QLayout,
     QHeader,
     QToolbar,
-    QToolbarTitle,
     QBtn,
     QAvatar,
     QDrawer,
     QSeparator,
     QList,
-    QIcon,
     QPageContainer,
   },
   props: {
@@ -106,7 +119,11 @@ export default defineComponent({
     },
     bgColor: {
       type: String,
-      default: '#f4f5f6',
+      default: '',
+    },
+    systemTime: {
+      type: Boolean,
+      default: true,
     },
   },
   setup(props) {
@@ -142,18 +159,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-:deep(.q-layout__shadow) {
-  &::after {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+:deep(.q-header--bordered) {
+  border-bottom: 2px solid #f5f5f5;
+}
+
+:deep(.q-drawer--left.q-drawer--bordered) {
+  border-right: 1px solid #f5f5f5;
 }
 
 .footer {
-  margin-top: 50px;
-  padding: 1rem;
   font-size: 12px;
-  color: #fff;
-  opacity: 0.4;
   line-height: 20px;
 }
 </style>

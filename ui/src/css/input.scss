@@ -1,0 +1,61 @@
+:deep(.q-field__control) {
+  overflow: hidden;
+  border-radius: 5px;
+
+  //  Borderless Style
+  .q-field--borderless & {
+    padding: 0 12px !important;
+    &.text-negative {
+      color: var(--q-negative) !important;
+      &::before,
+      &::after {
+        border: 1px solid;
+      }
+    }
+  }
+
+  // Outlined style
+  .q-field--outlined & {
+    // 靜態邊框
+    &::before {
+      border-color: $grey-13;
+    }
+    // Focus 邊框
+    &::after {
+      border-width: 1px !important;
+    }
+    &:hover {
+      &::before {
+        border-color: $grey-13;
+      }
+    }
+  }
+
+  .q-field__marginal > .q-icon {
+    font-size: 22px;
+  }
+}
+
+// 調整 dense 高度
+.q-field--dense {
+  &.q-field--auto-height {
+    :deep(.q-field__native),
+    :deep(.q-field__control) {
+      min-height: 32px;
+    }
+  }
+  :deep(.q-field__control),
+  :deep(.q-field__marginal) {
+    height: 32px;
+  }
+}
+
+// Input placeholder Style
+:deep(::placeholder) {
+  color: $grey-6;
+}
+
+// input 隱藏底部空間
+:deep(.q-field__bottom) {
+  display: none;
+}

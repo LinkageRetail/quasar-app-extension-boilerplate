@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="bg-primary" style="width: 300px">
+    <div class="bg-white" style="width: 300px">
       <Menu v-model="home" />
       <Menu v-model="management" />
     </div>
