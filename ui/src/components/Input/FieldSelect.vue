@@ -39,14 +39,14 @@
         {{ model }}
       </template>
       <template v-else>
-        <span class="text-grey-9" style="opacity: 0.4">{{ placeholder }}</span>
+        <span class="text-grey-9">{{ placeholder }}</span>
       </template>
     </template>
 
     <!-- TODO: 選項分組 待確認 -->
     <!-- <template v-slot:option="scope">
       <section class="q-px-md q-mt-md">
-        <div class="text-caption text-grey-9" style="opacity: 0.4">A</div>
+        <div class="text-caption text-grey-9" >A</div>
         <q-separator color="grey-11" />
       </section>
       <q-list dense>

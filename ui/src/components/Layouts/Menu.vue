@@ -1,18 +1,13 @@
 <template>
   <div v-if="modelValue && modelValue.length !== 0" class="q-py-md">
-    <div
-      v-if="title"
-      class="q-px-md q-mb-sm text-caption text-weight-regular text-grey-9"
-      style="letter-spacing: 0.1em; opacity: 0.4"
-    >
+    <div v-if="title" class="q-px-md q-mb-sm text-caption text-weight-regular text-grey-6">
       {{ title }}
     </div>
     <section class="q-col-gutter-y-md">
       <q-expansion-item
         v-for="(menu, index) in modelValue"
         dense
-        class="text-grey-9 text-subtitle2 text-weight-regular"
-        style="opacity: 0.8"
+        class="text-grey-8 text-subtitle2 text-weight-regular"
         :ref="menu.label"
         :group="title ? title : ''"
         :key="'menu' + index"
@@ -29,7 +24,7 @@
           <q-expansion-item
             v-for="(item, itemIndex) in menu.children"
             dense
-            class="text-grey-9 text-subtitle2 text-weight-regular"
+            class="text-grey-8 text-subtitle2 text-weight-regular"
             :key="'menu-item' + itemIndex"
             :header-inset-level="1"
             :expand-icon-class="item.children && item.children.length > 0 ? '' : 'hid-expand-icon'"

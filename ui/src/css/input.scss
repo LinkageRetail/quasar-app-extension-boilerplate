@@ -1,6 +1,6 @@
 :deep(.q-field__control) {
-  border-radius: 5px;
   overflow: hidden;
+  border-radius: 5px;
 
   //  Borderless Style
   .q-field--borderless & {
@@ -52,8 +52,7 @@
 
 // Input placeholder Style
 :deep(::placeholder) {
-  color: $grey-9;
-  opacity: 0.4;
+  color: $grey-6;
 }
 
 // input 隱藏底部空間

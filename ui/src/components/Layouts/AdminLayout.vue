@@ -7,8 +7,7 @@
           flat
           round
           icon="menu"
-          class="text-grey-9"
-          style="opacity: 0.8"
+          class="text-grey-8"
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
@@ -16,15 +15,24 @@
 
         <q-separator vertical />
 
-        <section class="flex items-center q-px-md text-caption">
+        <section class="flex items-center q-pl-md text-caption">
           <!-- User Avatar -->
           <q-avatar class="bg-primary text-white" size="24px">
             <div>{{ userNameAvatar }}</div>
           </q-avatar>
           <!-- User Name -->
-          <div class="text-grey-9 q-ml-md" style="letter-spacing: 0.1em; opacity: 0.8">
+          <div class="text-grey-8 q-ml-md" style="letter-spacing: 0.1em">
             {{ userName }}
           </div>
+          <q-btn
+            dense
+            flat
+            round
+            size="12px"
+            icon="logout"
+            class="text-grey-8 q-ml-lg"
+            @click="$emit('logout')"
+          />
         </section>
       </q-toolbar>
     </q-header>
@@ -50,7 +58,7 @@
           </q-list>
         </div>
 
-        <div class="footer text-grey-9 q-pa-md" style="opacity: 0.8">
+        <div class="footer text-grey-8 q-pa-md">
           <!-- # Left Drawer Footer -->
           <slot name="left-drawer-footer" />
           <div v-if="systemTime">{{ dateTime }}</div>
@@ -62,12 +70,12 @@
       <!-- # Right Drawer -->
       <slot name="right-drawer" />
 
-      <div class="absolute-bottom text-center">
+      <!-- <div class="absolute-bottom text-center">
         <q-separator />
         <div class="q-py-lg text-grey-9 text-h6 cursor-pointer" @click="$emit('logout')">
           <q-icon name="logout" size="30px" class="q-mr-sm" />Logout
         </div>
-      </div>
+      </div> -->
     </q-drawer>
 
     <q-page-container>
@@ -88,7 +96,6 @@ import {
   QDrawer,
   QSeparator,
   QList,
-  QIcon,
   QPageContainer,
 } from 'quasar';
 
@@ -98,13 +105,11 @@ export default defineComponent({
     QLayout,
     QHeader,
     QToolbar,
-
     QBtn,
     QAvatar,
     QDrawer,
     QSeparator,
     QList,
-    QIcon,
     QPageContainer,
   },
   props: {
