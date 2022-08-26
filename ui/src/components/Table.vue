@@ -37,7 +37,6 @@
   <q-table
     ref="table"
     :row-key="rowKey"
-    :class="tableHeaderDark && 'table-header-dark'"
     :table-header-class="tableHeaderClass"
     :flat="flat"
     :hide-bottom="hideBottom"
@@ -198,14 +197,10 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    tableHeaderDark: {
-      // 如果為 true, 則套用 class='table-header-dark'
-      type: Boolean,
-      default: false,
-    },
+
     flat: {
       type: Boolean,
-      default: false,
+      default: true,
     },
     hideBottom: {
       type: Boolean,
@@ -604,10 +599,30 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.table-header-dark {
-  :deep(thead tr) {
-    color: #fff;
-    background-color: var(--q-primary);
+:deep(.q-table) {
+  & thead {
+    th {
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      border-color: $grey-13;
+    }
   }
+  & tbody {
+    tr {
+      & td {
+        color: $grey-8;
+        font-size: 14px;
+        font-weight: 400;
+        border-color: $grey-11;
+        a {
+          color: var(--q-primary);
+        }
+      }
+    }
+  }
+}
+:deep(.q-table__bottom) {
+  border-color: $grey-11;
 }
 </style>
