@@ -226,4 +226,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss" src="../../css/input.scss"></style>
+<style lang="scss" scoped>
+@import 'input.scss';
+</style>

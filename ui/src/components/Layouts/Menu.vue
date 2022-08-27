@@ -69,6 +69,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import 'quasar/src/css/variables.sass';
+
 :deep(.q-item--dense) {
   min-height: 36px;
 }
