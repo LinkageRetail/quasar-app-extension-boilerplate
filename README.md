@@ -26,6 +26,11 @@ cd ui && yarn
 cd ui && yarn build
 ```
 
+### 開發注意事項
+
+- template 內不可定義型別
+- scss variables 使用 [Quasar color](https://quasar.dev/style/color-palette#color-list) 需 `@import 'quasar/src/css/variables.sass'`
+
 ## 啟動專案
 
 ```sh
