@@ -86,4 +86,18 @@ export default defineComponent({
 :deep(.active-header) {
   background: $grey-11;
 }
+:deep(.q-item__section--side) {
+  > .q-icon {
+    font-size: 22px;
+  }
+}
+:deep(.q-item__section--avatar) {
+  min-width: auto;
+  padding-right: 15px;
+}
+:deep(.q-item__section--main) {
+  ~ .q-item__section--side {
+    padding-left: 10px;
+  }
+}
 </style>

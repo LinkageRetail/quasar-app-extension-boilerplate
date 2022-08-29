@@ -24,7 +24,7 @@ export default defineComponent({
       home: ref([{ label: 'Dashboard', path: '', icon: 'o_home' }]),
       tool: ref([
         {
-          label: 'Underwriting',
+          label: 'Create Case',
           path: '',
           icon: 'o_edit',
           children: [
@@ -34,7 +34,7 @@ export default defineComponent({
           ],
         },
         {
-          label: 'Result',
+          label: 'Assessment Enquiry',
           path: '',
           icon: 'o_list',
         },

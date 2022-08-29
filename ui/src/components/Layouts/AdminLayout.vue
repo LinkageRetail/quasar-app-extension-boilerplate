@@ -11,7 +11,7 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <q-space />
+        <q-space></q-space>
 
         <q-separator vertical />
 
