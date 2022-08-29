@@ -97,6 +97,7 @@ import {
   QSeparator,
   QList,
   QPageContainer,
+  QSpace,
 } from 'quasar';
 
 export default defineComponent({
@@ -111,6 +112,7 @@ export default defineComponent({
     QSeparator,
     QList,
     QPageContainer,
+    QSpace,
   },
   props: {
     userName: {

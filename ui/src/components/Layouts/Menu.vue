@@ -8,6 +8,7 @@
         v-for="(menu, index) in modelValue"
         dense
         class="text-grey-8 text-subtitle2 text-weight-regular"
+        exact-active-class="exact-active-link"
         :ref="menu.label"
         :group="title ? title : ''"
         :key="'menu' + index"
@@ -25,6 +26,7 @@
             v-for="(item, itemIndex) in menu.children"
             dense
             class="text-grey-8 text-subtitle2 text-weight-regular"
+            exact-active-class="exact-active-link"
             :key="'menu-item' + itemIndex"
             :header-inset-level="1"
             :expand-icon-class="item.children && item.children.length > 0 ? '' : 'hid-expand-icon'"
@@ -99,5 +101,10 @@ export default defineComponent({
   ~ .q-item__section--side {
     padding-left: 10px;
   }
+}
+
+:deep(.exact-active-link) {
+  color: $grey-8;
+  opacity: 1 !important;
 }
 </style>

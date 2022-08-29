@@ -44,9 +44,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { QCard } from 'quasar';
 
 export default defineComponent({
   name: 'BaseLayout',
+  components: { QCard },
   props: {
     title: {
       type: String,
@@ -84,6 +86,6 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .wrapper {
-  padding: 30px;
+  padding: 15px;
 }
 </style>
