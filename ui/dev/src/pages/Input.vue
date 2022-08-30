@@ -66,6 +66,17 @@
         />
         <span class="text-caption text-grey-7"> required{{ FieldSelectOutlined }}</span>
       </div>
+      <div style="height: 55px">
+        <FieldSelect
+          outlined
+          required
+          placeholder="FieldSelect - outlined"
+          bgColor="white"
+          :options="['Red', 'Blue']"
+          v-model="FieldSelectOutlined"
+        />
+        <span class="text-caption text-grey-7"> required{{ FieldSelectOutlined }}</span>
+      </div>
 
       <hr />
 

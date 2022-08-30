@@ -13,13 +13,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   setup() {
-    const type = ref('');
     return {
-      type,
       onLogin(form: { username: string; password: string }) {
         console.log('onLogin');
         console.log(form);

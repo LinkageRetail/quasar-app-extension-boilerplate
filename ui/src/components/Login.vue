@@ -51,11 +51,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue';
-import { QPage } from 'quasar';
+import { QPage, QBtn } from 'quasar';
 
 export default defineComponent({
   name: 'Login',
-  components: { QPage },
+  components: { QPage, QBtn },
 
   emits: ['login'],
   props: {

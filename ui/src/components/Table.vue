@@ -607,7 +607,7 @@ export default defineComponent({
       color: #000;
       font-size: 14px;
       font-weight: 700;
-      border-color: $grey-13;
+      border-color: $grey-12;
     }
   }
   & tbody {

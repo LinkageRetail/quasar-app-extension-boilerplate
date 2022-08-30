@@ -42,7 +42,7 @@
         {{ model }}
       </template>
       <template v-else>
-        <span class="text-grey-9">{{ placeholder }}</span>
+        <span class="text-grey-5">{{ placeholder }}</span>
       </template>
     </template>
     <template #append>

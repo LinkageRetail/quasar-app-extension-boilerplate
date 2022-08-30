@@ -28,11 +28,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { QCard } from 'quasar';
+import { QCard, QSeparator } from 'quasar';
 
 export default defineComponent({
   name: 'DetailLayout',
-  components: { QCard },
+  components: { QCard, QSeparator },
   props: {
     title: {
       type: String,

@@ -15,7 +15,7 @@
         :icon="menu.icon"
         :expand-icon-class="menu.children && menu.children.length > 0 ? '' : 'hid-expand-icon'"
         :label="menu.label"
-        :value="'/' + $route.path.split('/')[1] === menu.path"
+        :model-value="'/' + $route.path.split('/')[1] === menu.path"
         :header-class="{
           'active-header': '/' + $route.path.split('/')[1] === menu.path,
         }"
@@ -84,8 +84,8 @@ export default defineComponent({
 :deep(.q-item) {
   border-radius: 5px;
 
-  & .q-router-link--active {
-    color: $grey-8;
+  &.q-router-link--active {
+    color: $grey-8 !important;
   }
 }
 
