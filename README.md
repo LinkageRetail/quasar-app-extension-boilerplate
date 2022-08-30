@@ -61,7 +61,7 @@ npm dist-tag add quasar-app-extension-linkage-cms-ui@1.x.x latest
 完成發行後可使用 `quasar ext add` 進行安裝
 
 ```sh
-quasar ext add linkage-cms-ui
+quasar ext add linkage-cms-ui@alpha
 ```
 
 # Donate
