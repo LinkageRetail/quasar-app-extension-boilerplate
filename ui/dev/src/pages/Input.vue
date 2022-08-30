@@ -41,6 +41,7 @@
           outlined
           required
           placeholder="FieldInput - outlined"
+          appendIcon="edit"
           v-model="FieldInputOutlined"
         />
         <span class="text-caption text-grey-7"> required {{ FieldInputOutlined }}</span>
@@ -50,6 +51,7 @@
           outlined
           placeholder="FieldInput - outlined - bg-white"
           bgColor="bg-white"
+          prependIcon="search"
           v-model="FieldInputOutlined"
         />
         <span class="text-caption text-grey-7"> {{ FieldInputOutlined }}</span>

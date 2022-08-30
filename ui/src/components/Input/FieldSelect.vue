@@ -34,6 +34,9 @@
     }"
     v-model="model"
   >
+    <template #prepend>
+      <slot name="prepend" />
+    </template>
     <template #selected>
       <template v-if="model">
         {{ model }}
@@ -41,6 +44,9 @@
       <template v-else>
         <span class="text-grey-9">{{ placeholder }}</span>
       </template>
+    </template>
+    <template #append>
+      <slot name="append" />
     </template>
 
     <!-- TODO: 選項分組 待確認 -->
@@ -62,11 +68,13 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
+import { QSelect } from 'quasar';
 
 import { useModelWrapper } from '../../hooks';
 
 export default defineComponent({
   name: 'FieldSelect',
+  components: { QSelect },
   props: {
     modelValue: {},
     dense: {

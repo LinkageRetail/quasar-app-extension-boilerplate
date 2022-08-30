@@ -39,6 +39,7 @@ import AdminLayout from './components/Layouts/AdminLayout.vue';
 import Menu from './components/Layouts/Menu.vue';
 
 import BaseLayout from './components/Layouts/Section/BaseLayout.vue';
+import BaseListLayout from './components/Layouts/Section/BaseListLayout.vue';
 import DetailLayout from './components/Layouts/Section/DetailLayout.vue';
 import DetailListLayout from './components/Layouts/Section/DetailListLayout.vue';
 import DetailTreeLayout from './components/Layouts/Section/DetailTreeLayout.vue';
@@ -91,6 +92,7 @@ function install(app) {
 
   // Section
   app.component(BaseLayout.name, BaseLayout);
+  app.component(BaseListLayout.name, BaseListLayout);
   app.component(DetailLayout.name, DetailLayout);
   app.component(DetailListLayout.name, DetailListLayout);
   app.component(DetailTreeLayout.name, DetailTreeLayout);
@@ -130,6 +132,7 @@ export {
   Menu,
   // layout - Section
   BaseLayout,
+  BaseListLayout,
   DetailLayout,
   DetailListLayout,
   DetailTreeLayout,

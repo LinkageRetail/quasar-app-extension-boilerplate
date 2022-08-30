@@ -1,6 +1,7 @@
 <script lang="ts">
 import { defineComponent, h } from 'vue';
-import { QInput } from 'quasar';
+import { QInput, QIcon } from 'quasar';
+import { set } from 'lodash';
 
 export default defineComponent({
   name: 'FieldInput',
@@ -91,18 +92,42 @@ export default defineComponent({
       type: String || Array || Object,
       require: false,
     },
+    prependIcon: {
+      type: String,
+      require: false,
+    },
+    appendIcon: {
+      type: String,
+      require: false,
+    },
   },
   emits: ['update:modelValue'],
   setup(props, context) {
+    const IconPrepend = h(QIcon, { name: props.prependIcon });
+
+    const IconAppend = h(QIcon, { name: props.appendIcon });
+
+    const slots = {};
+    if (props.prependIcon) {
+      set(slots, 'prepend', () => IconPrepend);
+    }
+    if (props.appendIcon) {
+      set(slots, 'append', () => IconAppend);
+    }
+
     return () =>
       /**
        * @see https://vuejs.org/guide/extras/render-function.html#v-model
        */
-      h(QInput, {
-        ...props,
-        'onUpdate:modelValue': (value: any) => context.emit('update:modelValue', value),
-        rules: props.required ? props.rules : [],
-      });
+      h(
+        QInput,
+        {
+          ...props,
+          'onUpdate:modelValue': (value: any) => context.emit('update:modelValue', value),
+          rules: props.required ? props.rules : [],
+        },
+        slots
+      );
   },
 });
 </script>
