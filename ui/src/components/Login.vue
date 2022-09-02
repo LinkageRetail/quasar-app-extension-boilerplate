@@ -24,6 +24,8 @@
           prependIcon="o_lock"
           bgColor="bg-white"
           :placeholder="passwordLabel"
+          type="password"
+          @keyup.enter="$emit('login', formLogin)"
           v-model="formLogin.password"
         />
       </section>
