@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh LpR fFf" class="bg-secondary" :style="{ background: bgColor }">
+  <q-layout view="lHh LpR fFf">
     <q-header bordered class="bg-white">
       <q-toolbar>
         <q-btn
@@ -116,10 +116,6 @@ export default defineComponent({
   },
   props: {
     userName: {
-      type: String,
-      default: '',
-    },
-    bgColor: {
       type: String,
       default: '',
     },
